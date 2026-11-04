@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>جملة دايركت</title>
+<meta name="description" content="جملة دايركت: تصفّح موديلات جينز وملابس من مصانع مصرية واطلب مباشرة من المصنع على واتساب بأسعار الجملة.">
+<meta name="keywords" content="جملة جينز, مصانع جينز مصر, جملة ملابس, بنطلون جينز جملة, مصنع جينز, جملة دايركت">
+<link rel="canonical" href="https://jomla-direct.github.io/">
+<link rel="icon" href="https://jomla-direct.github.io/og.jpg">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_EG">
+<meta property="og:site_name" content="جملة دايركت">
+<meta property="og:title" content="جملة دايركت | اطلب جملة مباشرة من المصنع">
+<meta property="og:description" content="تصفّح موديلات مصانع الجينز واطلب مباشرة على واتساب بأسعار الجملة.">
+<meta property="og:url" content="https://jomla-direct.github.io/">
+<meta property="og:image" content="https://jomla-direct.github.io/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jomla-direct.github.io/og.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<style>
+/* منصة جملة: متجر للتجار + بوابة للمصانع + إدارة للمالك */
+:root{--ac:#1f4e8c;--act:#1f4e8c;--bg:#f4f2ed;--card:#ffffff;--tx:#18222e;--mu:#667284;--br:#e4e0d6;--soft:#e6ecf4;--wa:#25d366;--wa-tx:#053a1c;--bad:#d93a40;--ok:#1d8a4f;--warn:#b7791f;--font:'Cairo',Tahoma,'Segoe UI',sans-serif;color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--act:color-mix(in srgb,var(--ac) 45%,#ffffff);--bg:#0f151d;--card:#18212c;--tx:#edf1f6;--mu:#95a1b2;--br:#2a3542;--soft:#223044;--ok:#4cc38a;--warn:#e0a94a;color-scheme:dark}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+body{margin:0;font-family:var(--font);font-size:15px;background:var(--bg);color:var(--tx);line-height:1.55}
+button,input,select,textarea{font-family:inherit;font-size:15px}
+a{color:inherit}
+.hd{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:18px;min-width:0}
+.brand img{width:38px;height:38px;object-fit:contain;border-radius:8px}
+.brand b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ib{display:flex;align-items:center;gap:6px;background:var(--soft);color:var(--tx);border:0;border-radius:20px;padding:7px 14px;cursor:pointer;font-weight:600;text-decoration:none;flex:none;font-size:14px}
+.ib svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+main{max-width:1100px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right,0px)) 100px max(16px,env(safe-area-inset-left,0px))}
+.hero{border-radius:20px;padding:34px 20px;color:#fff;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 55%,#000));background-size:cover;background-position:center;margin-bottom:14px}
+.hero h1{margin:0 0 6px;font-size:28px;line-height:1.25;text-wrap:balance}
+.hero p{margin:0 0 16px;opacity:.92;max-width:520px}
+.search{width:100%;max-width:460px;border:0;border-radius:14px;padding:13px 16px;background:var(--card);color:var(--tx);box-shadow:0 4px 18px #0003}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--br);background:var(--card);border-radius:20px;padding:7px 16px;cursor:pointer;color:var(--tx)}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.hero h1{font-size:34px}}
+@media(min-width:980px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--br);display:flex;flex-direction:column}
+.pic{position:relative;aspect-ratio:4/5;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:64px;cursor:pointer;overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:cover}
+.tag{position:absolute;top:8px;right:8px;background:#000a;color:#fff;font-size:12px;border-radius:12px;padding:2px 10px}
+.tag.out{background:var(--bad)}
+.cb{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.cb h3{margin:0;font-size:15px;line-height:1.35;cursor:pointer}
+.fn{font-size:12px;color:var(--mu)}
+.pr{font-size:17px;font-weight:800;color:var(--act);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ptxt{font-size:13px;font-weight:700;color:var(--tx);line-height:1.5}
+.pr small{font-weight:400;color:var(--mu);font-size:12px}
+.qbtn{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--act);color:var(--act);background:transparent;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;text-decoration:none;cursor:pointer;padding:0;flex:none;line-height:1}
+.wa{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--wa);color:var(--wa-tx);text-decoration:none;border:0;border-radius:12px;padding:10px;font-weight:800;cursor:pointer;margin-top:auto}
+.wa.big{padding:14px;font-size:17px;border-radius:14px}
+.wa.off{background:var(--br);color:var(--mu)}
+.empty{text-align:center;color:var(--mu);padding:40px 10px}
+.mbg{position:fixed;inset:0;background:#000b;z-index:60;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:14px}
+.modal{background:var(--card);border-radius:20px;width:100%;max-width:520px;margin:auto;padding:16px;position:relative}
+.x{position:absolute;top:10px;left:10px;width:34px;height:34px;border-radius:50%;border:0;background:var(--soft);color:var(--tx);cursor:pointer;font-size:16px;z-index:2}
+.gmain{aspect-ratio:1/1;border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:90px;overflow:hidden}
+.gmain img{width:100%;height:100%;object-fit:cover}
+.thumbs{display:flex;gap:8px;margin:8px 0;overflow-x:auto}
+.thumbs img{width:58px;height:58px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;flex:none}
+.thumbs img.on{border-color:var(--ac)}
+.modal h2{margin:10px 0 2px;font-size:20px}
+.lbl{font-size:13px;color:var(--mu);margin:12px 0 6px;display:flex;align-items:center;gap:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--br);background:var(--card);color:var(--tx);border-radius:10px;padding:7px 14px;cursor:pointer}
+.opt.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,var(--card));color:var(--act);font-weight:800}
+.tiers{background:var(--bg);border-radius:12px;padding:8px 12px;font-size:14px}
+.tiers div{display:flex;justify-content:space-between;padding:2px 0}
+.qhelp{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:14px;margin-top:8px}
+.pl{margin:10px 0;font-weight:800;color:var(--act);min-height:24px}
+input,select,textarea{width:100%;border:1px solid var(--br);border-radius:10px;padding:10px 12px;background:var(--bg);color:var(--tx)}
+textarea{min-height:70px;resize:vertical}
+label.f{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:420px){.row{grid-template-columns:1fr}}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
+.btn.s{background:var(--soft);color:var(--tx);font-weight:400}
+.btn.d{background:var(--bad)}
+.btn.g{background:var(--wa);color:var(--wa-tx);font-weight:800}
+.btn.sm{padding:5px 11px;font-size:13px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px}
+.tab{flex:none;border:1px solid var(--br);background:var(--card);color:var(--tx);border-radius:10px;padding:8px 16px;cursor:pointer}
+.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.item{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--br);border-radius:14px;padding:8px;margin-bottom:8px}
+.item .t{width:58px;height:58px;border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;flex:none}
+.item .t img{width:100%;height:100%;object-fit:cover}
+.item .m{flex:1;min-width:0}
+.item .m b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .m small{color:var(--mu)}
+.item .ac{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:190px}
+.panel{background:var(--card);border:1px solid var(--br);border-radius:16px;padding:14px;margin-bottom:12px}
+.panel h2,.panel h3{margin:0 0 8px}
+.fbox{max-width:460px;margin:20px auto}
+.imgs{display:flex;gap:8px;flex-wrap:wrap}
+.th{position:relative;width:84px;height:84px;border-radius:12px;overflow:hidden;border:1px solid var(--br)}
+.th img{width:100%;height:100%;object-fit:cover}
+.thb{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;background:#000a;padding:2px 4px}
+.thb button,.thb span{background:none;border:0;color:#fff;font-size:11px;cursor:pointer}
+.addimg{width:84px;height:84px;border-radius:12px;border:2px dashed var(--br);display:flex;align-items:center;justify-content:center;color:var(--mu);cursor:pointer;text-align:center;font-size:13px;position:relative;overflow:hidden}
+.addimg input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;padding:0;border:0}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw i{width:34px;height:34px;border-radius:50%;cursor:pointer;border:3px solid var(--card);box-shadow:0 0 0 1px var(--br)}
+.sw i.on{box-shadow:0 0 0 3px var(--tx)}
+.st{display:inline-block;border-radius:20px;padding:1px 10px;font-size:12px;font-weight:600;background:var(--soft)}
+.st.ok{color:var(--ok)}.st.warn{color:var(--warn)}.st.bad{color:var(--bad)}
+.banner{border-radius:14px;padding:12px 14px;margin-bottom:12px;background:var(--soft)}
+.banner.warn{border:1px solid var(--warn)}.banner.ok{border:1px solid var(--ok)}.banner.bad{border:1px solid var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:12px}
+.stats div{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:10px;text-align:center}
+.stats b{display:block;font-size:22px;color:var(--act)}
+.stats span{font-size:12px;color:var(--mu)}
+#toast{position:fixed;bottom:calc(30px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:#18222e;color:#fff;padding:10px 18px;border-radius:12px;z-index:99;display:none;max-width:90%;text-align:center}
+.note{font-size:13px;color:var(--mu)}
+.steps{margin:8px 0 0;padding-right:20px}.steps li{margin-bottom:10px}
+.sqlbox{direction:ltr;text-align:left;font-family:ui-monospace,Consolas,monospace;font-size:12px;height:140px}
+.intro{position:fixed;inset:0;z-index:70;overflow:auto;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(160deg,var(--ac),color-mix(in srgb,var(--ac) 45%,#000));background-size:cover;background-position:center;padding:24px max(20px,env(safe-area-inset-right,0px));animation:introIn .5s ease both}
+@keyframes introIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.intro{animation:none}}
+.intro-in{width:100%;max-width:440px;text-align:center}
+.intro-logo{width:84px;height:84px;margin:0 auto 14px;border-radius:22px;background:#ffffff26;display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
+.intro-logo img{width:100%;height:100%;object-fit:contain}
+.intro-kick{font-size:13px;opacity:.85;margin-bottom:6px}
+.intro h1{margin:0 0 8px;font-size:34px;line-height:1.2;text-wrap:balance}
+.intro p{margin:0 auto 22px;opacity:.92;max-width:360px}
+.intro-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:20px}
+.intro-stats div{background:#ffffff1f;border:1px solid #ffffff33;border-radius:14px;padding:12px 6px}
+.intro-stats b{display:block;font-size:22px;line-height:1.2}
+.intro-stats span{font-size:12px;opacity:.9}
+.intro-go{width:100%;border:0;border-radius:14px;padding:15px;font-size:17px;font-weight:800;background:#fff;color:#18222e;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="hdr"></div>
+<main id="app"></main>
+<div id="mroot"></div>
+<div id="toast"></div>
+<script type="application/json" id="cfg">{"url": "https://gwbesmouhqzueejpxjjj.supabase.co", "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3YmVzbW91aHF6dWVlanB4ampqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2NTQ4MTYsImV4cCI6MjEwOTIzMDgxNn0.8pThsEFsdrfxsfliqy6115pusyeQxnQTTCtwkR6I5-4"}</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const SRC='<!doctype html>\n'+document.documentElement.outerHTML;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>Number(n||0).toLocaleString('en-US');
+let CFG={url:'',key:''};
+try{CFG=JSON.parse($('#cfg').textContent)||CFG}catch(e){}
+
+/* ================= قاعدة البيانات: كود الإعداد ================= */
+const SQL=`-- الصق الكود ده كله في SQL Editor واضغط Run (ممكن تشغّله أكتر من مرة)
+create table if not exists public.settings(
+ id int primary key default 1 check (id=1),
+ name text default 'جملة دايركت',
+ tagline text default 'جينز بسعر المصنع. اختار الموديل واطلب على واتساب.',
+ owner_whatsapp text default '',
+ color text default '#1f4e8c',
+ logo text default '', cover text default '',
+ sub_price text default '',
+ sub_note text default 'حوّل قيمة الاشتراك وابعت صورة الإيصال على واتساب لتفعيل مصنعك.'
+);
+insert into public.settings(id) values(1) on conflict do nothing;
+create table if not exists public.factories(
+ id uuid primary key references auth.users(id) on delete cascade,
+ phone text unique not null,
+ name text not null,
+ city text default '',
+ whatsapp text default '',
+ descr text default '',
+ status text not null default 'pending' check (status in ('pending','active','blocked')),
+ paid_until date,
+ verified boolean not null default false,
+ created_at timestamptz not null default now()
+);
+create table if not exists public.products(
+ id uuid primary key default gen_random_uuid(),
+ factory_id uuid not null references public.factories(id) on delete cascade,
+ name text not null, cat text default '', descr text default '',
+ sizes text default '', colors text default '',
+ tiers jsonb not null default '[]'::jsonb,
+ imgs jsonb not null default '[]'::jsonb,
+ sold_out boolean not null default false,
+ hidden boolean not null default false,
+ created_at timestamptz not null default now()
+);
+create table if not exists public.admins(user_id uuid primary key references auth.users(id) on delete cascade);
+
+create or replace function public.is_admin() returns boolean language sql stable security definer set search_path=public as $$ select exists(select 1 from public.admins where user_id=auth.uid()) $$;
+create or replace function public.admins_empty() returns boolean language sql stable security definer set search_path=public as $$ select not exists(select 1 from public.admins) $$;
+create or replace function public.factory_live(fid uuid) returns boolean language sql stable security definer set search_path=public as $$ select exists(select 1 from public.factories f where f.id=fid and f.status='active' and f.paid_until>=current_date) $$;
+create or replace function public.guard_factory() returns trigger language plpgsql security definer set search_path=public as $$
+begin
+ if auth.uid() is not null and not public.is_admin() then
+  new.id:=old.id; new.phone:=old.phone; new.status:=old.status; new.paid_until:=old.paid_until; new.verified:=old.verified;
+ end if;
+ return new;
+end $$;
+drop trigger if exists t_guard_factory on public.factories;
+create trigger t_guard_factory before update on public.factories for each row execute function public.guard_factory();
+
+alter table public.settings enable row level security;
+alter table public.factories enable row level security;
+alter table public.products enable row level security;
+alter table public.admins enable row level security;
+do $$ declare r record; begin
+ for r in select policyname, tablename from pg_policies where schemaname='public' loop
+  execute format('drop policy %I on public.%I', r.policyname, r.tablename);
+ end loop;
+end $$;
+create policy "settings read" on public.settings for select using (true);
+create policy "settings admin update" on public.settings for update to authenticated using (public.is_admin()) with check (public.is_admin());
+create policy "factories read" on public.factories for select using (public.is_admin() or id=auth.uid() or (status='active' and paid_until>=current_date));
+create policy "factories insert own" on public.factories for insert to authenticated with check (id=auth.uid() and status='pending' and paid_until is null and verified=false);
+create policy "factories update" on public.factories for update to authenticated using (id=auth.uid() or public.is_admin()) with check (id=auth.uid() or public.is_admin());
+create policy "factories admin delete" on public.factories for delete to authenticated using (public.is_admin());
+create policy "products read" on public.products for select using (public.is_admin() or factory_id=auth.uid() or (hidden=false and public.factory_live(factory_id)));
+create policy "products insert" on public.products for insert to authenticated with check ((factory_id=auth.uid() and public.factory_live(factory_id)) or public.is_admin());
+create policy "products update" on public.products for update to authenticated using ((factory_id=auth.uid() and public.factory_live(factory_id)) or public.is_admin()) with check ((factory_id=auth.uid() and public.factory_live(factory_id)) or public.is_admin());
+create policy "products delete" on public.products for delete to authenticated using (factory_id=auth.uid() or public.is_admin());
+create policy "admins read self" on public.admins for select to authenticated using (user_id=auth.uid());
+create policy "admins first owner" on public.admins for insert to authenticated with check (user_id=auth.uid() and public.admins_empty());
+
+grant usage on schema public to anon, authenticated;
+grant select on public.settings, public.factories, public.products to anon;
+grant select, insert, update, delete on public.settings, public.factories, public.products, public.admins to authenticated;
+
+insert into storage.buckets(id,name,public) values('media','media',true) on conflict (id) do update set public=true;
+drop policy if exists "media read" on storage.objects;
+drop policy if exists "media upload own" on storage.objects;
+drop policy if exists "media update own" on storage.objects;
+drop policy if exists "media delete own" on storage.objects;
+create policy "media read" on storage.objects for select using (bucket_id='media');
+create policy "media upload own" on storage.objects for insert to authenticated with check (bucket_id='media' and (storage.foldername(name))[1]=auth.uid()::text);
+create policy "media update own" on storage.objects for update to authenticated using (bucket_id='media' and (storage.foldername(name))[1]=auth.uid()::text);
+create policy "media delete own" on storage.objects for delete to authenticated using (bucket_id='media' and (storage.foldername(name))[1]=auth.uid()::text);`;
+
+/* ================= أدوات عامة ================= */
+const DEF={name:'جملة دايركت',tagline:'جينز بسعر المصنع. اختار الموديل واطلب على واتساب.',owner_whatsapp:'',color:'#1f4e8c',logo:'',cover:'',sub_price:'',sub_note:''};
+let sb=null,S={settings:{...DEF},factories:[],products:[]},me=null,myFactory=null,isAdmin=false,loadErr='';
+let filt={q:'',cat:'',fac:''},curP=null,sel={size:'',color:'',qty:''},tmp={imgs:[],logo:'',cover:''},atab='factories',ftab='models',askCb=null,authMode='login',busy=false;
+const ss={get(k){try{return sessionStorage.getItem(k)}catch(e){return null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}};
+function toast(m,ms){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',ms||3600)}
+function modal(h){$('#mroot').innerHTML=`<div class="mbg" onclick="if(event.target===this)closeM()"><div class="modal">${h}</div></div>`}
+function closeM(){$('#mroot').innerHTML=''}
+function ask(msg,cb){askCb=cb;modal(`<h3 style="margin-top:0">${esc(msg)}</h3><div class="bar"><button class="btn d" onclick="askYes()">تأكيد</button><button class="btn s" onclick="closeM()">إلغاء</button></div>`)}
+function askYes(){const c=askCb;closeM();if(c)c()}
+const list=s=>String(s||'').split(/[,،\n]/).map(x=>x.trim()).filter(Boolean);
+function normPhone(v){
+  let d=String(v||'').replace(/[٠-٩]/g,c=>'٠١٢٣٤٥٦٧٨٩'.indexOf(c)).replace(/\D/g,'');
+  if(d.startsWith('0020'))d='0'+d.slice(4);else if(d.startsWith('20')&&d.length===12)d='0'+d.slice(2);
+  return /^01\d{9}$/.test(d)?d:'';
+}
+const waNum=p=>'20'+String(p||'').replace(/^0/,'');
+const emailOf=p=>p+'@jomla-direct.com';
+const today=()=>new Date().toISOString().slice(0,10);
+const isLive=f=>!!(f&&f.status==='active'&&f.paid_until&&f.paid_until>=today());
+const daysLeft=f=>Math.ceil((new Date(f.paid_until)-new Date(today()))/864e5);
+const fac=id=>S.factories.find(f=>f.id===id)||{name:'',city:'',phone:'',whatsapp:''};
+const waTo=(num,text)=>`https://wa.me/${waNum(num)}?text=${encodeURIComponent(text)}`;
+const ownerWa=text=>S.settings.owner_whatsapp?waTo(S.settings.owner_whatsapp,text):'';
+const realTiers=p=>(p.tiers||[]).filter(t=>t&&t.min>0&&t.price>0);
+const noteOf=p=>{const n=(p.tiers||[]).find(t=>t&&t.note);return n?String(n.note):''};
+const hasPrice=p=>realTiers(p).length>0;
+const DEF_NOTE='للاستفسار عن الأسعار تواصل واتساب';
+function unitPrice(p,q){
+  const t=realTiers(p).sort((a,b)=>a.min-b.min);
+  if(!t.length||q<t[0].min)return null;
+  let r=t[0].price;for(const x of t)if(q>=x.min)r=x.price;return r;
+}
+const minQty=p=>hasPrice(p)?Math.min(...realTiers(p).map(t=>t.min)):1;
+const minPrice=p=>hasPrice(p)?Math.min(...realTiers(p).map(t=>t.price)):0;
+const priceTxt=p=>hasPrice(p)?`من ${minPrice(p)} ج`:(noteOf(p)||DEF_NOTE);
+function errMsg(e){
+  const m=String((e&&e.message)||e||'');
+  if(/Invalid login/i.test(m))return 'الرقم أو كلمة السر غلط';
+  if(/already registered|already exists/i.test(m))return 'الرقم ده مسجّل قبل كده. اعمل تسجيل دخول';
+  if(/at least 6|weak/i.test(m))return 'كلمة السر لازم تكون 6 حروف أو أرقام على الأقل';
+  if(/rate limit|too many/i.test(m))return 'محاولات كتير. استنى شوية وجرب تاني';
+  if(/row-level security|permission denied|policy/i.test(m))return 'مفيش صلاحية للعملية دي (لو اشتراكك منتهي جدّده)';
+  if(/Failed to fetch|NetworkError/i.test(m))return 'مفيش اتصال بالإنترنت';
+  return 'حصل خطأ: '+m;
+}
+
+/* ================= الصور ================= */
+async function toBlob(file,max,q,type){
+  try{
+    let bmp=null;
+    if(window.createImageBitmap){try{bmp=await createImageBitmap(file)}catch(e){bmp=null}}
+    if(!bmp)bmp=await new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error('decode'));im.src=u});
+    const w=bmp.width||bmp.naturalWidth,h=bmp.height||bmp.naturalHeight,k=Math.min(1,max/Math.max(w,h));
+    const c=document.createElement('canvas');c.width=Math.round(w*k);c.height=Math.round(h*k);
+    c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+    return await new Promise(r=>c.toBlob(b=>r(b),type||'image/jpeg',q));
+  }catch(e){
+    if(/^image\/(jpeg|png|webp|gif)$/.test(file.type)&&file.size<10*1024*1024)return file;
+    return null;
+  }
+}
+async function upImage(file,max,q,type){
+  if(!me){toast('سجّل دخول الأول');return null}
+  const blob=await toBlob(file,max,q,type);
+  if(!blob){toast('الصورة دي مش مدعومة. جرب JPG أو PNG');return null}
+  const ext=blob.type==='image/png'?'png':'jpg';
+  const path=`${me.id}/${Date.now()}-${Math.random().toString(36).slice(2,7)}.${ext}`;
+  const r=await sb.storage.from('media').upload(path,blob,{contentType:blob.type||'image/jpeg',upsert:false});
+  if(r.error){
+    console.warn('storage upload failed',r.error);
+    try{
+      const small=await toBlob(file,Math.min(max,type==='image/png'?400:900),.7,type);
+      if(small&&small.size<700*1024){
+        return await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(small)});
+      }
+    }catch(e){}
+    toast('رفع الصورة فشل: '+errMsg(r.error));return null;
+  }
+  return sb.storage.from('media').getPublicUrl(path).data.publicUrl;
+}
+function imgsHTML(){
+  return tmp.imgs.map((s,i)=>`<div class="th"><img src="${esc(s)}" alt=""><div class="thb">${i===0?'<span>رئيسية</span>':`<button type="button" onclick="mainImg(${i})">رئيسية</button>`}<button type="button" onclick="rmImg(${i})">✕</button></div></div>`).join('')+
+  (tmp.imgs.length<6?`<label class="addimg">+ صور<input type="file" accept="image/*" multiple onchange="addImgs(this)"></label>`:'');
+}
+async function addImgs(inp){
+  const files=[...inp.files];inp.value='';let n=0;
+  for(const f of files){
+    if(tmp.imgs.length>=6)break;
+    n++;toast(`جاري رفع صورة ${n} من ${files.length}...`,8000);
+    const u=await upImage(f,1000,.78);
+    if(u){tmp.imgs.push(u);const el=$('#imgs');if(el)el.innerHTML=imgsHTML()}
+  }
+  if(n)toast('تم رفع الصور. دوس حفظ عشان تظهر');
+}
+function mainImg(i){const [x]=tmp.imgs.splice(i,1);tmp.imgs.unshift(x);$('#imgs').innerHTML=imgsHTML()}
+function rmImg(i){tmp.imgs.splice(i,1);$('#imgs').innerHTML=imgsHTML()}
+
+/* ================= تحميل البيانات ================= */
+async function loadData(){
+  loadErr='';
+  const [s,f,p]=await Promise.all([
+    sb.from('settings').select('*').eq('id',1).maybeSingle(),
+    sb.from('factories').select('*'),
+    sb.from('products').select('*').order('created_at',{ascending:false})
+  ]);
+  if(s.error||f.error||p.error){loadErr=errMsg(s.error||f.error||p.error)}
+  S.settings={...DEF,...(s.data||{})};
+  S.factories=f.data||[];S.products=p.data||[];
+}
+async function refreshAuth(){
+  const r=await sb.auth.getSession();
+  me=r.data&&r.data.session?r.data.session.user:null;
+  myFactory=null;isAdmin=false;
+  if(me){
+    const f=await sb.from('factories').select('*').eq('id',me.id).maybeSingle();myFactory=f.data||null;
+    const a=await sb.from('admins').select('user_id').eq('user_id',me.id).maybeSingle();isAdmin=!!a.data;
+  }
+}
+async function reload(){await loadData();await refreshAuth();render()}
+
+/* ================= الراوتر والرسم ================= */
+const route=()=>{if(!CFG.url||!CFG.key)return 'setup';const h=location.hash.replace('#','');return ['factory','admin','setup'].includes(h)?h:'store'};
+window.addEventListener('hashchange',()=>{closeM();render()});
+const ICON_FAC='<svg viewBox="0 0 24 24"><path d="M3 21V9l6 4V9l6 4V5h3a3 3 0 0 1 3 3v13z"/><path d="M7 17h2M12 17h2M17 17h2"/></svg>';
+function hdrHTML(){
+  const s=S.settings,r=route();
+  return `<div class="hd"><div class="brand" onclick="location.hash=''">${s.logo?`<img src="${esc(s.logo)}" alt="">`:'<span style="font-size:26px">👖</span>'}<b>${esc(s.name)}</b></div>
+  ${r==='store'?`<a class="ib" href="#factory" title="سجّل مصنعك أو ادخل على مصنعك" aria-label="مصنعي">${ICON_FAC}<span>${myFactory?'مصنعي':'سجّل مصنعك'}</span></a>`:`<a class="ib" href="#">← المتجر</a>`}</div>`;
+}
+function render(){
+  document.documentElement.style.setProperty('--ac',S.settings.color||'#1f4e8c');
+  document.title=S.settings.name||'جملة دايركت';
+  const r=route();
+  $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
+  $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():adminHTML();
+  if(r==='store')showIntro();
+  window.scrollTo(0,0);
+}
+function errHTML(){return `<div class="panel fbox"><h3>مشكلة في الاتصال</h3><p>${esc(loadErr)}</p><p class="note">لو ده أول تشغيل، اتأكد إنك شغّلت كود الإعداد في Supabase. وممكن تفتح <a href="#setup">صفحة الإعداد</a>.</p></div>`}
+
+/* ================= المتجر (التاجر) ================= */
+const liveProducts=()=>S.products.filter(p=>!p.hidden&&isLive(fac(p.factory_id)));
+function visible(){
+  return liveProducts().filter(p=>(!filt.cat||p.cat===filt.cat)&&(!filt.fac||p.factory_id===filt.fac)&&(!filt.q||(p.name+' '+p.cat+' '+p.descr+' '+fac(p.factory_id).name).toLowerCase().includes(filt.q.toLowerCase())));
+}
+function storeHTML(){
+  const s=S.settings,lp=liveProducts();
+  window._cats=[...new Set(lp.map(p=>p.cat).filter(Boolean))];
+  window._facs=S.factories.filter(f=>isLive(f)&&lp.some(p=>p.factory_id===f.id));
+  return `<section class="hero" style="${s.cover?`background-image:linear-gradient(#0005,#000a),url('${esc(s.cover)}')`:''}">
+    <h1>${esc(s.name)}</h1><p>${esc(s.tagline)}</p>
+    <input class="search" id="q" placeholder="دوّر على موديل أو مصنع..." value="${esc(filt.q)}" oninput="filt.q=this.value;paint()">
+  </section>
+  <div class="chips" id="chips">${chipsHTML()}</div>
+  <div id="plist">${gridHTML()}</div>
+  <p class="note" style="text-align:center;margin-top:28px"><a href="#admin">دخول الإدارة</a></p>`;
+}
+function chipsHTML(){
+  const c=window._cats||[],f=window._facs||[];
+  return `<button class="chip ${!filt.cat&&!filt.fac?'on':''}" onclick="setFilt('','')">الكل</button>`+
+   c.map((x,i)=>`<button class="chip ${filt.cat===x?'on':''}" onclick="setFilt('cat',${i})">${esc(x)}</button>`).join('')+
+   (f.length>1?f.map((x,i)=>`<button class="chip ${filt.fac===x.id?'on':''}" onclick="setFilt('fac',${i})">${esc(x.name)}</button>`).join(''):'');
+}
+function setFilt(k,i){
+  filt.cat='';filt.fac='';
+  if(k==='cat')filt.cat=window._cats[i];if(k==='fac')filt.fac=window._facs[i].id;
+  $('#chips').innerHTML=chipsHTML();paint();
+}
+function paint(){$('#plist').innerHTML=gridHTML()}
+function gridHTML(){
+  const l=visible();
+  if(!l.length)return `<div class="empty">${liveProducts().length?'مفيش موديلات مطابقة':'لسه مفيش موديلات. المصانع بتضيف موديلاتها قريب.'}</div>`;
+  return '<div class="grid">'+l.map(p=>{
+    const f=fac(p.factory_id),img=p.imgs&&p.imgs[0];
+    const ask=waTo(f.whatsapp||f.phone,`السلام عليكم، عايز أسأل عن أسعار ${p.name} (${S.settings.name})`);
+    return `<div class="card">
+      <div class="pic" onclick="openProduct('${p.id}')">${img?`<img src="${esc(img)}" alt="" loading="lazy">`:'👖'}${p.sold_out?'<span class="tag out">خلصان</span>':(hasPrice(p)&&minQty(p)>1?`<span class="tag">من ${minQty(p)} قطعة</span>`:'')}</div>
+      <div class="cb"><h3 onclick="openProduct('${p.id}')">${esc(p.name)}</h3>
+      <div class="fn">${esc(f.name)}${f.verified?' ✔':''}${f.city?' • '+esc(f.city):''}</div>
+      <div class="pr">${hasPrice(p)?`${money(minPrice(p))} ج <small>للقطعة</small>`:`<span class="ptxt">${esc(noteOf(p)||DEF_NOTE)}</span>`}<a class="qbtn" href="${ask}" target="_blank" rel="noopener" title="اسأل عن الأسعار" aria-label="اسأل عن الأسعار">؟</a></div>
+      ${p.sold_out?'<div class="wa off">غير متاح حاليًا</div>':`<a class="wa" href="${orderURL(p,null)}" target="_blank" rel="noopener">اطلب</a>`}</div></div>`;
+  }).join('')+'</div>';
+}
+function orderURL(p,o){
+  const f=fac(p.factory_id);
+  let m=`السلام عليكم، عايز أطلب من ${S.settings.name}:\n▪ الموديل: ${p.name}\n▪ المصنع: ${f.name}`;
+  if(o&&o.size)m+=`\n▪ المقاس: ${o.size}`;
+  if(o&&o.color)m+=`\n▪ اللون: ${o.color}`;
+  const q=o&&+o.qty;
+  if(q){m+=`\n▪ الكمية: ${q}`;const u=unitPrice(p,q);if(u!==null)m+=`\n▪ السعر: ${u} ج للقطعة`}
+  return waTo(f.whatsapp||f.phone,m);
+}
+function openProduct(id){
+  curP=S.products.find(p=>p.id===id);if(!curP)return;
+  sel={size:'',color:'',qty:String(minQty(curP))};
+  const p=curP,f=fac(p.factory_id),sz=list(p.sizes),cl=list(p.colors),imgs=p.imgs||[];
+  const t=realTiers(p).sort((a,b)=>a.min-b.min),nt=noteOf(p);
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button>
+   <div class="gmain" id="gmain">${imgs[0]?`<img src="${esc(imgs[0])}" alt="">`:'👖'}</div>
+   ${imgs.length>1?`<div class="thumbs">${imgs.map((s,i)=>`<img src="${esc(s)}" class="${i?'':'on'}" onclick="setImg(${i})" alt="">`).join('')}</div>`:''}
+   <h2>${esc(p.name)}</h2>
+   <div class="fn">${esc(f.name)}${f.verified?' ✔ موثّق':''} ${f.city?'• '+esc(f.city):''}</div>
+   ${p.descr?`<p style="margin:8px 0;color:var(--mu)">${esc(p.descr)}</p>`:''}
+   <div class="lbl">${hasPrice(p)?'أسعار الجملة':'الأسعار'} <button class="qbtn" type="button" onclick="$('#qhelp').hidden=!$('#qhelp').hidden" title="اسأل عن الأسعار" aria-label="اسأل عن الأسعار">؟</button></div>
+   <div class="tiers">${t.length?t.map(x=>`<div><span>${x.min>1?`من ${x.min} قطعة`:'للقطعة'}</span><b>${x.price} ج</b></div>`).join(''):''}${nt||!t.length?`<div style="display:block;font-weight:700">${esc(nt||DEF_NOTE)}</div>`:''}</div>
+   <div class="qhelp" id="qhelp" hidden>عايز سعر أحسن لكمية أكبر أو تسأل عن حاجة في السعر؟ كلّم المصنع على واتساب.<div class="bar"><a class="btn g" target="_blank" rel="noopener" href="${waTo(f.whatsapp||f.phone,`السلام عليكم، عايز أسأل عن أسعار ${p.name} (${S.settings.name})`)}">اسأل عن الأسعار</a></div></div>
+   ${sz.length?`<div class="lbl">المقاس</div><div class="opts">${sz.map((s,i)=>`<button class="opt" onclick="pickOpt('size',${i},this)">${esc(s)}</button>`).join('')}</div>`:''}
+   ${cl.length?`<div class="lbl">اللون</div><div class="opts">${cl.map((s,i)=>`<button class="opt" onclick="pickOpt('color',${i},this)">${esc(s)}</button>`).join('')}</div>`:''}
+   <div class="lbl">الكمية</div>
+   <input type="number" id="qty" min="1" value="${sel.qty}" oninput="sel.qty=this.value;updWA()">
+   <div class="pl" id="pl"></div><div id="wawrap"></div>`);
+  updWA();
+}
+function setImg(i){$('#gmain').innerHTML=`<img src="${esc(curP.imgs[i])}" alt="">`;document.querySelectorAll('.thumbs img').forEach((el,j)=>el.classList.toggle('on',j===i))}
+function pickOpt(k,i,el){
+  const v=list(k==='size'?curP.sizes:curP.colors)[i];sel[k]=sel[k]===v?'':v;
+  el.parentNode.querySelectorAll('.opt').forEach(b=>b.classList.remove('on'));
+  if(sel[k])el.classList.add('on');updWA();
+}
+function updWA(){
+  const p=curP,q=+sel.qty||0,u=unitPrice(p,q);
+  $('#pl').textContent=!q?'':u===null?(hasPrice(p)?`أقل كمية ${minQty(p)} قطعة`:''):`${u} ج للقطعة • الإجمالي ${money(u*q)} ج`;
+  $('#wawrap').innerHTML=p.sold_out?'<div class="wa big off">غير متاح حاليًا</div>':`<a class="wa big" href="${orderURL(p,sel)}" target="_blank" rel="noopener">اطلب على واتساب</a>`;
+}
+function showIntro(){
+  if(ss.get('jd_seen')==='1'||loadErr||$('#intro'))return;
+  const lp=liveProducts();if(!lp.length)return;
+  const s=S.settings,mq=Math.min(...lp.map(minQty)),nf=new Set(lp.map(p=>p.factory_id)).size;
+  const el=document.createElement('div');el.id='intro';el.className='intro';
+  if(s.cover)el.style.backgroundImage=`linear-gradient(#0007,#000c),url('${esc(s.cover)}')`;
+  el.innerHTML=`<div class="intro-in"><div class="intro-logo">${s.logo?`<img src="${esc(s.logo)}" alt="">`:'👖'}</div>
+   <div class="intro-kick">أسعار الجملة من المصنع مباشرة</div><h1>${esc(s.name)}</h1><p>${esc(s.tagline)}</p>
+   <div class="intro-stats"><div><b>${nf}</b><span>مصنع</span></div><div><b>${lp.length}</b><span>موديل متاح الآن</span></div><div><b>${mq}</b><span>أقل كمية للطلب</span></div></div>
+   <button class="intro-go" onclick="enterShop()">ادخل المتجر</button></div>`;
+  document.body.appendChild(el);
+}
+function enterShop(){ss.set('jd_seen','1');const e=$('#intro');if(e)e.remove()}
+
+/* ================= الدخول والتسجيل ================= */
+function authHTML(who){
+  const reg=authMode==='register'&&who==='factory';
+  return `<div class="panel fbox"><h2>${who==='admin'?'دخول الإدارة':'بوابة المصانع'}</h2>
+  ${who==='factory'?`<div class="tabs"><button class="tab ${!reg?'on':''}" onclick="authMode='login';render()">دخول</button><button class="tab ${reg?'on':''}" onclick="authMode='register';render()">تسجيل مصنع جديد</button></div>`:''}
+  ${reg?`<label class="f" for="rn">اسم المصنع</label><input id="rn" autocomplete="organization">
+   <div class="row"><div><label class="f" for="rc">المدينة</label><input id="rc"></div><div><label class="f" for="rd">نبذة قصيرة</label><input id="rd" placeholder="جينز أولادي، رجالي..."></div></div>`:''}
+  <label class="f" for="ph">رقم الموبايل (واتساب)</label><input id="ph" inputmode="tel" autocomplete="username" placeholder="01xxxxxxxxx">
+  <label class="f" for="pw">كلمة السر</label><input id="pw" type="password" autocomplete="${reg?'new-password':'current-password'}" placeholder="6 حروف أو أرقام على الأقل">
+  <div class="bar"><button class="btn" onclick="${reg?'doRegister()':`doLogin('${who}')`}" id="authbtn">${reg?'سجّل المصنع':'دخول'}</button></div>
+  ${reg?'<p class="note">الرقم ده هو اللي هتدخل بيه، وهو رقم الواتساب اللي التجار هيكلموك عليه.</p>':who==='admin'?'<p class="note">أول مرة؟ اعمل حساب من خانة "تسجيل مصنع جديد" في بوابة المصانع بنفس الرقم، وارجع هنا.</p>':''}</div>`;
+}
+async function doLogin(who){
+  const ph=normPhone($('#ph').value),pw=$('#pw').value;
+  if(!ph){toast('اكتب رقم موبايل صحيح (01xxxxxxxxx)');return}
+  if(!pw){toast('اكتب كلمة السر');return}
+  const b=$('#authbtn');b.disabled=true;
+  const r=await sb.auth.signInWithPassword({email:emailOf(ph),password:pw});
+  b.disabled=false;
+  if(r.error){toast(errMsg(r.error));return}
+  await reload();
+}
+async function doRegister(){
+  const ph=normPhone($('#ph').value),pw=$('#pw').value,name=$('#rn').value.trim();
+  if(!name){toast('اكتب اسم المصنع');return}
+  if(!ph){toast('اكتب رقم موبايل صحيح (01xxxxxxxxx)');return}
+  if(pw.length<6){toast('كلمة السر لازم تكون 6 حروف أو أرقام على الأقل');return}
+  const b=$('#authbtn');b.disabled=true;
+  const r=await sb.auth.signUp({email:emailOf(ph),password:pw});
+  if(r.error){b.disabled=false;toast(errMsg(r.error));return}
+  if(!r.data||!r.data.session){b.disabled=false;toast('لازم صاحب المنصة يقفل "Confirm email" من إعدادات Supabase',7000);return}
+  const ins=await sb.from('factories').insert({id:r.data.user.id,phone:ph,name,city:$('#rc').value.trim(),descr:$('#rd').value.trim(),whatsapp:ph});
+  b.disabled=false;
+  if(ins.error){toast(errMsg(ins.error));return}
+  authMode='login';toast('تم تسجيل مصنعك ✔');
+  await reload();
+}
+async function logout(){await sb.auth.signOut();authMode='login';await reload()}
+
+/* ================= بوابة المصنع ================= */
+function factoryHTML(){
+  if(!me)return authHTML('factory');
+  if(!myFactory)return `<div class="panel fbox"><h3>الحساب ده مش مسجّل كمصنع</h3><p class="note">ممكن يكون حساب إدارة. اخرج وسجّل مصنع برقم تاني.</p><button class="btn s" onclick="logout()">خروج</button></div>`;
+  const f=myFactory,live=isLive(f),mine=S.products.filter(p=>p.factory_id===f.id);
+  let banner='';
+  const payMsg=`السلام عليكم، أنا ${f.name} (${f.phone}). حوّلت اشتراك المنصة وده إيصال الدفع.`;
+  const payBtn=ownerWa(payMsg)?`<div class="bar"><a class="btn g" target="_blank" rel="noopener" href="${ownerWa(payMsg)}">ابعت إيصال الدفع على واتساب</a></div>`:'';
+  const subInfo=`${S.settings.sub_price?`<p><b>${esc(S.settings.sub_price)}</b></p>`:''}<p>${esc(S.settings.sub_note)}</p>`;
+  if(f.status==='blocked')banner=`<div class="banner bad"><b>مصنعك موقوف.</b> كلّم الإدارة.</div>`;
+  else if(f.status==='pending')banner=`<div class="banner warn"><b>مصنعك مستني التفعيل.</b> موديلاتك مش هتظهر للتجار قبل ما تشترك.${subInfo}${payBtn}</div>`;
+  else if(!live)banner=`<div class="banner bad"><b>اشتراكك انتهى.</b> موديلاتك مخفية دلوقتي لحد ما تجدد.${subInfo}${payBtn}</div>`;
+  else banner=`<div class="banner ok"><b>اشتراكك شغال</b> لحد ${esc(f.paid_until)} (باقي ${daysLeft(f)} يوم)${daysLeft(f)<=7?`<br>قرّب ينتهي، جدّد عشان موديلاتك ما تتخفيش.${payBtn}`:''}</div>`;
+  return `<div class="bar" style="justify-content:space-between"><div><b style="font-size:18px">${esc(f.name)}</b> ${f.verified?'<span class="st ok">موثّق ✔</span>':''}<div class="note">${esc(f.phone)}${f.city?' • '+esc(f.city):''}</div></div><button class="btn s sm" onclick="logout()">خروج</button></div>
+  ${banner}
+  <div class="tabs"><button class="tab ${ftab==='models'?'on':''}" onclick="ftab='models';render()">موديلاتي (${mine.length})</button><button class="tab ${ftab==='info'?'on':''}" onclick="ftab='info';render()">بيانات المصنع</button></div>
+  ${ftab==='models'?modelsHTML(mine,live):infoHTML(f)}`;
+}
+function modelsHTML(mine,live){
+  return `<div class="bar"><button class="btn" ${live?'':'disabled'} onclick="productModal()">+ موديل جديد</button>${live?'':'<span class="note">إضافة وتعديل الموديلات بتشتغل مع الاشتراك الشغال.</span>'}</div>`+
+  (mine.length?mine.map(p=>`<div class="item" style="${p.hidden?'opacity:.55':''}"><div class="t">${p.imgs&&p.imgs[0]?`<img src="${esc(p.imgs[0])}" alt="">`:'👖'}</div>
+   <div class="m"><b>${esc(p.name)}</b><small>${esc(priceTxt(p))}${hasPrice(p)&&minQty(p)>1?' • من '+minQty(p)+' قطعة':''}${p.sold_out?' • خلصان':''}${p.hidden?' • مخفي':''}</small></div>
+   <div class="ac"><button class="btn sm" ${live?'':'disabled'} onclick="productModal('${p.id}')">تعديل</button><button class="btn d sm" onclick="delProduct('${p.id}')">حذف</button></div></div>`).join(''):'<div class="empty">لسه مفيش موديلات</div>');
+}
+function infoHTML(f){
+  return `<div class="panel"><label class="f" for="in">اسم المصنع</label><input id="in" value="${esc(f.name)}">
+  <div class="row"><div><label class="f" for="ic">المدينة</label><input id="ic" value="${esc(f.city)}"></div><div><label class="f" for="iw">رقم الواتساب للطلبات</label><input id="iw" inputmode="tel" value="${esc(f.whatsapp||f.phone)}"></div></div>
+  <label class="f" for="id">نبذة</label><textarea id="id">${esc(f.descr)}</textarea>
+  <div class="bar"><button class="btn" onclick="saveInfo()">حفظ</button></div></div>`;
+}
+async function saveInfo(){
+  const w=normPhone($('#iw').value);if(!w){toast('اكتب رقم واتساب صحيح');return}
+  if(!$('#in').value.trim()){toast('اكتب اسم المصنع');return}
+  const r=await sb.from('factories').update({name:$('#in').value.trim(),city:$('#ic').value.trim(),whatsapp:w,descr:$('#id').value.trim()}).eq('id',myFactory.id);
+  if(r.error){toast(errMsg(r.error));return}
+  toast('اتحفظ ✔');await reload();
+}
+function productModal(id){
+  const p=id?S.products.find(x=>x.id===id):{name:'',cat:'',descr:'',sizes:'',colors:'',imgs:[],tiers:[],sold_out:false,hidden:false};
+  tmp.imgs=[...(p.imgs||[])];
+  const rt=realTiers(p).sort((a,b)=>a.min-b.min),first=rt[0],rest=rt.slice(1);
+  const help=ownerWa('السلام عليكم، عايز مساعدة في تحديد أسعار الجملة لموديلاتي');
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h2 style="margin-top:0">${id?'تعديل موديل':'موديل جديد'}</h2>
+  <label class="f">الصور (الأولى هي الرئيسية)</label><div class="imgs" id="imgs">${imgsHTML()}</div>
+  <div class="row"><div><label class="f" for="pn">اسم الموديل</label><input id="pn" value="${esc(p.name)}"></div><div><label class="f" for="pc">القسم</label><input id="pc" value="${esc(p.cat)}" placeholder="جينز أولادي"></div></div>
+  <label class="f" for="pd">وصف</label><textarea id="pd">${esc(p.descr)}</textarea>
+  <div class="row"><div><label class="f" for="ps">المقاسات (بينها فاصلة)</label><input id="ps" value="${esc(p.sizes)}" placeholder="32, 34, 36"></div><div><label class="f" for="pcl">الألوان (بينها فاصلة)</label><input id="pcl" value="${esc(p.colors)}"></div></div>
+  <div class="row"><div><label class="f" for="ppr">السعر بالجنيه (اختياري)</label><input id="ppr" type="number" inputmode="decimal" min="0" value="${first?first.price:''}" placeholder="مثلا 260"></div><div><label class="f" for="pq">أقل كمية (اختياري)</label><input id="pq" type="number" inputmode="numeric" min="1" value="${first&&first.min>1?first.min:''}" placeholder="مثلا 50"></div></div>
+  <label class="f" for="pnote" style="display:flex;align-items:center;gap:8px">كلام يظهر مكان السعر (اختياري) <button class="qbtn" type="button" onclick="$('#thelp').hidden=!$('#thelp').hidden" aria-label="شرح الأسعار">؟</button></label>
+  <input id="pnote" value="${esc(noteOf(p))}" placeholder="للاستفسار عن الأسعار تواصل واتساب">
+  <div class="qhelp" id="thelp" hidden>كل خانات السعر اختيارية. لو سبتها فاضية هيظهر للتاجر "${DEF_NOTE}" وزرار "؟" بيفتح واتساب. ولو كتبت سعر وكلام، هيظهر الاتنين. تقدر كمان تكتب أي كلام تحبه مكان السعر.${help?`<div class="bar"><a class="btn g sm" target="_blank" rel="noopener" href="${help}">اسأل الإدارة عن الأسعار</a></div>`:''}</div>
+  <label class="f" for="pt">شرائح أسعار إضافية لكميات أكبر (اختياري)</label>
+  <input id="pt" value="${rest.map(t=>t.min+':'+t.price).join(', ')}" placeholder="200:245, 500:230">
+  <div class="note" style="font-size:12px;color:var(--mu)">الشكل: الكمية:السعر، وبينهم فاصلة.</div>
+  <label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="po" style="width:auto" ${p.sold_out?'checked':''}> خلصان (غير متاح)</label>
+  <label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ph2" style="width:auto" ${p.hidden?'checked':''}> إخفاء من المتجر</label>
+  <div class="bar"><button class="btn" id="psave" onclick="saveProduct('${id||''}')">حفظ</button><button class="btn s" onclick="closeM()">إلغاء</button></div>`);
+}
+function parseTiers(s){return s.split(/[,،\n]/).map(x=>x.trim()).filter(Boolean).map(x=>{const [a,b]=x.split(':');return {min:+a,price:+b}}).filter(t=>t.min>0&&t.price>0)}
+async function saveProduct(id){
+  if(!$('#pn').value.trim()){toast('اكتب اسم الموديل');return}
+  const tiers=[],pr=+$('#ppr').value,pq=Math.max(1,Math.floor(+$('#pq').value)||1),note=$('#pnote').value.trim();
+  if(pr>0)tiers.push({min:pq,price:pr});
+  tiers.push(...parseTiers($('#pt').value));
+  if(note)tiers.push({note});
+  const o={factory_id:myFactory.id,name:$('#pn').value.trim(),cat:$('#pc').value.trim(),descr:$('#pd').value.trim(),sizes:$('#ps').value.trim(),colors:$('#pcl').value.trim(),imgs:[...tmp.imgs],tiers,sold_out:$('#po').checked,hidden:$('#ph2').checked};
+  $('#psave').disabled=true;
+  const r=id?await sb.from('products').update(o).eq('id',id):await sb.from('products').insert(o);
+  if(r.error){$('#psave').disabled=false;toast(errMsg(r.error));return}
+  closeM();toast('اتحفظ ✔');await reload();
+}
+function delProduct(id){ask('حذف الموديل؟',async()=>{const r=await sb.from('products').delete().eq('id',id);if(r.error)toast(errMsg(r.error));await reload()})}
+
+/* ================= لوحة المالك ================= */
+function adminHTML(){
+  if(!me)return authHTML('admin');
+  if(!isAdmin)return `<div class="panel fbox"><h3>الحساب ده مش حساب إدارة</h3><p class="note">لو ده أول تشغيل للمنصة وإنت المالك، دوس الزرار (بيشتغل مرة واحدة بس لأول حساب).</p>
+   <div class="bar"><button class="btn" onclick="claimOwner()">أنا مالك المنصة</button><button class="btn s" onclick="logout()">خروج</button></div></div>`;
+  const F=S.factories,act=F.filter(isLive).length,pen=F.filter(f=>f.status==='pending').length;
+  const tabs=[['factories','المصانع'],['products','الموديلات'],['settings','إعدادات المنصة']];
+  return `<div class="bar" style="justify-content:space-between"><b style="font-size:18px">لوحة الإدارة</b><button class="btn s sm" onclick="logout()">خروج</button></div>
+  <div class="stats"><div><b>${F.length}</b><span>مصنع</span></div><div><b>${act}</b><span>اشتراك شغال</span></div><div><b>${pen}</b><span>مستني تفعيل</span></div><div><b>${S.products.length}</b><span>موديل</span></div></div>
+  <div class="tabs">${tabs.map(t=>`<button class="tab ${atab===t[0]?'on':''}" onclick="atab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>
+  ${atab==='factories'?adminFactories():atab==='products'?adminProducts():adminSettings()}`;
+}
+async function claimOwner(){
+  const r=await sb.from('admins').insert({user_id:me.id});
+  if(r.error){toast('فيه مالك متسجّل قبل كده');return}
+  toast('تم ✔');await reload();
+}
+function stChip(f){
+  if(f.status==='blocked')return '<span class="st bad">موقوف</span>';
+  if(f.status==='pending')return '<span class="st warn">مستني التفعيل</span>';
+  return isLive(f)?`<span class="st ok">شغال لحد ${esc(f.paid_until)}</span>`:'<span class="st bad">منتهي</span>';
+}
+function adminFactories(){
+  if(!S.factories.length)return '<div class="empty">لسه مفيش مصانع سجّلت</div>';
+  const order={pending:0,active:1,blocked:2};
+  return [...S.factories].sort((a,b)=>order[a.status]-order[b.status]).map(f=>{
+    const n=S.products.filter(p=>p.factory_id===f.id).length;
+    return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${esc(f.name)}</b>${stChip(f)}</div>
+    <div class="note">${esc(f.city)} • ${esc(f.phone)} • ${n} موديل</div>
+    <div class="bar"><select id="m_${f.id}" style="width:auto"><option value="1">شهر</option><option value="3">3 شهور</option><option value="6">6 شهور</option><option value="12">سنة</option></select>
+    <button class="btn sm" onclick="activate('${f.id}')">${f.status==='pending'?'تفعيل':'تجديد'}</button>
+    <button class="btn s sm" onclick="setFac('${f.id}',{status:'${f.status==='blocked'?'active':'blocked'}'})">${f.status==='blocked'?'فك الإيقاف':'إيقاف'}</button>
+    <button class="btn s sm" onclick="setFac('${f.id}',{verified:${!f.verified}})">${f.verified?'إلغاء التوثيق':'توثيق ✔'}</button>
+    <a class="btn s sm" target="_blank" rel="noopener" href="${waTo(f.whatsapp||f.phone,'السلام عليكم، من إدارة '+S.settings.name)}">واتساب</a>
+    <button class="btn d sm" onclick="delFactory('${f.id}')">حذف</button></div></div>`;
+  }).join('');
+}
+async function setFac(id,patch){const r=await sb.from('factories').update(patch).eq('id',id);if(r.error)toast(errMsg(r.error));await reload()}
+async function activate(id){
+  const f=S.factories.find(x=>x.id===id),m=+$('#m_'+id).value;
+  const d=new Date(Math.max(Date.now(),f.paid_until?new Date(f.paid_until).getTime():0));
+  d.setMonth(d.getMonth()+m);
+  await setFac(id,{status:'active',paid_until:d.toISOString().slice(0,10)});
+  toast('تم التفعيل ✔');
+}
+function delFactory(id){ask('حذف المصنع وكل موديلاته؟',async()=>{const r=await sb.from('factories').delete().eq('id',id);if(r.error)toast(errMsg(r.error));await reload()})}
+function adminProducts(){
+  if(!S.products.length)return '<div class="empty">لسه مفيش موديلات</div>';
+  return S.products.map(p=>`<div class="item" style="${p.hidden?'opacity:.55':''}"><div class="t">${p.imgs&&p.imgs[0]?`<img src="${esc(p.imgs[0])}" alt="">`:'👖'}</div>
+  <div class="m"><b>${esc(p.name)}</b><small>${esc(fac(p.factory_id).name)} • ${esc(priceTxt(p))}${p.hidden?' • مخفي':''}</small></div>
+  <div class="ac"><button class="btn s sm" onclick="togProd('${p.id}',${!p.hidden})">${p.hidden?'إظهار':'إخفاء'}</button><button class="btn d sm" onclick="admDelProd('${p.id}')">حذف</button></div></div>`).join('');
+}
+async function togProd(id,h){const r=await sb.from('products').update({hidden:h}).eq('id',id);if(r.error)toast(errMsg(r.error));await reload()}
+function admDelProd(id){ask('حذف الموديل؟',async()=>{const r=await sb.from('products').delete().eq('id',id);if(r.error)toast(errMsg(r.error));await reload()})}
+const COLORS=['#1f4e8c','#0f766e','#b45309','#9f1239','#4c1d95','#111827'];
+function adminSettings(){
+  const s=S.settings;tmp.logo=s.logo;tmp.cover=s.cover;
+  return `<div class="panel"><label class="f" for="sn">اسم المنصة</label><input id="sn" value="${esc(s.name)}">
+  <label class="f" for="st">الجملة اللي تحت الاسم</label><input id="st" value="${esc(s.tagline)}">
+  <label class="f" for="sw">رقم واتساب الإدارة (للاشتراكات والمساعدة)</label><input id="sw" inputmode="tel" value="${esc(s.owner_whatsapp)}" placeholder="01xxxxxxxxx">
+  <label class="f" for="sp">سعر الاشتراك (بيظهر للمصانع)</label><input id="sp" value="${esc(s.sub_price)}" placeholder="مثال: الاشتراك الشهري 300 جنيه">
+  <label class="f" for="sno">طريقة الدفع (بتظهر للمصانع)</label><textarea id="sno">${esc(s.sub_note)}</textarea>
+  <label class="f">لون المنصة</label><div class="sw">${COLORS.map(c=>`<i style="background:${c}" class="${s.color===c?'on':''}" onclick="setColor('${c}',this)"></i>`).join('')}</div>
+  <label class="f">اللوجو</label><div class="imgs"><div id="logoPrev">${prevHTML('logo')}</div><label class="addimg">اختار لوجو<input type="file" accept="image/*" onchange="pickOne(this,'logo')"></label></div>
+  <label class="f">صورة الغلاف (اختياري)</label><div class="imgs"><div id="coverPrev">${prevHTML('cover')}</div><label class="addimg">اختار غلاف<input type="file" accept="image/*" onchange="pickOne(this,'cover')"></label></div>
+  <div class="bar"><button class="btn" onclick="saveSettings()">حفظ</button></div></div>`;
+}
+function prevHTML(k){return tmp[k]?`<div class="th"><img src="${esc(tmp[k])}" alt=""><div class="thb"><span></span><button type="button" onclick="tmp.${k}='';$('#${k}Prev').innerHTML=''">✕</button></div></div>`:''}
+async function pickOne(inp,k){
+  const f=inp.files[0];inp.value='';if(!f)return;
+  toast('جاري رفع الصورة...',8000);
+  const u=await upImage(f,k==='logo'?400:1600,.82,k==='logo'?'image/png':'image/jpeg');
+  if(u){tmp[k]=u;const el=$('#'+k+'Prev');if(el)el.innerHTML=prevHTML(k);toast('تم الرفع. دوس حفظ')}
+}
+function setColor(c,el){S.settings.color=c;document.documentElement.style.setProperty('--ac',c);el.parentNode.querySelectorAll('i').forEach(i=>i.classList.remove('on'));el.classList.add('on')}
+async function saveSettings(){
+  const w=$('#sw').value.trim(),nw=w?normPhone(w):'';
+  if(w&&!nw){toast('رقم الواتساب غلط');return}
+  const o={name:$('#sn').value.trim()||'جملة دايركت',tagline:$('#st').value.trim(),owner_whatsapp:nw,sub_price:$('#sp').value.trim(),sub_note:$('#sno').value.trim(),color:S.settings.color,logo:tmp.logo,cover:tmp.cover};
+  const r=await sb.from('settings').update(o).eq('id',1);
+  if(r.error){toast(errMsg(r.error));return}
+  toast('اتحفظ ✔');await reload();
+}
+
+/* ================= صفحة الإعداد (أول مرة) ================= */
+function setupHTML(){
+  return `<div class="panel fbox" style="max-width:640px"><h2>إعداد المنصة (مرة واحدة)</h2>
+  <p class="note">المنصة محتاجة قاعدة بيانات مجانية عشان المصانع والتجار يشوفوا نفس البيانات. أسماء القوايم في Supabase ممكن تتغير شوية، اختار الأقرب.</p>
+  <ol class="steps">
+   <li>اعمل حساب مجاني على <b>supabase.com</b> وأنشئ <b>New project</b>. استنى دقيقتين لحد ما يجهز.</li>
+   <li>افتح <b>SQL Editor</b> ← <b>New query</b>، ودوس الزرار ده والصق الكود واضغط <b>Run</b>:
+     <div class="bar"><button class="btn s sm" onclick="copySQL()">نسخ كود الإعداد</button></div>
+     <textarea class="sqlbox" readonly onclick="this.select()">${esc(SQL)}</textarea></li>
+   <li>افتح <b>Authentication</b> ← <b>Sign In / Providers</b> ← <b>Email</b>، واقفل خيار <b>Confirm email</b> واحفظ.</li>
+   <li>افتح <b>Project Settings</b> ← <b>API</b>، وانسخ <b>Project URL</b> و <b>anon public key</b> (لو فيه تبويب Legacy API keys خد الـ anon اللي بيبدأ بـ eyJ) والصقهم هنا:
+     <label class="f" for="cu">Project URL</label><input id="cu" dir="ltr" value="${esc(CFG.url)}" placeholder="https://xxxx.supabase.co">
+     <label class="f" for="ck">anon public key</label><input id="ck" dir="ltr" value="${esc(CFG.key)}" placeholder="eyJ...">
+     <div class="bar"><button class="btn" onclick="bakeFile()">حمّل ملف المنصة الجاهز</button></div></li>
+   <li>ارفع الملف اللي نزل (اسمه index.html) على استضافة مجانية (Netlify Drop أو GitHub Pages) وخد الرابط.</li>
+   <li>افتح <b>الرابط/#admin</b> واعمل حساب المالك: سجّل مصنع جديد برقمك من بوابة المصانع، وبعدين ادخل صفحة <b>#admin</b> ودوس "أنا مالك المنصة". اعمل ده قبل ما تبعت الرابط لأي حد.</li>
+  </ol></div>`;
+}
+function copySQL(){
+  const done=()=>toast('اتنسخ. الصقه في SQL Editor');
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(SQL).then(done,()=>{const t=document.querySelector('.sqlbox');t.select();document.execCommand('copy');done()})}
+  else{const t=document.querySelector('.sqlbox');t.select();document.execCommand('copy');done()}
+}
+function bakeFile(){
+  const url=$('#cu').value.trim().replace(/\/+$/,''),key=$('#ck').value.trim();
+  if(!/^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(url)){toast('الرابط لازم يبقى زي https://xxxx.supabase.co');return}
+  if(key.length<30){toast('الصق الـ anon public key كامل');return}
+  const cfg=JSON.stringify({url,key}).replace(/</g,'\\u003c');
+  const html=SRC.replace(/(<script type="application\/json" id="cfg">)[\s\S]*?(<\/script>)/,(m,a,b)=>a+cfg+b);
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download='index.html';
+  document.body.appendChild(a);a.click();a.remove();toast('نزل ملف index.html. ارفعه على الاستضافة');
+}
+
+/* ================= تشغيل ================= */
+(async function boot(){
+  if(!CFG.url||!CFG.key||route()==='setup'){render();return}
+  if(!window.supabase||!supabase.createClient){$('#app').innerHTML='<div class="panel fbox"><h3>مفيش اتصال بالإنترنت</h3><p class="note">اتأكد من النت وحدّث الصفحة.</p></div>';return}
+  sb=supabase.createClient(CFG.url,CFG.key);
+  $('#app').innerHTML='<div class="empty">جاري التحميل...</div>';
+  try{await loadData();await refreshAuth()}catch(e){loadErr=errMsg(e)}
+  render();
+})();
+</script>
+</body>
+</html>
