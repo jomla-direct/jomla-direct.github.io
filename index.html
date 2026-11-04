@@ -139,6 +139,21 @@ label.f{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
 .intro-stats b{display:block;font-size:22px;line-height:1.2}
 .intro-stats span{font-size:12px;opacity:.9}
 .intro-go{width:100%;border:0;border-radius:14px;padding:15px;font-size:17px;font-weight:800;background:#fff;color:#18222e;cursor:pointer}
+
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+.perk{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:10px 6px;text-align:center;font-size:12.5px;font-weight:700;line-height:1.35}
+.perk svg{display:block;margin:0 auto 5px;width:24px;height:24px;fill:none;stroke:var(--act);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.how{margin-top:30px;background:var(--card);border:1px solid var(--br);border-radius:18px;padding:18px 16px}
+.how h2{margin:0 0 12px;font-size:18px}
+.step{display:flex;gap:12px;align-items:flex-start;padding:8px 0}
+.step i{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800}
+.step b{display:block}.step span{color:var(--mu);font-size:13.5px}
+.cta{margin-top:14px;border-radius:18px;padding:18px 16px;color:#fff;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 55%,#000));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cta b{font-size:17px;display:block}.cta span{opacity:.9;font-size:13.5px}
+.cta a{background:#fff;color:#18222e;text-decoration:none;font-weight:800;border-radius:12px;padding:10px 18px;flex:none}
+.fab{position:fixed;bottom:18px;left:16px;z-index:40;display:flex;align-items:center;gap:8px;background:var(--wa);color:var(--wa-tx);text-decoration:none;font-weight:800;border-radius:28px;padding:12px 18px;box-shadow:0 6px 20px #0004}
+.card{transition:transform .15s,box-shadow .15s}
+@media(hover:hover){.card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #0002}}
 </style>
 </head>
 <body>
@@ -397,8 +412,20 @@ function storeHTML(){
     <h1>${esc(s.name)}</h1><p>${esc(s.tagline)}</p>
     <input class="search" id="q" placeholder="دوّر على موديل أو مصنع..." value="${esc(filt.q)}" oninput="filt.q=this.value;paint()">
   </section>
+  <div class="perks">
+   <div class="perk"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg>من المصنع مباشرة</div>
+   <div class="perk"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>أسعار الجملة</div>
+   <div class="perk"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.3A8 8 0 1 1 21 12z"/></svg>اطلب على واتساب</div>
+  </div>
   <div class="chips" id="chips">${chipsHTML()}</div>
   <div id="plist">${gridHTML()}</div>
+  <section class="how"><h2>إزاي تطلب؟</h2>
+   <div class="step"><i>1</i><div><b>اختار الموديل</b><span>تصفّح موديلات المصانع وشوف الصور والأسعار.</span></div></div>
+   <div class="step"><i>2</i><div><b>حدد المقاس واللون والكمية</b><span>والسعر بيتحسب لك حسب الكمية.</span></div></div>
+   <div class="step"><i>3</i><div><b>اطلب على واتساب</b><span>بتتكلم مع المصنع مباشرة من غير وسيط.</span></div></div>
+  </section>
+  <section class="cta"><div><b>عندك مصنع؟</b><span>سجّل مصنعك وابدأ تعرض موديلاتك لتجار الجملة.</span></div><a href="#factory">سجّل مصنعك</a></section>
+  ${s.owner_whatsapp?`<a class="fab" href="${ownerWa('السلام عليكم، عايز أستفسر عن '+s.name)}" target="_blank" rel="noopener" aria-label="تواصل معنا"><svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.3A8 8 0 1 1 21 12z"/></svg>تواصل معنا</a>`:''}
   <p class="note" style="text-align:center;margin-top:28px"><a href="#admin">دخول الإدارة</a></p>`;
 }
 function chipsHTML(){
@@ -510,7 +537,14 @@ async function doRegister(){
   if(!ph){toast('اكتب رقم موبايل صحيح (01xxxxxxxxx)');return}
   if(pw.length<6){toast('كلمة السر لازم تكون 6 حروف أو أرقام على الأقل');return}
   const b=$('#authbtn');b.disabled=true;
-  const r=await sb.auth.signUp({email:emailOf(ph),password:pw});
+  let r=await sb.auth.signUp({email:emailOf(ph),password:pw});
+  if(r.error&&/already registered|already exists/i.test(r.error.message||'')){
+    const li=await sb.auth.signInWithPassword({email:emailOf(ph),password:pw});
+    if(li.error){b.disabled=false;toast('الرقم ده مسجّل قبل كده بكلمة سر تانية. اعمل تسجيل دخول بالكلمة الصح');return}
+    const ex=await sb.from('factories').select('id').eq('id',(li.data.user||li.data.session.user).id).maybeSingle();
+    if(ex.data){b.disabled=false;toast('المصنع ده مسجّل قبل كده. اعمل تسجيل دخول');await reload();return}
+    r={data:{user:(li.data.user||li.data.session.user),session:li.data.session}};
+  }
   if(r.error){b.disabled=false;toast(errMsg(r.error));return}
   if(!r.data||!r.data.session){b.disabled=false;toast('لازم صاحب المنصة يقفل "Confirm email" من إعدادات Supabase',7000);return}
   const ins=await sb.from('factories').insert({id:r.data.user.id,phone:ph,name,city:$('#rc').value.trim(),descr:$('#rd').value.trim(),whatsapp:ph});
@@ -519,12 +553,24 @@ async function doRegister(){
   authMode='login';toast('تم تسجيل مصنعك ✔');
   await reload();
 }
+async function completeFactory(){
+  const name=$('#rn').value.trim();if(!name){toast('اكتب اسم المصنع');return}
+  const ph=String((me.email||'').split('@')[0]);
+  const b=$('#authbtn');b.disabled=true;
+  const ins=await sb.from('factories').insert({id:me.id,phone:ph,name,city:$('#rc').value.trim(),descr:$('#rd').value.trim(),whatsapp:ph});
+  b.disabled=false;
+  if(ins.error){toast(errMsg(ins.error));return}
+  toast('تم تسجيل مصنعك ✔');await reload();
+}
 async function logout(){await sb.auth.signOut();authMode='login';await reload()}
 
 /* ================= بوابة المصنع ================= */
 function factoryHTML(){
   if(!me)return authHTML('factory');
-  if(!myFactory)return `<div class="panel fbox"><h3>الحساب ده مش مسجّل كمصنع</h3><p class="note">ممكن يكون حساب إدارة. اخرج وسجّل مصنع برقم تاني.</p><button class="btn s" onclick="logout()">خروج</button></div>`;
+  if(!myFactory)return `<div class="panel fbox"><h2>كمّل تسجيل مصنعك</h2><p class="note">الحساب ده مسجّل بس لسه مفيش مصنع عليه. اكتب بيانات المصنع وسجّله.</p>
+   <label class="f" for="rn">اسم المصنع</label><input id="rn" autocomplete="organization">
+   <div class="row"><div><label class="f" for="rc">المدينة</label><input id="rc"></div><div><label class="f" for="rd">نبذة قصيرة</label><input id="rd"></div></div>
+   <div class="bar"><button class="btn" id="authbtn" onclick="completeFactory()">سجّل المصنع</button><button class="btn s" onclick="logout()">خروج</button></div></div>`;
   const f=myFactory,live=isLive(f),mine=S.products.filter(p=>p.factory_id===f.id);
   let banner='';
   const payMsg=`السلام عليكم، أنا ${f.name} (${f.phone}). حوّلت اشتراك المنصة وده إيصال الدفع.`;
