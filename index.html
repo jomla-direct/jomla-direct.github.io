@@ -235,7 +235,7 @@ main{padding-bottom:110px}
 .skg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.skg .sk{height:250px}
 
 /* ===== كحلي / أبيض / ذهبي ===== */
-:root{--st:#c9a24a;--stt:#8a6a1c;--bg:#f4f6fa;--ink:color-mix(in srgb,var(--ac) 22%,#081327)}
+:root{--st:#D4AF37;--stt:#8a6a1c;--bg:#f4f6fa;--ink:color-mix(in srgb,var(--ac) 22%,#081327)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--stt:#e3c36e}}
 .intro{background:repeating-linear-gradient(135deg,#ffffff08 0 2px,transparent 2px 8px),linear-gradient(165deg,#081327,#102a50 60%,#081327)}
 .intro-line{font-size:19px;font-weight:700;color:var(--st);margin:0 0 12px;text-wrap:balance}
@@ -264,6 +264,37 @@ main{padding-bottom:110px}
 .fcl .hrt{top:6px;left:6px;width:30px;height:30px}.fcl{position:relative}
 #ftr{max-width:960px;margin:18px auto 90px;padding:0 16px;text-align:center;font-size:13px;color:var(--mut,#667)}#ftr .ftl{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;margin-bottom:6px}#ftr a{color:inherit;text-decoration:underline}.pg p{line-height:1.9;margin:.4em 0}
 .hnote{background:#c9a24a;color:#081327;display:inline-block;padding:4px 12px;border-radius:99px;font-weight:700;font-size:14px}
+
+/* ===== v4 تنظيف الشكل ===== */
+.hd{border-bottom:3px solid var(--st)}
+.hero{padding:20px 16px 16px;background:linear-gradient(160deg,var(--ink),color-mix(in srgb,var(--ac) 55%,#0a1020));background-size:cover;background-position:center;box-shadow:0 6px 20px #0a122533}
+.hero::after{display:none}
+.flogo{border:2px solid var(--st)}
+.ptag{margin:4px 0 2px;padding:0;background:none;border:0;border-radius:0;min-height:0;font-size:18px;color:var(--ink)}
+.ptag .pv{font-weight:900}.ptag .ptxt{font-size:12.5px;font-weight:600;color:var(--mu)}
+.card{border:1px solid var(--br);box-shadow:0 2px 10px #0a12250f;overflow:hidden}
+.card .pic{aspect-ratio:4/5}
+.cb{padding:10px 10px 12px}
+.cb h3{min-height:2.6em;margin:2px 0 4px}
+.fn{font-size:12px;color:var(--mu);margin-bottom:2px}
+.meta{font-size:11.5px;color:var(--mu);line-height:1.6;min-height:1.6em}
+.moq{min-height:0;margin:0 0 4px}
+.tabs{flex-wrap:wrap;overflow:visible}
+.tabs .tab{flex:1 1 auto;text-align:center}
+.stats{grid-template-columns:repeat(2,1fr)}
+@media(min-width:560px){.stats{grid-template-columns:repeat(3,1fr)}}
+.panel{border-radius:14px;box-shadow:0 2px 10px #0a12250c}
+.panel .bar{gap:8px}
+.notif{background:#fff8e1;border:1px solid #e8c766;border-radius:12px;padding:8px 12px;margin-bottom:8px;font-size:14px;line-height:1.9}.notif a{color:inherit;font-weight:700}
+.plans{display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0}
+@media(min-width:620px){.plans{grid-template-columns:1fr 1fr}}
+.plan{background:var(--card);border:1px solid var(--br);border-top:5px solid var(--pc);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px;box-shadow:0 2px 10px #0a12250c}
+.plan .ph{display:flex;justify-content:space-between;align-items:center}
+.plan .ph b{font-size:18px;color:var(--pc);letter-spacing:.5px}.plan .ph span{font-size:13px;color:var(--mu)}
+.plan .pp{font-size:24px;font-weight:900}.plan .pp small{font-size:12px;font-weight:600;color:var(--mu)}
+.plan ul{margin:4px 0 8px;padding:0 18px 0 0;font-size:13.5px;line-height:1.9;flex:1}
+.plan .btn{width:100%}
+.pbadge{display:inline-block;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;vertical-align:middle}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -391,7 +422,7 @@ grant execute on function public.popular() to anon, authenticated;
 `;
 
 /* ================= أدوات عامة ================= */
-const DEF={name:'جملة دايركت',tagline:'جينز بسعر المصنع. اختار الموديل واطلب على واتساب.',owner_whatsapp:'',color:'#0f2747',logo:'',cover:'',sub_price:'',sub_note:''};
+const DEF={name:'جملة دايركت',tagline:'جينز بسعر المصنع. اختار الموديل واطلب على واتساب.',owner_whatsapp:'',color:'#101D35',logo:'',cover:'',sub_price:'',sub_note:''};
 let sb=null,S={settings:{...DEF},factories:[],products:[]},me=null,myFactory=null,isAdmin=false,loadErr='';
 let filt={q:'',cat:'',fac:'',size:'',color:'',gov:''},curP=null,sel={size:'',color:'',qty:''},tmp={imgs:[],logo:'',cover:''},atab='factories',ftab='models',askCb=null,authMode='login',busy=false;
 const ss={get(k){try{return sessionStorage.getItem(k)}catch(e){return null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}};
@@ -409,7 +440,7 @@ function normPhone(v){
 const waNum=p=>'20'+String(p||'').replace(/^0/,'');
 const emailOf=p=>p+'@jomla-direct.com';
 const today=()=>new Date().toISOString().slice(0,10);
-const isLive=f=>!!(f&&f.status==='active'&&f.paid_until&&f.paid_until>=today());
+const isLive=f=>!!(f&&f.status==='active'&&!f.paused&&f.paid_until&&f.paid_until>=today());
 const daysLeft=f=>Math.ceil((new Date(f.paid_until)-new Date(today()))/864e5);
 const fac=id=>S.factories.find(f=>f.id===id)||{name:'',city:'',phone:'',whatsapp:''};
 const waTo=(num,text)=>`https://wa.me/${waNum(num)}?text=${encodeURIComponent(text)}`;
@@ -432,6 +463,7 @@ function errMsg(e){
   if(/already registered|already exists/i.test(m))return 'الرقم ده مسجّل قبل كده. اعمل تسجيل دخول';
   if(/at least 6|weak/i.test(m))return 'كلمة السر لازم تكون 6 حروف أو أرقام على الأقل';
   if(/rate limit|too many/i.test(m))return 'محاولات كتير. استنى شوية وجرب تاني';
+  if(/PLAN_LIMIT/.test(m))return 'وصلت للحد الأقصى للموديلات في باقتك. رقّي باقتك من تبويب الاشتراك';
   if(/row-level security|permission denied|policy/i.test(m))return 'مفيش صلاحية للعملية دي (لو اشتراكك منتهي جدّده)';
   if(/does not exist|schema cache|Could not find/i.test(m))return 'لازم تشغّل كود التحديث (SQL) في Supabase الأول';
   if(/Failed to fetch|NetworkError/i.test(m))return 'مفيش اتصال بالإنترنت';
@@ -544,32 +576,32 @@ async function loadData(){
 async function refreshAuth(){
   const r=await sb.auth.getSession();
   me=r.data&&r.data.session?r.data.session.user:null;
-  myFactory=null;isAdmin=false;
+  myFactory=null;isAdmin=false;myTrader=null;
   if(me){
     const f=await sb.from('factories').select('*').eq('id',me.id).maybeSingle();myFactory=f.data||null;
     const a=await sb.from('admins').select('user_id').eq('user_id',me.id).maybeSingle();isAdmin=!!a.data;
+    try{const t=await sb.from('traders').select('*').eq('id',me.id).maybeSingle();myTrader=t.data||null}catch(e){myTrader=null}
   }
 }
-async function loadReports(){S.reports=[];repErr=false;if(!isAdmin)return;try{const rr=await sb.from('reports').select('*').order('created_at',{ascending:false});S.reports=rr.data||[];repErr=!!rr.error}catch(e){repErr=true}}
-async function reload(){await loadData();await refreshAuth();await loadReports();await loadEvents();render()}
+async function reload(){await loadData();await refreshAuth();syncFavs();await loadReports();await loadEvents();render()}
 
 /* ================= الراوتر والرسم ================= */
-const route=()=>{if(!CFG.url||!CFG.key)return 'setup';const h=location.hash.replace('#','');return ['factory','admin','setup','about','contact','privacy','terms','guide'].includes(h)?h:'store'};
+const route=()=>{if(!CFG.url||!CFG.key)return 'setup';const h=location.hash.replace('#','');return ['factory','admin','setup','account','about','contact','privacy','terms','guide'].includes(h)?h:'store'};
 window.addEventListener('hashchange',()=>{closeM();render()});
 const ICON_FAC='<svg viewBox="0 0 24 24"><path d="M3 21V9l6 4V9l6 4V5h3a3 3 0 0 1 3 3v13z"/><path d="M7 17h2M12 17h2M17 17h2"/></svg>';
 function hdrHTML(){
   const s=S.settings,r=route();
   return `<div class="hd"><div class="brand" onclick="location.hash=''">${s.logo?`<img src="${esc(s.logo)}" alt="">`:'<span style="font-size:26px">👖</span>'}<b>${esc(s.name)}</b></div>
-  ${r==='store'?`<a class="ib" href="#factory" title="سجّل مصنعك أو ادخل على مصنعك" aria-label="مصنعي">${ICON_FAC}<span>${myFactory?'مصنعي':'سجّل مصنعك'}</span></a>`:`<a class="ib" href="#">← المتجر</a>`}</div>`;
+  ${r==='store'?`<span class="hdb"><a class="ib" href="#account" aria-label="حساب التاجر"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>${myTrader?'حسابي':'دخول'}</span></a><a class="ib" href="#factory" title="سجّل مصنعك أو ادخل على مصنعك" aria-label="مصنعي">${ICON_FAC}<span>${myFactory?'مصنعي':'للمصانع'}</span></a></span>`:`<a class="ib" href="#">← المتجر</a>`}</div>`;
 }
 function render(){
-  document.documentElement.style.setProperty('--ac',S.settings.color||'#1f4e8c');applyLook();
+  document.documentElement.style.setProperty('--ac',(!S.settings.color||/^#(0f2747|1f4e8c)$/i.test(S.settings.color))?'#101D35':S.settings.color);applyLook();
   document.title=route()in PAGEMETA?PAGEMETA[route()][0]+' | '+(S.settings.name||'جملة دايركت'):(S.settings.name||'جملة دايركت')+' | من المصنع للتاجر';
   const r=route();
   $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
-  $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():r==='admin'?adminHTML():pageHTML(r);
+  $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():r==='admin'?adminHTML():r==='account'?accountHTML():pageHTML(r);
   if(r!=='setup'&&!$('#ftr')){const f=document.createElement('footer');f.id='ftr';document.body.appendChild(f)}
-  const ft=$('#ftr');if(ft)ft.innerHTML=r==='setup'?'':footHTML();
+  const ft=$('#ftr');if(ft)ft.innerHTML=r==='setup'?'':trustFoot();
   let nv=$('#bnav');if(!nv){nv=document.createElement('nav');nv.id='bnav';document.body.appendChild(nv)}
   nv.innerHTML=r==='store'&&!loadErr?bnavHTML():'';navUpdate();
   const hh=$('.hd');document.documentElement.style.setProperty('--hh',(hh?hh.offsetHeight:58)+'px');
@@ -589,6 +621,7 @@ function visible(){
   const w=qWords();
   const l=liveProducts().filter(p=>(filt.view!=='favs'||FAV.includes(p.id))&&(!filt.cat||p.cat===filt.cat)&&(!filt.fac||p.factory_id===filt.fac)&&(!filt.size||list(p.sizes).includes(filt.size))&&(!filt.color||list(p.colors).includes(filt.color))&&(!filt.gov||govOf(fac(p.factory_id))===filt.gov)&&(!w.length||w.every(x=>hay(p).includes(x))));
   const k=filt.sort||'new';
+  if(k==='new')l.sort((a,b)=>(planRank(fac(b.factory_id))+(b.hot&&planRank(fac(b.factory_id))>=0?3:0))-(planRank(fac(a.factory_id))+(a.hot&&planRank(fac(a.factory_id))>=0?3:0)));
   if(k==='pop')l.sort((a,b)=>(POP[b.id]||0)-(POP[a.id]||0));
   else if(k==='cheap')l.sort((a,b)=>(hasPrice(a)?minPrice(a):1e9)-(hasPrice(b)?minPrice(b):1e9));
   return l;
@@ -640,11 +673,17 @@ function storeHTML(){
     <h1>${esc(s.name)}</h1><p>${esc(s.tagline)}</p>${s.home&&s.home.notice?`<p class="hnote">${esc(s.home.notice)}</p>`:''}
     <input class="search" id="q" type="search" placeholder="دوّر على موديل أو مصنع..." value="${esc(filt.q)}" oninput="filt.q=this.value;filt.n=12;dbPaint()">
     <div class="shortcuts">${[['بنطلون جينز','بنطلونات جينز'],['رجالي','رجالي'],['حريمي','حريمي'],['أطفال','أطفال'],['أقمشة','أقمشة جينز'],['__f','مصانع وموردين']].map(x=>`<button type="button" onclick="quick('${x[0]}')">${x[1]}</button>`).join('')}</div>
+    <div class="hbtns"><button class="btn" type="button" onclick="(document.getElementById('plist')||document.body).scrollIntoView({behavior:'smooth'})">تصفح الموديلات</button><a class="btn s" href="#factory">${myFactory?'لوحة مصنعي':'سجّل مصنعك / دخول المصانع'}</a></div>
     ${lp.length?`<div class="hstats"><span><b>${lp.length}</b>موديل</span><span><b>${nf}</b>مصنع</span></div>`:''}
   </section>`;
+  const vip=S.factories.filter(f=>isLive(f)&&planOf(f)==='vip'&&lp.some(p=>p.factory_id===f.id));
+  const home0=filt.view==='home'&&!filt.q&&!filt.fac&&!activeFilters();
+  const vh=home0&&vip.length?`<div class="sub">مصانع مميزة</div><div class="fgrid" style="margin-bottom:12px">${vip.map(f=>`<div class="fcl" role="button" tabindex="0" onclick="openFactory('${f.id}')"><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="">`:'🏭'}</span><b>${esc(f.name)}</b><small>${esc(govOf(f))}</small></div>`).join('')}</div>`:'';
+  const ofs=vip.filter(f=>f.offer&&f.offer.trim());
+  const oh=home0&&ofs.length?`<div class="sub">عروض المصانع</div>${ofs.map(f=>`<div class="offer" onclick="openFactory('${f.id}')"><b>${esc(f.name)}</b><span>${esc(f.offer)}</span></div>`).join('')}`:'';
   const rv=filt.view==='home'&&!filt.q&&!filt.fac&&!activeFilters()?RECENT.map(id=>liveProducts().find(p=>p.id===id)).filter(Boolean).slice(0,10):[];
   const rvh=rv.length?`<div class="sub">شاهدت مؤخرًا</div><div class="rv">${rv.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`:'';
-  return head+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
+  return head+vh+oh+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
   <div class="sorts" id="sorts">${sortHTML()}</div>
   <div id="plist">${gridHTML()}</div>`+(filt.view==='home'?footHTML():'');
 }
@@ -676,10 +715,10 @@ function gridHTML(){
       <div class="pic" onclick="openProduct('${p.id}')">${img?`<img src="${esc(img)}" alt="" loading="lazy" decoding="async">`:'👖'}${p.sold_out?'<span class="tag out">خلصان</span>':''}${!p.sold_out&&p.created_at&&Date.now()-new Date(p.created_at)<7*864e5?'<span class="tag new">جديد</span>':''}<button class="hrt ${isFav(p.id)?'on':''}" data-fav="${p.id}" type="button" aria-label="المفضلة" onclick="toggleFav('${p.id}',event)">${HEART}</button><button class="shr" type="button" aria-label="مشاركة" onclick="event.stopPropagation();shareP('${p.id}')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button></div>
       <div class="cb">${p.cat?`<div class="cat">${esc(p.cat)}</div>`:''}<h3 onclick="openProduct('${p.id}')">${esc(p.name)}</h3>
       <div class="fn" onclick="openFactory('${f.id}')" style="cursor:pointer">${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)}${f.verified?' ✔':''}${f.city?' • '+esc(f.city):''}</div>
-      <div class="ptag">${hasPrice(p)?`<span>${money(minPrice(p))} ج</span><small>للقطعة</small>`:`<span class="ptxt">${esc(noteOf(p)||DEF_NOTE)}</span>`}<a class="qbtn" href="${ask}" target="_blank" rel="noopener" onclick="tk('ask','${p.id}')" title="اسأل عن الأسعار" aria-label="اسأل عن الأسعار">؟</a></div>
+      <div class="ptag">${hasPrice(p)?`<span class="pv">${money(minPrice(p))} ج</span><small>للقطعة</small>`:`<span class="ptxt">${esc(noteOf(p)||'السعر عند التواصل')}</span>`}</div>
       <div class="meta">${[list(p.sizes).length?'مقاسات: '+list(p.sizes).slice(0,5).join('، '):'',list(p.colors).length?'ألوان: '+list(p.colors).slice(0,3).join('، '):''].filter(Boolean).map(esc).join(' • ')}</div>
       <div class="moq">${hasPrice(p)&&minQty(p)>1?`الحد الأدنى ${minQty(p)} قطعة`:''}</div>
-      <div class="acts"><button class="bd ${p.sold_out?'off':''}" type="button" onclick="openProduct('${p.id}')">${p.sold_out?'خلصان - التفاصيل':'عرض التفاصيل'}</button><a class="wbtn" href="${waTo(f.whatsapp||f.phone,`السلام عليكم، عايز أستفسر عن ${p.name} (${S.settings.name})`)}" target="_blank" rel="noopener" onclick="tk('ask','${p.id}')" aria-label="تواصل مع المورد على واتساب"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.3A8 8 0 1 1 21 12z"/></svg></a>${p.sold_out?'':`<button class="cbtn" type="button" aria-label="أضف لقائمة الطلب" onclick="addCart('${p.id}')">+</button>`}</div></div></div>`;
+      <div class="acts"><button class="bd ${p.sold_out?'off':''}" type="button" onclick="openProduct('${p.id}')">${p.sold_out?'خلصان - التفاصيل':'عرض التفاصيل'}</button><a class="wbtn" href="${waTo(f.whatsapp||f.phone,`السلام عليكم، عايز أستفسر عن ${p.name} (${S.settings.name})`)}" target="_blank" rel="noopener" onclick="tk('ask','${p.id}');recInq('${p.id}','تواصل من بطاقة الموديل')" aria-label="تواصل مع المورد على واتساب"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.3A8 8 0 1 1 21 12z"/></svg></a>${p.sold_out?'':`<button class="cbtn" type="button" aria-label="أضف لقائمة الطلب" onclick="addCart('${p.id}')">+</button>`}</div></div></div>`;
   }).join('')+'</div>'+(l.length>n?`<button class="more" type="button" onclick="filt.n=(filt.n||12)+12;paint()">عرض المزيد (${l.length-n})</button>`:'');
 }
 function orderURL(p,o){
@@ -810,15 +849,36 @@ function factoryHTML(){
   const subInfo=`${S.settings.sub_price?`<p><b>${esc(S.settings.sub_price)}</b></p>`:''}<p>${esc(S.settings.sub_note)}</p>`;
   if(f.status==='blocked')banner=`<div class="banner bad"><b>مصنعك موقوف.</b> كلّم الإدارة.</div>`;
   else if(f.status==='pending')banner=`<div class="banner warn"><b>مصنعك مستني التفعيل.</b> موديلاتك مش هتظهر للتجار قبل ما تشترك.${subInfo}${payBtn}</div>`;
+  else if(f.paused)banner=`<div class="banner warn"><b>حسابك متوقف مؤقتًا.</b> موديلاتك مخفية عن التجار. ارجع شغّله من تبويب «الحساب».</div>`;
   else if(!live)banner=`<div class="banner bad"><b>اشتراكك انتهى.</b> موديلاتك مخفية دلوقتي لحد ما تجدد.${subInfo}${payBtn}</div>`;
+  else if(planOf(f)==='free')banner=`<div class="banner ok"><b>باقتك مجانية (FREE)</b> — تضيف لحد 3 موديلات. عايز أكتر؟ <a href="#factory" onclick="ftab='sub'">شوف الباقات</a></div>`;
+  else if(forever(f.paid_until))banner=`<div class="banner ok"><b>اشتراكك شغال</b> بدون تاريخ انتهاء</div>`;
   else if(daysLeft(f)<=7)banner=`<div class="banner ${daysLeft(f)<=3?'bad':'warn'}"><b>⚠️ اشتراكك هينتهي ${daysLeft(f)<=0?'النهارده':'بعد '+daysLeft(f)+' يوم'}</b> (${esc(f.paid_until)}). جدّد عشان موديلاتك ما تتخفيش عن التجار.${subInfo}${payBtn}</div>`;
   else banner=`<div class="banner ok"><b>اشتراكك شغال</b> لحد ${esc(f.paid_until)} (باقي ${daysLeft(f)} يوم)</div>`;
   return `<div class="bar" style="justify-content:space-between"><div>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="" style="width:42px;height:42px;border-radius:12px;object-fit:cover;vertical-align:middle;margin-left:8px">`:''}<b style="font-size:18px">${esc(f.name)}</b> ${f.verified?'<span class="st ok">موثّق ✔</span>':''}<div class="note">${esc(f.phone)}${f.city?' • '+esc(f.city):''}</div></div><button class="btn s sm" onclick="logout()">خروج</button></div>
+  ${notifHTML(f)}
   ${banner}
   <div class="bar"><a class="btn s sm" href="#f=${f.id}">شوف صفحة مصنعك</a><button class="btn s sm" onclick="copyLink(shareURL('f=${f.id}'))">انسخ رابط صفحتك</button></div>
-  ${statsBox({f:f.id})}
-  <div class="tabs"><button class="tab ${ftab==='models'?'on':''}" onclick="ftab='models';render()">موديلاتي (${mine.length})</button><button class="tab ${ftab==='info'?'on':''}" onclick="ftab='info';render()">بيانات المصنع</button></div>
-  ${ftab==='models'?modelsHTML(mine,live):infoHTML(f)}`;
+  ${hasStats(f)?statsBox({f:f.id}):'<div class="note panel">إحصائيات المشاهدات متاحة في باقة PRO و VIP. <a href="#factory" onclick="ftab=\'sub\'">رقّي باقتك</a></div>'}
+  <div class="tabs">${[['models','موديلاتي ('+mine.length+')'],['inq','الاستفسارات'+(S.inqs&&S.inqs.filter(x=>!x.seen).length?' ('+S.inqs.filter(x=>!x.seen).length+')':'')],['sub','الاشتراك'],['info','بيانات المصنع'],['acct','الحساب']].map(t=>`<button class="tab ${ftab===t[0]?'on':''}" onclick="ftab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>
+  ${ftab==='models'?modelsHTML(mine,live):ftab==='inq'?inqTab():ftab==='sub'?subTabHTML(f):ftab==='acct'?acctTab(f):infoHTML(f)}`;
+}
+
+function notifHTML(f){
+  const n=(S.inqs||[]).filter(x=>!x.seen).length,o=[];
+  if(n)o.push(`<a href="#factory" onclick="ftab='inq';render()">🔔 عندك ${n} استفسار جديد</a>`);
+  if(!forever(f.paid_until)&&f.paid_until&&isLive(f)&&daysLeft(f)<=7)o.push(`<a href="#factory" onclick="ftab='sub';render()">⏳ اشتراكك هينتهي خلال ${Math.max(0,daysLeft(f))} يوم</a>`);
+  const ap=(S.payments||[]).find(x=>x.status==='approved'&&Date.now()-new Date(x.decided_at||0)<5*864e5);
+  if(ap)o.push('✅ تم تفعيل باقتك بعد مراجعة الدفع');
+  const rj=(S.payments||[]).find(x=>x.status==='rejected'&&Date.now()-new Date(x.decided_at||0)<5*864e5);
+  if(rj)o.push('❌ طلب الدفع اترفض'+(rj.note?': '+esc(rj.note):''));
+  return o.length?`<div class="notif">${o.map(x=>`<div>${x}</div>`).join('')}</div>`:'';
+}
+function acctTab(f){
+  return `<div class="panel"><b>إيقاف الحساب مؤقتًا</b><p class="note">${f.paused?'حسابك متوقف ومخفي عن التجار.':'تقدر تخفي مصنعك وموديلاتك عن التجار وترجّعه وقت ما تحب.'}</p><div class="bar"><button class="btn s sm" onclick="togglePause()">${f.paused?'تشغيل الحساب':'إيقاف مؤقت'}</button></div></div>
+  ${pwBlock()}
+  <div class="panel"><b>طلب حذف الحساب</b><p class="note">هنحذف مصنعك وموديلاتك بعد مراجعة الطلب.</p><div class="bar"><button class="btn d sm" onclick="requestDelete()">اطلب حذف حسابي</button></div></div>
+  <div class="bar"><button class="btn s sm" onclick="logout()">خروج</button></div>`;
 }
 function modelsHTML(mine,live){
   return `<div class="bar"><button class="btn" ${live?'':'disabled'} onclick="productModal()">+ موديل جديد</button>${live?'':'<span class="note">إضافة وتعديل الموديلات بتشتغل مع الاشتراك الشغال.</span>'}</div>`+
@@ -835,17 +895,19 @@ function infoHTML(f){
   <div class="row"><div><label class="f" for="ig">المحافظة</label><select id="ig"><option value="">اختار</option>${GOVS.map(g=>`<option ${f.governorate===g?'selected':''}>${g}</option>`).join('')}</select></div><div><label class="f" for="ia">المنطقة / العنوان</label><input id="ia" value="${esc(f.address||'')}" placeholder="مثال: المنطقة الصناعية"></div></div>
   <label class="f" for="is">التخصصات (بينها فاصلة)</label><input id="is" value="${esc(f.specialties||'')}" placeholder="جينز رجالي, جينز أطفال">
   <label class="f" for="id">نبذة عن النشاط</label><textarea id="id">${esc(f.descr)}</textarea>
+  ${'offer' in f?(planOf(f)==='vip'?`<label class="f" for="io">عرض / إعلان المصنع (يظهر في الصفحة الرئيسية)</label><input id="io" maxlength="120" value="${esc(f.offer||'')}" placeholder="مثال: خصم على الكميات الكبيرة">`:'<div class="note">مساحة الإعلان في الصفحة الرئيسية متاحة في باقة VIP.</div>'):''}
   ${'governorate' in f?'':'<div class="note">لإضافة المحافظة والتخصصات والغلاف: لازم صاحب المنصة يشغّل كود التحديث SQL.</div>'}
   <div class="bar"><button class="btn" onclick="saveInfo()">حفظ</button></div></div>`;
 }
 async function saveInfo(){
   const w=normPhone($('#iw').value);if(!w){toast('اكتب رقم واتساب صحيح');return}
   if(!$('#in').value.trim()){toast('اكتب اسم المصنع');return}
-  const r=await sb.from('factories').update({name:$('#in').value.trim(),city:$('#ic').value.trim(),whatsapp:w,descr:$('#id').value.trim(),...('logo' in myFactory?{logo:tmp.flogo||''}:{}),...('governorate' in myFactory?{governorate:$('#ig').value,address:$('#ia').value.trim(),specialties:$('#is').value.trim(),cover:tmp.fcover||''}:{})}).eq('id',myFactory.id);
+  const r=await sb.from('factories').update({name:$('#in').value.trim(),city:$('#ic').value.trim(),whatsapp:w,descr:$('#id').value.trim(),...('logo' in myFactory?{logo:tmp.flogo||''}:{}),...('offer' in myFactory&&planOf(myFactory)==='vip'?{offer:($('#io')||{value:''}).value.trim()}:{}),...('governorate' in myFactory?{governorate:$('#ig').value,address:$('#ia').value.trim(),specialties:$('#is').value.trim(),cover:tmp.fcover||''}:{})}).eq('id',myFactory.id);
   if(r.error){toast(errMsg(r.error));return}
   toast('logo' in myFactory?'اتحفظ ✔':'اتحفظ ✔ (اللوجو محتاج كود التحديث SQL)',6000);await reload();
 }
 function productModal(id){
+  if(!id&&myFactory&&planLimit(myFactory)&&S.products.filter(x=>x.factory_id===myFactory.id).length>=planLimit(myFactory)){toast('وصلت للحد الأقصى لباقتك ('+planLimit(myFactory)+' موديلات). رقّي باقتك',5000);ftab='sub';render();return}
   const p=id?S.products.find(x=>x.id===id):{name:'',cat:'',descr:'',sizes:'',colors:'',imgs:[],tiers:[],sold_out:false,hidden:false};
   tmp.imgs=[...(p.imgs||[])];
   const rt=realTiers(p).sort((a,b)=>a.min-b.min),first=rt[0],rest=rt.slice(1);
@@ -864,6 +926,7 @@ function productModal(id){
   <input id="pt" value="${rest.map(t=>t.min+':'+t.price).join(', ')}" placeholder="200:245, 500:230">
   <div class="note" style="font-size:12px;color:var(--mu)">الشكل: الكمية:السعر، وبينهم فاصلة.</div>
   <label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="po" style="width:auto" ${p.sold_out?'checked':''}> خلصان (غير متاح)</label>
+  ${myFactory&&['pro','vip','legacy'].includes(planOf(myFactory))?`<label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="phot" style="width:auto" ${p.hot?'checked':''}> إبراز الموديل (يظهر في الأول)</label>`:''}
   <label class="f" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ph2" style="width:auto" ${p.hidden?'checked':''}> إخفاء من المتجر</label>
   <div class="bar"><button class="btn" id="psave" onclick="saveProduct('${id||''}')">حفظ</button><button class="btn s" onclick="closeM()">إلغاء</button></div>`);
 }
@@ -874,7 +937,7 @@ async function saveProduct(id){
   if(pr>0)tiers.push({min:pq,price:pr});
   tiers.push(...parseTiers($('#pt').value));
   if(note)tiers.push({note});
-  const o={factory_id:myFactory.id,name:$('#pn').value.trim(),cat:$('#pc').value.trim(),descr:$('#pd').value.trim(),sizes:$('#ps').value.trim(),colors:$('#pcl').value.trim(),imgs:[...tmp.imgs],tiers,sold_out:$('#po').checked,hidden:$('#ph2').checked};
+  const o={factory_id:myFactory.id,name:$('#pn').value.trim(),cat:$('#pc').value.trim(),descr:$('#pd').value.trim(),sizes:$('#ps').value.trim(),colors:$('#pcl').value.trim(),imgs:[...tmp.imgs],tiers,sold_out:$('#po').checked,hidden:$('#ph2').checked,...(S.products.some(x=>'hot' in x)&&$('#phot')?{hot:$('#phot').checked}:{})};
   $('#psave').disabled=true;
   const r=id?await sb.from('products').update(o).eq('id',id):await sb.from('products').insert(o);
   if(r.error){$('#psave').disabled=false;toast(errMsg(r.error));return}
@@ -921,7 +984,7 @@ function pageHTML(k){
   ${k==='contact'&&w?`<div class="bar"><a class="btn" target="_blank" rel="noopener" href="${waTo(w,'السلام عليكم، عندي استفسار بخصوص '+S.settings.name)}">تواصل مع الإدارة على واتساب</a></div>`:k==='contact'?'<p class="note">رقم الإدارة لسه ماتحطش.</p>':''}
   <div class="bar"><a class="btn s" href="#">← رجوع للمتجر</a></div></div>`;
 }
-function footHTML(){
+function trustFoot(){
   return `<div class="ftl">${Object.keys(PAGEMETA).map(k=>`<a href="#${k}">${esc(PAGEMETA[k][0].replace('إرشادات التعامل بين التاجر والمصنع','إرشادات التعامل'))}</a>`).join('')}</div><div class="ftc">© ${esc(S.settings.name)}</div>`;
 }
 function openReport(type,id){
@@ -967,6 +1030,266 @@ async function savePages(){
   const r=await sb.from('settings').update({pages}).eq('id',1);toast(r.error?errMsg(r.error):'تم الحفظ ✔');if(!r.error)await reload()
 }
 
+
+/* ================= الباقات + المدفوعات + الاستفسارات + حسابات التجار ================= */
+const PLANS={
+ free:{n:'مجانية',en:'FREE',price:0,limit:3,col:'#16a34a',feats:['صفحة مصنع','إضافة 3 موديلات','استقبال استفسارات التجار']},
+ basic:{n:'أساسية',en:'BASIC',price:299,limit:15,col:'#2563eb',feats:['إضافة حتى 15 موديلًا','صفحة مصنع احترافية','استقبال طلبات التجار']},
+ pro:{n:'احترافية',en:'PRO',price:599,limit:0,col:'#D4AF37',feats:['موديلات غير محدودة','ظهور أفضل في نتائج البحث','إحصائيات المشاهدات','إبراز المنتجات']},
+ vip:{n:'مميزة',en:'VIP',price:999,limit:0,col:'#7c3aed',feats:['كل مميزات PRO','ظهور مميز في الصفحة الرئيسية','مساحة إعلانية للمصنع','أولوية الدعم الفني']}};
+const planOf=f=>(f&&'plan' in f&&f.plan)?f.plan:'legacy';
+const planPrice=k=>{const o=S.settings.plans;const v=o&&typeof o==='object'?o[k]:undefined;return v!==undefined&&v!==''&&+v>=0?+v:PLANS[k].price};
+const planLimit=f=>{const p=PLANS[planOf(f)];return p?p.limit:0};
+const hasStats=f=>['pro','vip','legacy'].includes(planOf(f));
+const planRank=f=>({vip:2,pro:1}[planOf(f)]||0);
+const planName=f=>planOf(f)==='legacy'?'باقة قديمة (بدون حدود)':PLANS[planOf(f)].n+' '+PLANS[planOf(f)].en;
+const forever=d=>d&&d>='2090-01-01';
+let payErr=false,inqErr=false,trErr=false,myTrader=null,subTab='plans';
+async function loadReports(){
+ S.reports=[];S.traders=[];S.payments=[];S.inqs=[];repErr=payErr=inqErr=trErr=false;
+ const g=async(t,col)=>{try{let x=sb.from(t).select('*');if(col)x=x.eq(col[0],col[1]);return await x.order('created_at',{ascending:false})}catch(e){return {error:e}}};
+ if(isAdmin){
+  const [a,b,c,d]=await Promise.all([g('reports'),g('traders'),g('payments'),g('inquiries')]);
+  S.reports=a.data||[];repErr=!!a.error;S.traders=b.data||[];trErr=!!b.error;S.payments=c.data||[];payErr=!!c.error;S.inqs=d.data||[];inqErr=!!d.error;
+ }else if(myFactory){
+  const [c,d]=await Promise.all([g('payments',['factory_id',myFactory.id]),g('inquiries',['factory_id',myFactory.id])]);
+  S.payments=c.data||[];payErr=!!c.error;S.inqs=d.data||[];inqErr=!!d.error;
+ }
+}
+let favT=null;
+function pushFavs(){if(!myTrader||!sb)return;clearTimeout(favT);favT=setTimeout(()=>{sb.from('traders').update({favs:FAV,favf:FAVF}).eq('id',me.id).then(()=>{},()=>{})},700)}
+function syncFavs(){
+ if(!myTrader)return;
+ const a=Array.isArray(myTrader.favs)?myTrader.favs:[],b=Array.isArray(myTrader.favf)?myTrader.favf:[];
+ const u=(x,y)=>[...new Set([...x,...y])];
+ const nf=u(FAV,a),nff=u(FAVF,b);
+ const ch=nf.length!==a.length||nff.length!==b.length;
+ FAV.splice(0,FAV.length,...nf);FAVF.splice(0,FAVF.length,...nff);
+ ls.set('jd_fav',JSON.stringify(FAV));ls.set('jd_favf',JSON.stringify(FAVF));
+ if(ch)pushFavs();
+}
+function planBadge(f){const k=planOf(f);if(k==='legacy')return '';const p=PLANS[k];return `<span class="pbadge" style="background:${p.col}">${p.en}</span>`}
+
+/* --- حساب التاجر --- */
+function accountHTML(){
+ if(!me)return traderAuthHTML();
+ if(myTrader)return traderProfileHTML();
+ if(myFactory)return `<div class="panel fbox"><h2>حسابك حساب مصنع</h2><p class="note">أنت داخل بحساب مصنع «${esc(myFactory.name)}». لو عايز حساب تاجر استخدم رقم تاني.</p><div class="bar"><a class="btn" href="#factory">لوحة المصنع</a><button class="btn s" onclick="logout()">خروج</button></div></div>`;
+ if(isAdmin)return `<div class="panel fbox"><h2>حساب الإدارة</h2><div class="bar"><a class="btn" href="#admin">لوحة الإدارة</a><button class="btn s" onclick="logout()">خروج</button></div></div>`;
+ return `<div class="panel fbox"><h2>كمّل حساب التاجر</h2><label class="f" for="tn">اسمك</label><input id="tn" autocomplete="name"><div class="bar"><button class="btn" id="authbtn" onclick="completeTrader()">إنشاء حساب التاجر</button><button class="btn s" onclick="logout()">خروج</button></div></div>`;
+}
+function traderAuthHTML(){
+ const reg=authMode==='register';
+ return `<div class="panel fbox"><h2>حساب التاجر</h2><p class="note">مجاني بالكامل. بيحفظ مفضلتك على أي جهاز وبيسهّل التواصل مع المصانع.</p>
+ <div class="tabs"><button class="tab ${!reg?'on':''}" onclick="authMode='login';render()">دخول</button><button class="tab ${reg?'on':''}" onclick="authMode='register';render()">حساب جديد</button></div>
+ ${reg?`<label class="f" for="tn">الاسم</label><input id="tn" autocomplete="name">`:''}
+ <label class="f" for="ph">رقم الموبايل</label><input id="ph" inputmode="tel" autocomplete="username" placeholder="01xxxxxxxxx">
+ <label class="f" for="pw">كلمة السر</label><input id="pw" type="password" autocomplete="${reg?'new-password':'current-password'}" placeholder="6 حروف أو أرقام على الأقل">
+ <div class="bar"><button class="btn" id="authbtn" onclick="${reg?'doTraderRegister()':'doTraderLogin()'}">${reg?'إنشاء الحساب':'دخول'}</button></div>
+ ${reg?'':forgotHTML()}<div class="bar"><a class="btn s sm" href="#">← رجوع للمتجر</a></div></div>`;
+}
+function forgotHTML(){
+ const w=S.settings.owner_whatsapp;
+ return w?`<p class="note"><a href="#" onclick="forgotPw();return false">نسيت كلمة السر؟</a> هنكلمك على واتساب ونعيّنها من الإدارة.</p>`:'';
+}
+function forgotPw(){const ph=normPhone(($('#ph')||{}).value||'');window.open(ownerWa('السلام عليكم، نسيت كلمة السر'+(ph?' للرقم '+ph:'')+'. ممكن تعيّنوها لي؟'),'_blank')}
+async function doTraderLogin(){
+ const ph=normPhone($('#ph').value),pw=$('#pw').value;
+ if(!ph){toast('اكتب رقم موبايل صحيح (01xxxxxxxxx)');return}
+ if(!pw){toast('اكتب كلمة السر');return}
+ const b=$('#authbtn');b.disabled=true;
+ const r=await sb.auth.signInWithPassword({email:emailOf(ph),password:pw});
+ b.disabled=false;if(r.error){toast(errMsg(r.error));return}
+ await reload();
+}
+async function doTraderRegister(){
+ const ph=normPhone($('#ph').value),pw=$('#pw').value,name=$('#tn').value.trim();
+ if(!name){toast('اكتب اسمك');return}
+ if(!ph){toast('اكتب رقم موبايل صحيح (01xxxxxxxxx)');return}
+ if(pw.length<6){toast('كلمة السر لازم تكون 6 حروف أو أرقام على الأقل');return}
+ const b=$('#authbtn');b.disabled=true;
+ let r=await sb.auth.signUp({email:emailOf(ph),password:pw});
+ if(r.error&&/already registered|already exists/i.test(r.error.message||'')){
+  const li=await sb.auth.signInWithPassword({email:emailOf(ph),password:pw});
+  if(li.error){b.disabled=false;toast('الرقم ده مسجّل قبل كده بكلمة سر تانية');return}
+  const u=li.data.user||li.data.session.user;
+  const ex=await sb.from('factories').select('id').eq('id',u.id).maybeSingle();
+  if(ex.data){b.disabled=false;toast('الرقم ده مسجّل كمصنع. استخدم رقم تاني للتاجر أو ادخل من بوابة المصانع');await sb.auth.signOut();return}
+  const et=await sb.from('traders').select('id').eq('id',u.id).maybeSingle();
+  if(et.data){b.disabled=false;toast('الحساب موجود. اعمل دخول');await reload();return}
+  r={data:{user:u,session:li.data.session}};
+ }
+ if(r.error){b.disabled=false;toast(errMsg(r.error));return}
+ if(!r.data||!r.data.session){b.disabled=false;toast('لازم صاحب المنصة يقفل "Confirm email" من إعدادات Supabase',7000);return}
+ const ins=await sb.from('traders').insert({id:r.data.user.id,name,phone:ph});
+ b.disabled=false;if(ins.error){toast(errMsg(ins.error));return}
+ authMode='login';toast('تم إنشاء حسابك ✔');await reload();
+}
+async function completeTrader(){
+ const name=$('#tn').value.trim();if(!name){toast('اكتب اسمك');return}
+ const ph=String((me.email||'').split('@')[0]);
+ const ins=await sb.from('traders').insert({id:me.id,name,phone:ph});
+ if(ins.error){toast(errMsg(ins.error));return}
+ toast('تم ✔');await reload();
+}
+function traderProfileHTML(){
+ const t=myTrader;
+ return `<div class="panel fbox"><h2>حسابي</h2>
+ <div class="note">${esc(t.phone)} • ${FAV.length} موديل و${FAVF.length} مصنع في المفضلة (محفوظين على حسابك)</div>
+ <label class="f" for="tn">الاسم</label><input id="tn" value="${esc(t.name)}">
+ <div class="bar"><button class="btn" onclick="saveTrader()">حفظ</button><button class="btn s" onclick="logoutTrader()">خروج</button></div></div>
+ ${pwBlock()}
+ <div class="panel"><b>طلب حذف الحساب</b><p class="note">هنحذف حسابك وبياناتك بعد مراجعة الطلب.</p><div class="bar"><button class="btn d sm" onclick="requestDelete()">اطلب حذف حسابي</button></div></div>
+ <div class="bar"><a class="btn s sm" href="#">← رجوع للمتجر</a></div>`;
+}
+async function saveTrader(){
+ const n=$('#tn').value.trim();if(!n){toast('اكتب اسمك');return}
+ const r=await sb.from('traders').update({name:n}).eq('id',me.id);
+ toast(r.error?errMsg(r.error):'اتحفظ ✔');if(!r.error)await reload();
+}
+async function logoutTrader(){FAV.length=0;FAVF.length=0;ls.set('jd_fav','[]');ls.set('jd_favf','[]');await logout()}
+function pwBlock(){
+ return `<div class="panel"><b>تغيير كلمة السر</b><label class="f" for="npw">كلمة السر الجديدة</label><input id="npw" type="password" autocomplete="new-password" placeholder="6 حروف أو أرقام على الأقل"><div class="bar"><button class="btn sm" onclick="changePw()">تغيير</button></div></div>`;
+}
+async function changePw(){
+ const v=$('#npw').value;if(v.length<6){toast('كلمة السر لازم تكون 6 حروف أو أرقام على الأقل');return}
+ const r=await sb.auth.updateUser({password:v});
+ if(r.error){toast(errMsg(r.error));return}
+ $('#npw').value='';toast('اتغيرت كلمة السر ✔');
+}
+function requestDelete(){
+ ask('تطلب حذف حسابك؟',async()=>{
+  const r=await sb.from('reports').insert({kind:'delete',target_id:me.id,reason:'طلب حذف حساب',details:myFactory?'مصنع: '+myFactory.name:'تاجر: '+((myTrader&&myTrader.name)||''),contact:String((me.email||'').split('@')[0])});
+  toast(r.error?errMsg(r.error):'وصل طلبك للإدارة وهيتم التواصل معاك ✔',5000);
+ });
+}
+async function togglePause(){
+ const v=!myFactory.paused;
+ const r=await sb.from('factories').update({paused:v}).eq('id',myFactory.id);
+ if(r.error){toast(errMsg(r.error));return}
+ toast(v?'حسابك اتوقف مؤقتًا':'حسابك رجع شغال ✔');await reload();
+}
+
+/* --- الاستفسارات --- */
+async function recInq(pid,msg){
+ try{
+  const p=S.products.find(x=>x.id===pid);if(!p)return;
+  await sb.from('inquiries').insert({factory_id:p.factory_id,product_id:pid,trader_id:myTrader?me.id:null,name:myTrader?myTrader.name:'',phone:myTrader?myTrader.phone:'',message:String(msg||'').slice(0,500)});
+ }catch(e){}
+}
+async function recInqFac(fid,msg){
+ try{await sb.from('inquiries').insert({factory_id:fid,product_id:null,trader_id:myTrader?me.id:null,name:myTrader?myTrader.name:'',phone:myTrader?myTrader.phone:'',message:String(msg||'').slice(0,500)})}catch(e){}
+}
+const newInq=()=>(S.inqs||[]).filter(x=>!x.seen).length;
+function inqTab(){
+ if(inqErr)return '<div class="panel note">الاستفسارات محتاجة تحديث قاعدة البيانات (ملف SQL). تواصل مع صاحب المنصة.</div>';
+ if(!S.inqs.length)return '<div class="empty">لسه مفيش استفسارات. أي تاجر يستفسر عن موديلاتك هتلاقيه هنا.</div>';
+ const ids=S.inqs.filter(x=>!x.seen).map(x=>x.id);
+ return (ids.length?`<div class="bar"><button class="btn s sm" onclick="seenAll()">تعليم الكل كمقروء</button></div>`:'')+S.inqs.map(x=>{
+  const p=S.products.find(y=>y.id===x.product_id);
+  return `<div class="panel" style="${x.seen?'opacity:.7':''}"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${p?esc(p.name):'استفسار عام'}</b><span class="st ${x.seen?'ok':'warn'}">${x.seen?'مقروء':'جديد'}</span></div>
+  <div class="note">${esc(x.message)||'—'}</div><div class="note">${x.name?esc(x.name):'تاجر (بدون حساب)'}${x.phone?' • '+esc(x.phone):''} • ${esc(String(x.created_at||'').slice(0,10))}</div>
+  <div class="bar">${x.phone?`<a class="btn g sm" target="_blank" rel="noopener" href="${waTo(x.phone,'السلام عليكم، بخصوص استفسارك على '+(p?p.name:'موديلاتنا'))}">رد على واتساب</a><a class="btn s sm" href="tel:${esc(x.phone)}">اتصال</a>`:''}${x.seen?'':`<button class="btn s sm" onclick="seenOne('${x.id}')">تمت القراءة</button>`}</div></div>`}).join('');
+}
+async function seenOne(id){await sb.from('inquiries').update({seen:true}).eq('id',id);await reload()}
+async function seenAll(){await sb.from('inquiries').update({seen:true}).eq('factory_id',myFactory.id).eq('seen',false);await reload()}
+
+/* --- الاشتراكات --- */
+function subTabHTML(f){
+ const k=planOf(f),cur=k==='legacy'?null:PLANS[k];
+ const pend=(S.payments||[]).find(x=>x.status==='pending');
+ const exp=f.paid_until&&!forever(f.paid_until)?`${esc(f.paid_until)} ${isLive(f)?'(باقي '+daysLeft(f)+' يوم)':'(منتهي)'}`:(forever(f.paid_until)?'بدون تاريخ انتهاء':'—');
+ return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>باقتك الحالية</b>${cur?`<span class="pbadge" style="background:${cur.col}">${cur.en}</span>`:'<span class="st ok">باقة قديمة</span>'}</div>
+ <div class="note">${esc(planName(f))}</div>
+ <div class="note">${f.plan_start?'بدايتها: '+esc(f.plan_start)+' • ':''}الانتهاء: ${exp}</div>
+ ${pend?`<div class="banner warn" style="margin-top:8px">طلب دفع (${PLANS[pend.plan].en} - ${pend.months} شهر - ${pend.amount} ج) مستني مراجعة الإدارة.</div>`:''}</div>
+ <div class="plans">${['free','basic','pro','vip'].map(q=>{
+  const p=PLANS[q],cr=q===k,pr=planPrice(q);
+  return `<div class="plan" style="--pc:${p.col}${cr?';box-shadow:0 0 0 2px '+p.col:''}"><div class="ph"><b>${p.en}</b><span>${p.n}</span></div>
+  <div class="pp">${pr?pr+' <small>ج / شهر</small>':'مجانًا'}</div>
+  <ul>${p.feats.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+  ${q==='free'?`<div class="note" style="text-align:center">${cr?'باقتك الحالية':'الباقة الأساسية لأي مصنع'}</div>`:`<button class="btn sm" style="background:${p.col};color:${q==='pro'?'#081327':'#fff'}" ${pend?'disabled':''} onclick="payModal('${q}')">${cr?'تجديد':(k==='legacy'||k==='free'||(PLANS[k]&&planPrice(k)<pr))?(k==='free'||k==='legacy'?'اشترك':'ترقية'):'اشترك'}</button>`}</div>`}).join('')}</div>
+ <div class="panel"><b>طريقة الدفع</b><p class="note">${esc(S.settings.sub_note||'تواصل مع الإدارة لمعرفة بيانات التحويل.')}</p><p class="note">حوّل المبلغ، وبعدها دوس «اشترك» وارفع صورة الإيصال. الإدارة بتراجع وتفعّل الباقة.</p></div>
+ <h3>سجل المدفوعات</h3>${payErr?'<div class="note">سجل المدفوعات محتاج تحديث قاعدة البيانات (ملف SQL).</div>':(S.payments.length?S.payments.map(x=>`<div class="item"><div class="m"><b>${PLANS[x.plan]?PLANS[x.plan].en:esc(x.plan)} • ${x.months} شهر • ${x.amount} ج</b><small>${esc(String(x.created_at||'').slice(0,10))}${x.note?' • '+esc(x.note):''}</small></div><span class="st ${x.status==='approved'?'ok':x.status==='rejected'?'bad':'warn'}">${x.status==='approved'?'تم التفعيل':x.status==='rejected'?'مرفوض':'قيد المراجعة'}</span></div>`).join(''):'<div class="empty">لسه مفيش مدفوعات</div>')}`;
+}
+function payModal(q){
+ tmp.rcpt='';const p=PLANS[q];
+ modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h2 style="margin-top:0">اشتراك ${p.en}</h2>
+ <label class="f" for="pmn">المدة</label><select id="pmn" onchange="payTotal('${q}')">${[1,3,6,12].map(m=>`<option value="${m}">${m===1?'شهر':m===12?'سنة':m+' شهور'}</option>`).join('')}</select>
+ <div class="pp" id="ptot" style="margin:8px 0"></div>
+ <p class="note">${esc(S.settings.sub_note||'')}</p>
+ <label class="f">صورة إيصال التحويل</label><div class="imgs"><div id="rcptPrev">${prevHTML('rcpt')}</div><label class="addimg">ارفع الإيصال<input type="file" accept="image/*" onchange="pickOne(this,'rcpt')"></label></div>
+ <label class="f" for="pref">رقم المحوِّل أو رقم العملية (اختياري)</label><input id="pref" maxlength="40">
+ <div class="bar"><button class="btn" onclick="sendPay('${q}')">إرسال للمراجعة</button><button class="btn s" onclick="closeM()">إلغاء</button></div>`);
+ payTotal(q);
+}
+function payTotal(q){const m=+$('#pmn').value;$('#ptot').textContent='الإجمالي: '+(planPrice(q)*m)+' جنيه'}
+async function sendPay(q){
+ if(!tmp.rcpt){toast('ارفع صورة الإيصال الأول');return}
+ const m=+$('#pmn').value;
+ const r=await sb.from('payments').insert({factory_id:me.id,plan:q,months:m,amount:planPrice(q)*m,receipt:tmp.rcpt,ref:$('#pref').value.trim()});
+ if(r.error){toast(errMsg(r.error));return}
+ closeM();toast('وصل طلبك. هنراجع الدفع ونفعّل الباقة ✔',5000);await reload();
+}
+
+/* --- لوحة الإدارة: المدفوعات والتجار --- */
+const money2=n=>(Math.round(n*100)/100).toLocaleString('ar-EG');
+function planEditor(){
+ if(!('plans' in S.settings))return '<div class="panel note">تعديل الأسعار محتاج تشغّل ملف SQL المحدّث.</div>';
+ return `<div class="panel"><b>أسعار الباقات (جنيه / شهر)</b><div class="row">${['basic','pro','vip'].map(q=>`<div><label class="f" for="pp_${q}">${PLANS[q].en}</label><input id="pp_${q}" type="number" min="0" inputmode="numeric" value="${planPrice(q)}"></div>`).join('')}</div><div class="bar"><button class="btn sm" onclick="savePlans()">حفظ الأسعار</button></div></div>`;
+}
+async function savePlans(){
+ const plans={};['basic','pro','vip'].forEach(q=>{const v=+$('#pp_'+q).value;if(v>=0)plans[q]=v});
+ const r=await sb.from('settings').update({plans}).eq('id',1);toast(r.error?errMsg(r.error):'تم الحفظ ✔');if(!r.error)await reload();
+}
+function adminPayments(){
+ if(payErr)return '<div class="panel note">جدول المدفوعات لسه مش متفعّل. شغّل ملف SQL المحدّث.</div>';
+ const ap=S.payments.filter(x=>x.status==='approved'),tot=ap.reduce((a,x)=>a+(+x.amount||0),0);
+ const mo=today().slice(0,7),tm=ap.filter(x=>String(x.decided_at||x.created_at).slice(0,7)===mo).reduce((a,x)=>a+(+x.amount||0),0);
+ const subs=S.factories.filter(f=>isLive(f)&&['basic','pro','vip'].includes(planOf(f))).length;
+ const kp=`<div class="kpis"><div><b>${money2(tot)}</b><span>إجمالي الإيرادات (ج)</span></div><div><b>${money2(tm)}</b><span>الشهر ده (ج)</span></div><div><b>${subs}</b><span>مصنع مشترك</span></div></div>`;
+ const order={pending:0,approved:1,rejected:2};
+ return kp+planEditor()+(S.payments.length?[...S.payments].sort((a,b)=>order[a.status]-order[b.status]).map(x=>{
+  const f=fac(x.factory_id);
+  return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${esc(f.name||'(مصنع محذوف)')}</b><span class="st ${x.status==='approved'?'ok':x.status==='rejected'?'bad':'warn'}">${x.status==='approved'?'تم التفعيل':x.status==='rejected'?'مرفوض':'جديد'}</span></div>
+  <div class="note">${PLANS[x.plan]?PLANS[x.plan].en:esc(x.plan)} • ${x.months} شهر • ${x.amount} ج • ${esc(String(x.created_at||'').slice(0,10))}${x.ref?' • عملية: '+esc(x.ref):''}${x.note?' • '+esc(x.note):''}</div>
+  <div class="bar">${x.receipt?`<a class="btn s sm" target="_blank" rel="noopener" href="${esc(x.receipt)}">شوف الإيصال</a>`:''}
+  ${x.status==='pending'?`<button class="btn sm" onclick="approvePay('${x.id}')">قبول وتفعيل</button><button class="btn d sm" onclick="rejectPay('${x.id}')">رفض</button>`:''}</div></div>`}).join(''):'<div class="empty">مفيش مدفوعات</div>');
+}
+async function approvePay(id){
+ const x=S.payments.find(p=>p.id===id),f=S.factories.find(y=>y.id===x.factory_id);if(!f){toast('المصنع مش موجود');return}
+ const same=planOf(f)===x.plan&&f.paid_until&&f.paid_until>=today()&&!forever(f.paid_until);
+ const d=new Date(same?f.paid_until:today());d.setMonth(d.getMonth()+x.months);
+ const patch={plan:x.plan,paid_until:d.toISOString().slice(0,10),plan_start:same&&f.plan_start?f.plan_start:today()};
+ if(f.status!=='blocked')patch.status='active';
+ const a=await sb.from('factories').update(patch).eq('id',f.id);
+ if(a.error){toast(errMsg(a.error));return}
+ const b=await sb.from('payments').update({status:'approved',decided_at:new Date().toISOString()}).eq('id',id);
+ toast(b.error?errMsg(b.error):'تم التفعيل ✔');await reload();
+}
+function rejectPay(id){
+ modal(`<h3 style="margin-top:0">سبب الرفض</h3><input id="rjn" placeholder="مثال: الإيصال غير واضح"><div class="bar"><button class="btn d" onclick="doReject('${id}')">رفض</button><button class="btn s" onclick="closeM()">إلغاء</button></div>`);
+}
+async function doReject(id){
+ const n=($('#rjn').value||'').trim();closeM();
+ const r=await sb.from('payments').update({status:'rejected',note:n,decided_at:new Date().toISOString()}).eq('id',id);
+ if(r.error)toast(errMsg(r.error));await reload();
+}
+function adminTraders(){
+ if(trErr)return '<div class="panel note">جدول التجار لسه مش متفعّل. شغّل ملف SQL المحدّث.</div>';
+ return `<div class="kpis"><div><b>${S.traders.length}</b><span>تاجر مسجّل</span></div></div>`+(S.traders.length?S.traders.map(t=>`<div class="item"><div class="m"><b>${esc(t.name)}</b><small>${esc(t.phone)} • ${esc(String(t.created_at||'').slice(0,10))}</small></div><div class="ac"><button class="btn s sm" onclick="resetPw('${t.id}')">كلمة سر جديدة</button><button class="btn d sm" onclick="delTrader('${t.id}')">حذف</button></div></div>`).join(''):'<div class="empty">لسه مفيش تجار سجّلوا</div>');
+}
+function delTrader(id){ask('حذف حساب التاجر؟',async()=>{const r=await sb.from('traders').delete().eq('id',id);if(r.error)toast(errMsg(r.error));await reload()})}
+function resetPw(uid){
+ modal(`<h3 style="margin-top:0">كلمة سر جديدة</h3><input id="rpw" type="text" placeholder="6 حروف أو أرقام على الأقل" autocomplete="off"><div class="bar"><button class="btn" onclick="doResetPw('${uid}')">تغيير</button><button class="btn s" onclick="closeM()">إلغاء</button></div><p class="note">بلّغ صاحب الحساب بالكلمة الجديدة وقوله يغيّرها من حسابه.</p>`);
+}
+async function doResetPw(uid){
+ const v=($('#rpw').value||'').trim().replace(/'/g,'');if(v.length<6){toast('6 حروف أو أرقام على الأقل');return}
+ const f=S.factories.find(x=>x.id===uid),t=(S.traders||[]).find(x=>x.id===uid),ph=(f&&f.phone)||(t&&t.phone)||'';
+ const q=`update auth.users set encrypted_password=crypt('${v}',gen_salt('bf')), updated_at=now() where id='${uid}';`;
+ modal(`<h3 style="margin-top:0">خطوات تغيير كلمة السر</h3><p class="note">1) انسخ الكود ده. 2) افتح Supabase ← SQL Editor ← New query. 3) الصقه ودوس Run. 4) ابعت لصاحب الحساب (${esc(ph)}) كلمة السر الجديدة: <b>${esc(v)}</b></p><textarea id="rsql" rows="4" readonly>${esc(q)}</textarea><div class="bar"><button class="btn" onclick="$('#rsql').select();document.execCommand('copy');toast('اتنسخ ✔')">نسخ الكود</button><button class="btn s" onclick="closeM()">تم</button></div>`);
+}
+
 /* ================= لوحة المالك ================= */
 function adminHTML(){
   if(!me)return authHTML('admin');
@@ -974,11 +1297,11 @@ function adminHTML(){
    <div class="bar"><button class="btn" onclick="claimOwner()">أنا مالك المنصة</button><button class="btn s" onclick="logout()">خروج</button></div></div>`;
   const F=S.factories,act=F.filter(isLive).length,pen=F.filter(f=>f.status==='pending').length;
   const nrep=(S.reports||[]).filter(x=>!x.done).length;
-  const tabs=[['factories','المصانع'],['products','الموديلات'],['reports','البلاغات'+(nrep?' ('+nrep+')':'')],['content','المحتوى'],['stats','إحصائيات'],['settings','إعدادات المنصة']];
+  const tabs=[['factories','المصانع'],['products','الموديلات'],['reports','البلاغات'+(nrep?' ('+nrep+')':'')],['payments','المدفوعات'+(S.payments&&S.payments.filter(x=>x.status==='pending').length?' ('+S.payments.filter(x=>x.status==='pending').length+')':'')],['traders','التجار ('+(S.traders||[]).length+')'],['content','المحتوى'],['stats','إحصائيات'],['settings','إعدادات المنصة']];
   return `<div class="bar" style="justify-content:space-between"><b style="font-size:18px">لوحة الإدارة</b><button class="btn s sm" onclick="logout()">خروج</button></div>
-  <div class="stats"><div><b>${F.length}</b><span>مصنع</span></div><div><b>${act}</b><span>اشتراك شغال</span></div><div><b>${pen}</b><span>مستني تفعيل</span></div><div><b>${S.products.length}</b><span>موديل</span></div><div><b>${F.filter(f=>isLive(f)&&daysLeft(f)<=7).length}</b><span>قربت تنتهي</span></div></div>
+  <div class="stats"><div><b>${(S.traders||[]).length}</b><span>تاجر مسجّل</span></div><div><b>${F.length}</b><span>مصنع</span></div><div><b>${act}</b><span>اشتراك شغال</span></div><div><b>${pen}</b><span>مستني تفعيل</span></div><div><b>${S.products.length}</b><span>موديل</span></div><div><b>${F.filter(f=>isLive(f)&&daysLeft(f)<=7).length}</b><span>قربت تنتهي</span></div></div>
   <div class="tabs">${tabs.map(t=>`<button class="tab ${atab===t[0]?'on':''}" onclick="atab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>
-  ${atab==='factories'?adminFactories():atab==='products'?adminProducts():atab==='reports'?adminReports():atab==='content'?adminContent():atab==='stats'?adminStats():adminSettings()}`;
+  ${atab==='factories'?adminFactories():atab==='products'?adminProducts():atab==='reports'?adminReports():atab==='payments'?adminPayments():atab==='traders'?adminTraders():atab==='content'?adminContent():atab==='stats'?adminStats():adminSettings()}`;
 }
 async function claimOwner(){
   const r=await sb.from('admins').insert({user_id:me.id});
@@ -995,16 +1318,16 @@ function adminFactories(){
   const order={pending:0,active:1,blocked:2};
   return [...S.factories].sort((a,b)=>order[a.status]-order[b.status]).map(f=>{
     const n=S.products.filter(p=>p.factory_id===f.id).length;
-    return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)}</b>${stChip(f)}</div>
+    return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)} ${planBadge(f)}</b>${stChip(f)}</div>
     <div class="note">${esc(f.city)} • ${esc(f.phone)} • ${n} موديل</div>
     <div class="bar"><select id="m_${f.id}" style="width:auto"><option value="1">شهر</option><option value="3">3 شهور</option><option value="6">6 شهور</option><option value="12">سنة</option></select>
-    <button class="btn sm" onclick="activate('${f.id}')">${f.status==='pending'?'تفعيل':'تجديد'}</button>
+    <select id="pl_${f.id}" style="width:auto"><option value="">نفس الباقة</option>${['free','basic','pro','vip'].map(q=>`<option value="${q}">${PLANS[q].en}</option>`).join('')}</select><button class="btn sm" onclick="activate('${f.id}')">${f.status==='pending'?'تفعيل':'تجديد'}</button>
     <button class="btn s sm" onclick="setFac('${f.id}',{status:'${f.status==='blocked'?'active':'blocked'}'})">${f.status==='blocked'?'فك الإيقاف':'إيقاف'}</button>
     <button class="btn s sm" onclick="setFac('${f.id}',{verified:${!f.verified}})">${f.verified?'إلغاء التوثيق':'توثيق ✔'}</button>
     <a class="btn s sm" target="_blank" rel="noopener" href="${waTo(f.whatsapp||f.phone,'السلام عليكم، من إدارة '+S.settings.name)}">واتساب</a>
     <a class="btn s sm" href="#f=${f.id}">صفحته</a>
     <label class="btn s sm" style="cursor:pointer">لوجو<input type="file" accept="image/*" hidden onchange="facLogo(this,'${f.id}')"></label>
-    <button class="btn d sm" onclick="delFactory('${f.id}')">حذف</button></div></div>`;
+    <button class="btn s sm" onclick="resetPw('${f.id}')">كلمة سر</button><button class="btn d sm" onclick="delFactory('${f.id}')">حذف</button></div></div>`;
   }).join('');
 }
 async function setFac(id,patch){const r=await sb.from('factories').update(patch).eq('id',id);if(r.error)toast(errMsg(r.error));await reload()}
@@ -1012,7 +1335,7 @@ async function activate(id){
   const f=S.factories.find(x=>x.id===id),m=+$('#m_'+id).value;
   const d=new Date(Math.max(Date.now(),f.paid_until?new Date(f.paid_until).getTime():0));
   d.setMonth(d.getMonth()+m);
-  await setFac(id,{status:'active',paid_until:d.toISOString().slice(0,10)});
+  const pq=($('#pl_'+id)||{value:''}).value;await setFac(id,{status:'active',paid_until:d.toISOString().slice(0,10),...(('plan' in f)&&pq?{plan:pq,plan_start:today()}:{})});
   toast('تم التفعيل ✔');
 }
 function delFactory(id){ask('حذف المصنع وكل موديلاته؟',async()=>{const r=await sb.from('factories').delete().eq('id',id);if(r.error)toast(errMsg(r.error));await reload()})}
@@ -1048,7 +1371,7 @@ function prevHTML(k){return tmp[k]?`<div class="th"><img src="${esc(tmp[k])}" al
 async function pickOne(inp,k){
   const f=inp.files[0];inp.value='';if(!f)return;
   toast('جاري رفع الصورة...',8000);
-  const big=k==='cover'||k==='fcover';
+  const big=k==='cover'||k==='fcover'||k==='rcpt';
   const u=await upImage(f,big?1600:400,.82,big?'image/jpeg':'image/png');
   if(u){tmp[k]=u;const el=$('#'+k+'Prev');if(el)el.innerHTML=prevHTML(k);toast('تم الرفع. دوس حفظ')}
 }
@@ -1157,17 +1480,17 @@ if(!Array.isArray(FAV))FAV=[];if(!Array.isArray(CART))CART=[];if(!Array.isArray(
 const GOVS='القاهرة,الجيزة,الإسكندرية,القليوبية,الشرقية,الدقهلية,الغربية,المنوفية,البحيرة,كفر الشيخ,دمياط,بورسعيد,الإسماعيلية,السويس,شمال سيناء,جنوب سيناء,الفيوم,بني سويف,المنيا,أسيوط,سوهاج,قنا,الأقصر,أسوان,البحر الأحمر,الوادي الجديد,مطروح'.split(',');
 function toggleFavF(id,ev){
   if(ev)ev.stopPropagation();
-  const i=FAVF.indexOf(id);if(i<0)FAVF.push(id);else FAVF.splice(i,1);ls.set('jd_favf',JSON.stringify(FAVF));
+  const i=FAVF.indexOf(id);if(i<0)FAVF.push(id);else FAVF.splice(i,1);ls.set('jd_favf',JSON.stringify(FAVF));pushFavs();
   document.querySelectorAll('[data-favf="'+id+'"]').forEach(b=>{b.classList.toggle('on',FAVF.includes(id));if(b.classList.contains('btn'))b.textContent=FAVF.includes(id)?'★ في المفضلة':'☆ أضف للمفضلة'});
   if(filt.view==='favs')render();
 }
 function pushRecent(id){RECENT=[id,...RECENT.filter(x=>x!==id)].slice(0,12);ls.set('jd_rec',JSON.stringify(RECENT))}
 function sendInq(id){
   const p=S.products.find(x=>x.id===id);if(!p)return;const f=fac(p.factory_id),t=($('#inqt').value||'').trim();
-  tk('ask',id);
+  tk('ask',id);recInq(id,t||'ممكن تفاصيل أكتر؟');
   window.open(waTo(f.whatsapp||f.phone,`السلام عليكم، عندي استفسار عن ${p.name} (${S.settings.name}):\n${t||'ممكن تفاصيل أكتر؟'}`),'_blank');
 }
-const saveFav=()=>ls.set('jd_fav',JSON.stringify(FAV));
+const saveFav=()=>{ls.set('jd_fav',JSON.stringify(FAV));pushFavs()};
 const saveCart=()=>ls.set('jd_cart',JSON.stringify(CART));
 const isFav=id=>FAV.includes(id);
 const HEART='<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
@@ -1208,7 +1531,7 @@ function addCart(id,o){
 function cartQty(i,d){const c=CART[i];if(!c)return;const p=S.products.find(x=>x.id===c.id),mn=p?minQty(p):1;c.qty=Math.max(mn,(+c.qty||mn)+d);saveCart();openCart()}
 function cartDel(i){CART.splice(i,1);saveCart();navUpdate();openCart()}
 function cartClear(fid){CART=CART.filter(c=>{const p=S.products.find(x=>x.id===c.id);return !(p&&p.factory_id===fid)});saveCart();navUpdate();openCart()}
-function cartTrack(fid){cartLines().filter(x=>x.p.factory_id===fid).forEach(x=>tk('order',x.p.id))}
+function cartTrack(fid){const ls2=cartLines().filter(x=>x.p.factory_id===fid);ls2.forEach(x=>tk('order',x.p.id));recInqFac(fid,'طلب من قائمة الطلب: '+ls2.map(x=>x.p.name).join('، '))}
 function cartURL(fid,g){
   const f=fac(fid);let t=0,all=true;
   let m=`السلام عليكم، عايز أطلب من ${S.settings.name} (${f.name}):`;
