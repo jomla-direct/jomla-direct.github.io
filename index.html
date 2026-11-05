@@ -384,15 +384,51 @@ async function upImage(file,max,q,type,std){
   return sb.storage.from('media').getPublicUrl(path).data.publicUrl;
 }
 function imgsHTML(){
-  return tmp.imgs.map((s,i)=>`<div class="th"><img src="${esc(s)}" alt=""><div class="thb">${i===0?'<span>رئيسية</span>':`<button type="button" onclick="mainImg(${i})">رئيسية</button>`}<button type="button" onclick="rmImg(${i})">✕</button></div></div>`).join('')+
+  return tmp.imgs.map((s,i)=>`<div class="th"><img src="${esc(s)}" alt=""><div class="thb">${i===0?'<span>رئيسية</span>':`<button type="button" onclick="mainImg(${i})">رئيسية</button>`}<button type="button" onclick="cutImg(${i})" title="شيل الخلفية">✂</button><button type="button" onclick="rmImg(${i})">✕</button></div></div>`).join('')+
   (tmp.imgs.length<6?`<label class="addimg">+ صور<input type="file" accept="image/*" multiple onchange="addImgs(this)"></label>`:'');
+}
+
+/* ===== شيل الخلفية (بيشتغل جوه المتصفح ومجاني) ===== */
+let rbFn=null;
+async function getRB(){
+  if(window.__removeBG)return window.__removeBG;
+  if(rbFn)return rbFn;
+  const m=await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm');
+  rbFn=m.removeBackground||(m.default&&m.default.removeBackground);
+  if(!rbFn)throw new Error('lib');
+  return rbFn;
+}
+async function cutBlob(src){
+  const rb=await getRB();
+  const out=await rb(src,{progress:(k,c,t)=>{if(t)toast('جاري تجهيز أداة شيل الخلفية... '+Math.round(c/t*100)+'%',6000)}});
+  const l=lookOf(),[rw,rh]=l.ratio.split('/').map(Number),W=1000,H=Math.round(W*rh/rw);
+  const bmp=await createImageBitmap(out);
+  const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  x.fillStyle=l.bg||'#ffffff';x.fillRect(0,0,W,H);
+  const k=Math.min(W*.9/bmp.width,H*.9/bmp.height),dw=bmp.width*k,dh=bmp.height*k;
+  x.drawImage(bmp,(W-dw)/2,(H-dh)/2,dw,dh);
+  return await new Promise(r=>c.toBlob(b=>r(b),'image/jpeg',.88));
+}
+async function cutImg(i){
+  const url=tmp.imgs[i];if(!url)return;
+  toast('جاري شيل الخلفية... أول مرة بتاخد وقت',20000);
+  try{
+    const blob=await (await fetch(url)).blob();
+    const cut=await cutBlob(blob);
+    const u=await upImage(cut,1000,.88,'image/jpeg',false);
+    if(u){tmp.imgs[i]=u;$('#imgs').innerHTML=imgsHTML();toast('اتشالت الخلفية ✔ دوس حفظ')}
+  }catch(e){console.warn(e);toast('معرفتش أشيل الخلفية دلوقتي. جرب صورة تانية أو اتأكد من النت',7000)}
 }
 async function addImgs(inp){
   const files=[...inp.files];inp.value='';let n=0;
   for(const f of files){
     if(tmp.imgs.length>=6)break;
     n++;toast(`جاري رفع صورة ${n} من ${files.length}...`,8000);
-    const u=await upImage(f,1000,.78,undefined,true);
+    let u=null;
+    if($('#autocut')&&$('#autocut').checked){
+      try{const cut=await cutBlob(f);u=await upImage(cut,1000,.88,'image/jpeg',false)}catch(e){console.warn(e);toast('معرفتش أشيل الخلفية، هرفع الصورة زي ما هي',5000)}
+    }
+    if(!u)u=await upImage(f,1000,.78,undefined,true);
     if(u){tmp.imgs.push(u);const el=$('#imgs');if(el)el.innerHTML=imgsHTML()}
   }
   if(n)toast('تم رفع الصور. دوس حفظ عشان تظهر');
@@ -670,7 +706,8 @@ function productModal(id){
   const rt=realTiers(p).sort((a,b)=>a.min-b.min),first=rt[0],rest=rt.slice(1);
   const help=ownerWa('السلام عليكم، عايز مساعدة في تحديد أسعار الجملة لموديلاتي');
   modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h2 style="margin-top:0">${id?'تعديل موديل':'موديل جديد'}</h2>
-  <label class="f">الصور (الأولى هي الرئيسية)</label><div class="imgs" id="imgs">${imgsHTML()}</div>
+  <label class="f">الصور (الأولى هي الرئيسية)</label>
+  <label class="f" style="display:flex;gap:8px;align-items:center;margin:2px 0 6px"><input type="checkbox" id="autocut" style="width:auto"> شيل الخلفية تلقائيًا من الصور الجديدة</label><div class="note" style="margin:0 0 6px">أو دوس ✂ على أي صورة بعد رفعها عشان تشيل خلفيتها.</div><div class="imgs" id="imgs">${imgsHTML()}</div>
   <div class="row"><div><label class="f" for="pn">اسم الموديل</label><input id="pn" value="${esc(p.name)}"></div><div><label class="f" for="pc">القسم</label><input id="pc" value="${esc(p.cat)}" placeholder="جينز أولادي"></div></div>
   <label class="f" for="pd">وصف</label><textarea id="pd">${esc(p.descr)}</textarea>
   <div class="row"><div><label class="f" for="ps">المقاسات (بينها فاصلة)</label><input id="ps" value="${esc(p.sizes)}" placeholder="32, 34, 36"></div><div><label class="f" for="pcl">الألوان (بينها فاصلة)</label><input id="pcl" value="${esc(p.colors)}"></div></div>
