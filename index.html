@@ -48,8 +48,8 @@ main{max-width:1100px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-ri
 @media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.hero h1{font-size:34px}}
 @media(min-width:980px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .card{background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--br);display:flex;flex-direction:column}
-.pic{position:relative;aspect-ratio:4/5;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:64px;cursor:pointer;overflow:hidden}
-.pic img{width:100%;height:100%;object-fit:cover}
+.pic{position:relative;aspect-ratio:var(--ratio,4/5);background:var(--picbg,var(--soft));display:flex;align-items:center;justify-content:center;font-size:64px;cursor:pointer;overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:var(--fit,cover)}
 .tag{position:absolute;top:8px;right:8px;background:#000a;color:#fff;font-size:12px;border-radius:12px;padding:2px 10px}
 .tag.out{background:var(--bad)}
 .cb{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
@@ -66,8 +66,8 @@ main{max-width:1100px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-ri
 .mbg{position:fixed;inset:0;background:#000b;z-index:60;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:14px}
 .modal{background:var(--card);border-radius:20px;width:100%;max-width:520px;margin:auto;padding:16px;position:relative}
 .x{position:absolute;top:10px;left:10px;width:34px;height:34px;border-radius:50%;border:0;background:var(--soft);color:var(--tx);cursor:pointer;font-size:16px;z-index:2}
-.gmain{aspect-ratio:1/1;border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:90px;overflow:hidden}
-.gmain img{width:100%;height:100%;object-fit:cover}
+.gmain{aspect-ratio:var(--ratio,1/1);border-radius:14px;background:var(--picbg,var(--soft));display:flex;align-items:center;justify-content:center;font-size:90px;overflow:hidden}
+.gmain img{width:100%;height:100%;object-fit:var(--fit,cover)}
 .thumbs{display:flex;gap:8px;margin:8px 0;overflow-x:auto}
 .thumbs img{width:58px;height:58px;object-fit:cover;border-radius:10px;border:2px solid transparent;cursor:pointer;flex:none}
 .thumbs img.on{border-color:var(--ac)}
@@ -170,6 +170,11 @@ label.f{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
 .kpis b{display:block;font-size:20px;color:var(--act)}.kpis span{font-size:11.5px;color:var(--mu)}
 .mini{font-size:12px;color:var(--mu)}
 .inst{background:transparent;border:1px dashed var(--br);color:var(--mu);border-radius:12px;padding:9px 14px;cursor:pointer;margin-top:10px;width:100%}
+
+.flg{width:18px;height:18px;border-radius:50%;object-fit:cover;vertical-align:-4px;margin-left:5px;background:var(--soft)}
+.fhead{display:flex;gap:12px;align-items:center}.fhead img{width:60px;height:60px;border-radius:14px;object-fit:cover;background:var(--soft);flex:none}
+.lookbox{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.watm{position:absolute;bottom:6px;right:6px;background:#0008;color:#fff;font-size:10px;border-radius:8px;padding:1px 7px}
 </style>
 </head>
 <body>
@@ -337,6 +342,7 @@ function errMsg(e){
   if(/at least 6|weak/i.test(m))return 'كلمة السر لازم تكون 6 حروف أو أرقام على الأقل';
   if(/rate limit|too many/i.test(m))return 'محاولات كتير. استنى شوية وجرب تاني';
   if(/row-level security|permission denied|policy/i.test(m))return 'مفيش صلاحية للعملية دي (لو اشتراكك منتهي جدّده)';
+  if(/does not exist|schema cache|Could not find/i.test(m))return 'لازم تشغّل كود التحديث (SQL) في Supabase الأول';
   if(/Failed to fetch|NetworkError/i.test(m))return 'مفيش اتصال بالإنترنت';
   return 'حصل خطأ: '+m;
 }
@@ -356,9 +362,11 @@ async function toBlob(file,max,q,type){
     return null;
   }
 }
-async function upImage(file,max,q,type){
+async function upImage(file,max,q,type,std){
   if(!me){toast('سجّل دخول الأول');return null}
-  const blob=await toBlob(file,max,q,type);
+  let blob=null;
+  if(std){try{blob=await toStd(file)}catch(e){blob=null}}
+  if(!blob)blob=await toBlob(file,max,q,type);
   if(!blob){toast('الصورة دي مش مدعومة. جرب JPG أو PNG');return null}
   const ext=blob.type==='image/png'?'png':'jpg';
   const path=`${me.id}/${Date.now()}-${Math.random().toString(36).slice(2,7)}.${ext}`;
@@ -384,7 +392,7 @@ async function addImgs(inp){
   for(const f of files){
     if(tmp.imgs.length>=6)break;
     n++;toast(`جاري رفع صورة ${n} من ${files.length}...`,8000);
-    const u=await upImage(f,1000,.78);
+    const u=await upImage(f,1000,.78,undefined,true);
     if(u){tmp.imgs.push(u);const el=$('#imgs');if(el)el.innerHTML=imgsHTML()}
   }
   if(n)toast('تم رفع الصور. دوس حفظ عشان تظهر');
@@ -426,7 +434,7 @@ function hdrHTML(){
   ${r==='store'?`<a class="ib" href="#factory" title="سجّل مصنعك أو ادخل على مصنعك" aria-label="مصنعي">${ICON_FAC}<span>${myFactory?'مصنعي':'سجّل مصنعك'}</span></a>`:`<a class="ib" href="#">← المتجر</a>`}</div>`;
 }
 function render(){
-  document.documentElement.style.setProperty('--ac',S.settings.color||'#1f4e8c');
+  document.documentElement.style.setProperty('--ac',S.settings.color||'#1f4e8c');applyLook();
   document.title=S.settings.name||'جملة دايركت';
   const r=route();
   $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
@@ -494,7 +502,7 @@ function gridHTML(){
     return `<div class="card">
       <div class="pic" onclick="openProduct('${p.id}')">${img?`<img src="${esc(img)}" alt="" loading="lazy">`:'👖'}${p.sold_out?'<span class="tag out">خلصان</span>':(hasPrice(p)&&minQty(p)>1?`<span class="tag">من ${minQty(p)} قطعة</span>`:'')}${!p.sold_out&&p.created_at&&Date.now()-new Date(p.created_at)<7*864e5?'<span class="tag new">جديد</span>':''}<button class="shr" type="button" aria-label="مشاركة" onclick="event.stopPropagation();shareP('${p.id}')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button></div>
       <div class="cb"><h3 onclick="openProduct('${p.id}')">${esc(p.name)}</h3>
-      <div class="fn" onclick="openFactory('${f.id}')" style="cursor:pointer;text-decoration:underline dotted">${esc(f.name)}${f.verified?' ✔':''}${f.city?' • '+esc(f.city):''}</div>
+      <div class="fn" onclick="openFactory('${f.id}')" style="cursor:pointer;text-decoration:underline dotted">${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)}${f.verified?' ✔':''}${f.city?' • '+esc(f.city):''}</div>
       <div class="pr">${hasPrice(p)?`${money(minPrice(p))} ج <small>للقطعة</small>`:`<span class="ptxt">${esc(noteOf(p)||DEF_NOTE)}</span>`}<a class="qbtn" href="${ask}" target="_blank" rel="noopener" onclick="tk('ask','${p.id}')" title="اسأل عن الأسعار" aria-label="اسأل عن الأسعار">؟</a></div>
       ${p.sold_out?'<div class="wa off">غير متاح حاليًا</div>':`<a class="wa" href="${orderURL(p,null)}" target="_blank" rel="noopener" onclick="tk('order','${p.id}')">اطلب</a>`}</div></div>`;
   }).join('')+'</div>';
@@ -628,8 +636,9 @@ function factoryHTML(){
   else if(!live)banner=`<div class="banner bad"><b>اشتراكك انتهى.</b> موديلاتك مخفية دلوقتي لحد ما تجدد.${subInfo}${payBtn}</div>`;
   else if(daysLeft(f)<=7)banner=`<div class="banner ${daysLeft(f)<=3?'bad':'warn'}"><b>⚠️ اشتراكك هينتهي ${daysLeft(f)<=0?'النهارده':'بعد '+daysLeft(f)+' يوم'}</b> (${esc(f.paid_until)}). جدّد عشان موديلاتك ما تتخفيش عن التجار.${subInfo}${payBtn}</div>`;
   else banner=`<div class="banner ok"><b>اشتراكك شغال</b> لحد ${esc(f.paid_until)} (باقي ${daysLeft(f)} يوم)</div>`;
-  return `<div class="bar" style="justify-content:space-between"><div><b style="font-size:18px">${esc(f.name)}</b> ${f.verified?'<span class="st ok">موثّق ✔</span>':''}<div class="note">${esc(f.phone)}${f.city?' • '+esc(f.city):''}</div></div><button class="btn s sm" onclick="logout()">خروج</button></div>
+  return `<div class="bar" style="justify-content:space-between"><div>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="" style="width:42px;height:42px;border-radius:12px;object-fit:cover;vertical-align:middle;margin-left:8px">`:''}<b style="font-size:18px">${esc(f.name)}</b> ${f.verified?'<span class="st ok">موثّق ✔</span>':''}<div class="note">${esc(f.phone)}${f.city?' • '+esc(f.city):''}</div></div><button class="btn s sm" onclick="logout()">خروج</button></div>
   ${banner}
+  <div class="bar"><a class="btn s sm" href="#f=${f.id}">شوف صفحة مصنعك</a><button class="btn s sm" onclick="copyLink(shareURL('f=${f.id}'))">انسخ رابط صفحتك</button></div>
   ${statsBox({f:f.id})}
   <div class="tabs"><button class="tab ${ftab==='models'?'on':''}" onclick="ftab='models';render()">موديلاتي (${mine.length})</button><button class="tab ${ftab==='info'?'on':''}" onclick="ftab='info';render()">بيانات المصنع</button></div>
   ${ftab==='models'?modelsHTML(mine,live):infoHTML(f)}`;
@@ -641,7 +650,9 @@ function modelsHTML(mine,live){
    <div class="ac"><button class="btn sm" ${live?'':'disabled'} onclick="productModal('${p.id}')">تعديل</button><button class="btn d sm" onclick="delProduct('${p.id}')">حذف</button></div></div>`).join(''):'<div class="empty">لسه مفيش موديلات</div>');
 }
 function infoHTML(f){
-  return `<div class="panel"><label class="f" for="in">اسم المصنع</label><input id="in" value="${esc(f.name)}">
+  tmp.flogo=f.logo||'';
+  return `<div class="panel"><label class="f">لوجو المصنع</label><div class="imgs"><div id="flogoPrev">${prevHTML('flogo')}</div><label class="addimg">اختار لوجو<input type="file" accept="image/*" onchange="pickOne(this,'flogo')"></label></div>
+  <label class="f" for="in">اسم المصنع</label><input id="in" value="${esc(f.name)}">
   <div class="row"><div><label class="f" for="ic">المدينة</label><input id="ic" value="${esc(f.city)}"></div><div><label class="f" for="iw">رقم الواتساب للطلبات</label><input id="iw" inputmode="tel" value="${esc(f.whatsapp||f.phone)}"></div></div>
   <label class="f" for="id">نبذة</label><textarea id="id">${esc(f.descr)}</textarea>
   <div class="bar"><button class="btn" onclick="saveInfo()">حفظ</button></div></div>`;
@@ -649,9 +660,9 @@ function infoHTML(f){
 async function saveInfo(){
   const w=normPhone($('#iw').value);if(!w){toast('اكتب رقم واتساب صحيح');return}
   if(!$('#in').value.trim()){toast('اكتب اسم المصنع');return}
-  const r=await sb.from('factories').update({name:$('#in').value.trim(),city:$('#ic').value.trim(),whatsapp:w,descr:$('#id').value.trim()}).eq('id',myFactory.id);
+  const r=await sb.from('factories').update({name:$('#in').value.trim(),city:$('#ic').value.trim(),whatsapp:w,descr:$('#id').value.trim(),...('logo' in myFactory?{logo:tmp.flogo||''}:{})}).eq('id',myFactory.id);
   if(r.error){toast(errMsg(r.error));return}
-  toast('اتحفظ ✔');await reload();
+  toast('logo' in myFactory?'اتحفظ ✔':'اتحفظ ✔ (اللوجو محتاج كود التحديث SQL)',6000);await reload();
 }
 function productModal(id){
   const p=id?S.products.find(x=>x.id===id):{name:'',cat:'',descr:'',sizes:'',colors:'',imgs:[],tiers:[],sold_out:false,hidden:false};
@@ -716,13 +727,15 @@ function adminFactories(){
   const order={pending:0,active:1,blocked:2};
   return [...S.factories].sort((a,b)=>order[a.status]-order[b.status]).map(f=>{
     const n=S.products.filter(p=>p.factory_id===f.id).length;
-    return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${esc(f.name)}</b>${stChip(f)}</div>
+    return `<div class="panel"><div class="bar" style="margin:0 0 6px;justify-content:space-between"><b>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)}</b>${stChip(f)}</div>
     <div class="note">${esc(f.city)} • ${esc(f.phone)} • ${n} موديل</div>
     <div class="bar"><select id="m_${f.id}" style="width:auto"><option value="1">شهر</option><option value="3">3 شهور</option><option value="6">6 شهور</option><option value="12">سنة</option></select>
     <button class="btn sm" onclick="activate('${f.id}')">${f.status==='pending'?'تفعيل':'تجديد'}</button>
     <button class="btn s sm" onclick="setFac('${f.id}',{status:'${f.status==='blocked'?'active':'blocked'}'})">${f.status==='blocked'?'فك الإيقاف':'إيقاف'}</button>
     <button class="btn s sm" onclick="setFac('${f.id}',{verified:${!f.verified}})">${f.verified?'إلغاء التوثيق':'توثيق ✔'}</button>
     <a class="btn s sm" target="_blank" rel="noopener" href="${waTo(f.whatsapp||f.phone,'السلام عليكم، من إدارة '+S.settings.name)}">واتساب</a>
+    <a class="btn s sm" href="#f=${f.id}">صفحته</a>
+    <label class="btn s sm" style="cursor:pointer">لوجو<input type="file" accept="image/*" hidden onchange="facLogo(this,'${f.id}')"></label>
     <button class="btn d sm" onclick="delFactory('${f.id}')">حذف</button></div></div>`;
   }).join('');
 }
@@ -745,12 +758,19 @@ async function togProd(id,h){const r=await sb.from('products').update({hidden:h}
 function admDelProd(id){ask('حذف الموديل؟',async()=>{const r=await sb.from('products').delete().eq('id',id);if(r.error)toast(errMsg(r.error));await reload()})}
 const COLORS=['#1f4e8c','#0f766e','#b45309','#9f1239','#4c1d95','#111827'];
 function adminSettings(){
-  const s=S.settings;tmp.logo=s.logo;tmp.cover=s.cover;
+  const s=S.settings;tmp.logo=s.logo;tmp.cover=s.cover;setTimeout(()=>{const l=lookOf(),a=$('#lkr');if(a){a.value=l.ratio;$('#lkf').value=l.fit;lookPreview()}},0);
   return `<div class="panel"><label class="f" for="sn">اسم المنصة</label><input id="sn" value="${esc(s.name)}">
   <label class="f" for="st">الجملة اللي تحت الاسم</label><input id="st" value="${esc(s.tagline)}">
   <label class="f" for="sw">رقم واتساب الإدارة (للاشتراكات والمساعدة)</label><input id="sw" inputmode="tel" value="${esc(s.owner_whatsapp)}" placeholder="01xxxxxxxxx">
   <label class="f" for="sp">سعر الاشتراك (بيظهر للمصانع)</label><input id="sp" value="${esc(s.sub_price)}" placeholder="مثال: الاشتراك الشهري 300 جنيه">
   <label class="f" for="sno">طريقة الدفع (بتظهر للمصانع)</label><textarea id="sno">${esc(s.sub_note)}</textarea>
+  <h3 style="margin:18px 0 6px">شكل الموديلات (موحّد لكل المصانع)</h3>
+  <div class="note">أي صورة موديل بتتضاف بتتظبط تلقائيًا على الشكل ده، فكل الموديلات تبقى شبه بعض.</div>
+  <div class="lookbox"><div><label class="f" for="lkr">مقاس الصورة</label><select id="lkr" onchange="lookPreview()"><option value="4/5">طولي 4:5</option><option value="1/1">مربع 1:1</option><option value="3/4">طولي 3:4</option></select></div>
+  <div><label class="f" for="lkf">طريقة العرض</label><select id="lkf" onchange="lookPreview()"><option value="cover">قص لتملى الإطار</option><option value="contain">الصورة كاملة بخلفية</option></select></div></div>
+  <div class="lookbox"><div><label class="f" for="lkb">لون الخلفية</label><input id="lkb" type="color" value="${esc(lookOf().bg)}" oninput="lookPreview()" style="height:44px;padding:4px"></div>
+  <div><label class="f" style="display:flex;gap:8px;align-items:center;margin-top:30px"><input type="checkbox" id="lkm" style="width:auto" ${lookOf().mark?'checked':''} onchange="lookPreview()"> اسم المنصة على الصور</label></div></div>
+  <div class="pic" id="lookPrev" style="max-width:150px;margin:10px 0;border-radius:14px"><i style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:44px;object-fit:cover">👖</i><span class="watm">${esc(S.settings.name)}</span></div>
   <label class="f">لون المنصة</label><div class="sw">${COLORS.map(c=>`<i style="background:${c}" class="${s.color===c?'on':''}" onclick="setColor('${c}',this)"></i>`).join('')}</div>
   <label class="f">اللوجو</label><div class="imgs"><div id="logoPrev">${prevHTML('logo')}</div><label class="addimg">اختار لوجو<input type="file" accept="image/*" onchange="pickOne(this,'logo')"></label></div>
   <label class="f">صورة الغلاف (اختياري)</label><div class="imgs"><div id="coverPrev">${prevHTML('cover')}</div><label class="addimg">اختار غلاف<input type="file" accept="image/*" onchange="pickOne(this,'cover')"></label></div>
@@ -760,7 +780,7 @@ function prevHTML(k){return tmp[k]?`<div class="th"><img src="${esc(tmp[k])}" al
 async function pickOne(inp,k){
   const f=inp.files[0];inp.value='';if(!f)return;
   toast('جاري رفع الصورة...',8000);
-  const u=await upImage(f,k==='logo'?400:1600,.82,k==='logo'?'image/png':'image/jpeg');
+  const u=await upImage(f,k==='cover'?1600:400,.82,k==='cover'?'image/jpeg':'image/png');
   if(u){tmp[k]=u;const el=$('#'+k+'Prev');if(el)el.innerHTML=prevHTML(k);toast('تم الرفع. دوس حفظ')}
 }
 function setColor(c,el){S.settings.color=c;document.documentElement.style.setProperty('--ac',c);el.parentNode.querySelectorAll('i').forEach(i=>i.classList.remove('on'));el.classList.add('on')}
@@ -768,9 +788,11 @@ async function saveSettings(){
   const w=$('#sw').value.trim(),nw=w?normPhone(w):'';
   if(w&&!nw){toast('رقم الواتساب غلط');return}
   const o={name:$('#sn').value.trim()||'جملة دايركت',tagline:$('#st').value.trim(),owner_whatsapp:nw,sub_price:$('#sp').value.trim(),sub_note:$('#sno').value.trim(),color:S.settings.color,logo:tmp.logo,cover:tmp.cover};
+  const hasLook='look' in S.settings;
+  if(hasLook)o.look=lookFromForm();
   const r=await sb.from('settings').update(o).eq('id',1);
   if(r.error){toast(errMsg(r.error));return}
-  toast('اتحفظ ✔');await reload();
+  toast(hasLook?'اتحفظ ✔':'اتحفظ ✔ (شكل الموديلات محتاج تشغّل كود التحديث SQL الأول)',hasLook?3600:8000);await reload();
 }
 
 /* ================= صفحة الإعداد (أول مرة) ================= */
@@ -806,6 +828,56 @@ function bakeFile(){
   document.body.appendChild(a);a.click();a.remove();toast('نزل ملف index.html. ارفعه على الاستضافة');
 }
 
+
+
+/* ===== شكل الموديلات الموحّد ===== */
+const LOOK_DEF={ratio:'4/5',fit:'cover',bg:'#ffffff',mark:false};
+const lookOf=()=>({...LOOK_DEF,...((S.settings&&S.settings.look)||{})});
+function applyLook(){
+  const l=lookOf(),st=document.documentElement.style;
+  st.setProperty('--ratio',l.ratio);st.setProperty('--fit',l.fit);st.setProperty('--picbg',l.fit==='contain'?l.bg:'var(--soft)');
+}
+function lookFromForm(){
+  return {ratio:$('#lkr').value,fit:$('#lkf').value,bg:$('#lkb').value,mark:$('#lkm').checked};
+}
+function lookPreview(){
+  const l=lookFromForm(),e=$('#lookPrev');if(!e)return;
+  e.style.aspectRatio=l.ratio;e.style.background=l.fit==='contain'?l.bg:'var(--soft)';
+  e.querySelector('.watm').style.display=l.mark?'block':'none';
+  e.querySelector('i').style.objectFit=l.fit;
+}
+async function toStd(file){
+  const l=lookOf(),[rw,rh]=l.ratio.split('/').map(Number),W=1000,H=Math.round(W*rh/rw);
+  let bmp=null;
+  if(window.createImageBitmap){try{bmp=await createImageBitmap(file)}catch(e){bmp=null}}
+  if(!bmp)bmp=await new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>res(im);im.onerror=()=>rej(new Error('decode'));im.src=u});
+  const w=bmp.width||bmp.naturalWidth,h=bmp.height||bmp.naturalHeight;
+  const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  x.fillStyle=l.fit==='contain'?l.bg:'#ffffff';x.fillRect(0,0,W,H);
+  const k=l.fit==='contain'?Math.min(W/w,H/h):Math.max(W/w,H/h),dw=w*k,dh=h*k;
+  x.drawImage(bmp,(W-dw)/2,(H-dh)/2,dw,dh);
+  if(l.mark){
+    const t=S.settings.name||'';x.font='700 28px Cairo,Tahoma,sans-serif';
+    const tw=x.measureText(t).width+28;x.fillStyle='rgba(0,0,0,.45)';
+    x.beginPath();(x.roundRect?x.roundRect(W-tw-16,H-52,tw,36,10):x.rect(W-tw-16,H-52,tw,36));x.fill();
+    x.fillStyle='#fff';x.textBaseline='middle';x.fillText(t,W-tw-2,H-34);
+  }
+  return await new Promise(r=>c.toBlob(b=>r(b),'image/jpeg',.82));
+}
+async function facLogo(inp,id){
+  const f=inp.files[0];inp.value='';if(!f)return;
+  toast('جاري رفع اللوجو...',8000);
+  const fx=S.factories.find(x=>x.id===id);
+  if(fx&&!('logo' in fx)){toast('لازم تشغّل كود التحديث SQL الأول عشان اللوجو يشتغل',7000);return}
+  const u=await upImage(f,400,.85,'image/png');if(!u)return;
+  const r=await sb.from('factories').update({logo:u}).eq('id',id);
+  if(r.error){toast(errMsg(r.error));return}
+  toast('اتحفظ ✔');await reload();
+}
+function copyLink(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>toast('اتنسخ الرابط ✔'),()=>prompt0(txt));else prompt0(txt)
+}
+function prompt0(t){toast(t,9000)}
 
 /* ===== إحصائيات + مشاركة + ترتيب ===== */
 let POP={},EV=[],evErr=false,deepKey='',deferredPrompt=null;
@@ -853,8 +925,8 @@ function facCardHTML(){
   const f=fac(filt.fac);if(!f.name)return '';
   const n=liveProducts().filter(p=>p.factory_id===f.id).length;
   const w=waTo(f.whatsapp||f.phone,`السلام عليكم، عايز أستفسر عن موديلات ${f.name} (${S.settings.name})`);
-  return `<div class="fcard"><h2>${esc(f.name)} ${f.verified?'<span class="st ok">موثّق ✔</span>':''}</h2>
-   <div class="fn">${f.city?esc(f.city)+' • ':''}${n} موديل</div>${f.descr?`<p>${esc(f.descr)}</p>`:''}
+  return `<div class="fcard"><div class="fhead">${f.logo?`<img src="${esc(f.logo)}" alt="">`:''}<div><h2>${esc(f.name)} ${f.verified?'<span class="st ok">موثّق ✔</span>':''}</h2>
+   <div class="fn">${f.city?esc(f.city)+' • ':''}${n} موديل</div></div></div>${f.descr?`<p>${esc(f.descr)}</p>`:''}
    <div class="bar"><a class="wa" style="flex:1;margin:0" target="_blank" rel="noopener" href="${w}" onclick="tk('ask')">كلّم المصنع على واتساب</a><button class="btn s" onclick="shareF('${f.id}')">مشاركة</button></div></div>`;
 }
 function installApp(){
