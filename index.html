@@ -523,7 +523,7 @@ async function getRB(){
 }
 async function cutBlob(src){
   const rb=await getRB();
-  const out=await rb(src,{progress:(k,c,t)=>{if(t)toast('جاري تجهيز أداة شيل الخلفية... '+Math.round(c/t*100)+'%',6000)}});
+  const out=await rb(src,{model:'isnet',output:{format:'image/png',quality:1},progress:(k,c,t)=>{if(t)toast('جاري تجهيز أداة شيل الخلفية... '+Math.round(c/t*100)+'%',6000)}});
   const l=lookOf(),[rw,rh]=l.ratio.split('/').map(Number),W=1000,H=Math.round(W*rh/rw);
   const bmp=await createImageBitmap(out);
   const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
@@ -1424,7 +1424,7 @@ function bakeFile(){
 
 
 /* ===== شكل الموديلات الموحّد ===== */
-const LOOK_DEF={ratio:'4/5',fit:'cover',bg:'#ffffff',mark:false,autocut:true};
+const LOOK_DEF={ratio:'4/5',fit:'cover',bg:'#ffffff',mark:false,autocut:false};
 const lookOf=()=>({...LOOK_DEF,...((S.settings&&S.settings.look)||{})});
 function applyLook(){
   const l=lookOf(),st=document.documentElement.style;
