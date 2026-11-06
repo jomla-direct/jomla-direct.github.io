@@ -295,6 +295,7 @@ main{padding-bottom:110px}
 .plan ul{margin:4px 0 8px;padding:0 18px 0 0;font-size:13.5px;line-height:1.9;flex:1}
 .plan .btn{width:100%}
 .pbadge{display:inline-block;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;vertical-align:middle}
+.tips{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:8px 12px;margin:4px 0 8px;font-size:13.5px}.tips summary{cursor:pointer;font-weight:700}.tips ol{margin:6px 0 2px;padding:0 18px 0 0;line-height:1.9}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -506,51 +507,27 @@ async function upImage(file,max,q,type,std){
   }
   return sb.storage.from('media').getPublicUrl(path).data.publicUrl;
 }
+function photoTips(){
+  return `<details class="tips"><summary>📷 تعليمات تصوير الموديل (علشان كل المنصة تبقى شبه بعض)</summary><ol>
+  <li>صوّر على <b>خلفية سادة فاتحة</b>: ملاية بيضاء أو حيطة بيضاء من غير رسومات.</li>
+  <li>استخدم <b>إضاءة طبيعية</b> (جنب شباك) أو إضاءة بيضاء قدّام الموديل. ماتستخدمش فلاش مباشر.</li>
+  <li>البنطلون <b>مفرود ومكوي</b>، متعلّق على شماعة أو متحط على سطح مستوي، والصورة <b>طولية</b>.</li>
+  <li>الموديل يملى <b>تلت تلتين</b> الصورة من الارتفاع، في النص، ومقطوعش من أي ناحية.</li>
+  <li>صوّر <b>من قدّام</b> الأول (دي الصورة الرئيسية)، وبعدها الضهر، وبعدها <b>صورة قريبة</b> للقماش والخياطة والجيوب.</li>
+  <li>نضّف عدسة الموبايل، وثبّت إيدك أو استخدم حامل، ومتستخدمش زوم.</li>
+  <li>مفيش كتابة أو أرقام تليفونات أو لوجو على الصورة. المنصة بتقص وتظبط المقاس لوحدها.</li></ol></details>`;
+}
 function imgsHTML(){
-  return tmp.imgs.map((s,i)=>`<div class="th"><img src="${esc(s)}" alt=""><div class="thb">${i===0?'<span>رئيسية</span>':`<button type="button" onclick="mainImg(${i})">رئيسية</button>`}<button type="button" onclick="cutImg(${i})" title="شيل الخلفية">✂</button><button type="button" onclick="rmImg(${i})">✕</button></div></div>`).join('')+
+  return tmp.imgs.map((s,i)=>`<div class="th"><img src="${esc(s)}" alt=""><div class="thb">${i===0?'<span>رئيسية</span>':`<button type="button" onclick="mainImg(${i})">رئيسية</button>`}<button type="button" onclick="rmImg(${i})">✕</button></div></div>`).join('')+
   (tmp.imgs.length<6?`<label class="addimg">+ صور<input type="file" accept="image/*" multiple onchange="addImgs(this)"></label>`:'');
 }
 
-/* ===== شيل الخلفية (بيشتغل جوه المتصفح ومجاني) ===== */
-let rbFn=null;
-async function getRB(){
-  if(window.__removeBG)return window.__removeBG;
-  if(rbFn)return rbFn;
-  const m=await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm');
-  rbFn=m.removeBackground||(m.default&&m.default.removeBackground);
-  if(!rbFn)throw new Error('lib');
-  return rbFn;
-}
-async function cutBlob(src){
-  const rb=await getRB();
-  const out=await rb(src,{model:'isnet',output:{format:'image/png',quality:1},progress:(k,c,t)=>{if(t)toast('جاري تجهيز أداة شيل الخلفية... '+Math.round(c/t*100)+'%',6000)}});
-  const l=lookOf(),[rw,rh]=l.ratio.split('/').map(Number),W=1000,H=Math.round(W*rh/rw);
-  const bmp=await createImageBitmap(out);
-  const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
-  x.fillStyle=l.bg||'#ffffff';x.fillRect(0,0,W,H);
-  const k=Math.min(W*.9/bmp.width,H*.9/bmp.height),dw=bmp.width*k,dh=bmp.height*k;
-  x.drawImage(bmp,(W-dw)/2,(H-dh)/2,dw,dh);
-  return await new Promise(r=>c.toBlob(b=>r(b),'image/jpeg',.88));
-}
-async function cutImg(i){
-  const url=tmp.imgs[i];if(!url)return;
-  toast('جاري شيل الخلفية... أول مرة بتاخد وقت',20000);
-  try{
-    const blob=await (await fetch(url)).blob();
-    const cut=await cutBlob(blob);
-    const u=await upImage(cut,1000,.88,'image/jpeg',false);
-    if(u){tmp.imgs[i]=u;$('#imgs').innerHTML=imgsHTML();toast('اتشالت الخلفية ✔ دوس حفظ')}
-  }catch(e){console.warn(e);toast('معرفتش أشيل الخلفية دلوقتي. جرب صورة تانية أو اتأكد من النت',7000)}
-}
 async function addImgs(inp){
   const files=[...inp.files];inp.value='';let n=0;
   for(const f of files){
     if(tmp.imgs.length>=6)break;
     n++;toast(`جاري رفع صورة ${n} من ${files.length}...`,8000);
     let u=null;
-    if($('#autocut')&&($('#autocut').checked||lookOf().autocut)){
-      try{const cut=await cutBlob(f);u=await upImage(cut,1000,.88,'image/jpeg',false)}catch(e){console.warn(e);toast('معرفتش أشيل الخلفية، هرفع الصورة زي ما هي',5000)}
-    }
     if(!u)u=await upImage(f,1000,.78,undefined,true);
     if(u){tmp.imgs.push(u);const el=$('#imgs');if(el)el.innerHTML=imgsHTML()}
   }
@@ -914,7 +891,7 @@ function productModal(id){
   const help=ownerWa('السلام عليكم، عايز مساعدة في تحديد أسعار الجملة لموديلاتي');
   modal(`<datalist id="catl">${[...new Set([...((S.settings.home&&S.settings.home.cats)||[]),...S.products.map(p=>p.cat).filter(Boolean)])].map(c=>`<option value="${esc(c)}">`).join('')}</datalist><button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h2 style="margin-top:0">${id?'تعديل موديل':'موديل جديد'}</h2>
   <label class="f">الصور (الأولى هي الرئيسية)</label>
-  <label class="f" style="display:flex;gap:8px;align-items:center;margin:2px 0 6px"><input type="checkbox" id="autocut" style="width:auto" ${lookOf().autocut?'checked disabled':''}> شيل الخلفية تلقائيًا من الصور الجديدة${lookOf().autocut?' (إجباري لتوحيد شكل المنصة)':''}</label><div class="note" style="margin:0 0 6px">أو دوس ✂ على أي صورة بعد رفعها عشان تشيل خلفيتها.</div><div class="imgs" id="imgs">${imgsHTML()}</div>
+  ${photoTips()}<div class="imgs" id="imgs">${imgsHTML()}</div>
   <div class="row"><div><label class="f" for="pn">اسم الموديل</label><input id="pn" value="${esc(p.name)}"></div><div><label class="f" for="pc">القسم</label><input id="pc" list="catl" value="${esc(p.cat)}" placeholder="جينز أولادي"></div></div>
   <label class="f" for="pd">وصف</label><textarea id="pd">${esc(p.descr)}</textarea>
   <div class="row"><div><label class="f" for="ps">المقاسات (بينها فاصلة)</label><input id="ps" value="${esc(p.sizes)}" placeholder="32, 34, 36"></div><div><label class="f" for="pcl">الألوان (بينها فاصلة)</label><input id="pcl" value="${esc(p.colors)}"></div></div>
@@ -976,6 +953,7 @@ guide:`نصايح للتاجر:
 • حط صور حقيقية وواضحة، وماتكتبش مقاسات أو ألوان مش متوفرة.
 • رد على استفسارات التجار بسرعة وبصدق.
 • حدّث موديلاتك أول بأول.
+تصوير الموديلات: خلفية سادة فاتحة، إضاءة طبيعية، البنطلون مفرود ومكوي، صورة طولية، الموديل في النص ويملى تلت تلتين الصورة، وابدأ بصورة من قدّام.
 لو حصلت مشكلة استخدم زرار «إبلاغ» وهنراجعها.`};
 function pageText(k){const p=S.settings.pages;return (p&&typeof p==='object'&&p[k])||DEFPAGES[k]}
 function pageHTML(k){
@@ -1361,7 +1339,6 @@ function adminSettings(){
   <div><label class="f" for="lkf">طريقة العرض</label><select id="lkf" onchange="lookPreview()"><option value="cover">قص لتملى الإطار</option><option value="contain">الصورة كاملة بخلفية</option></select></div></div>
   <div class="lookbox"><div><label class="f" for="lkb">لون الخلفية</label><input id="lkb" type="color" value="${esc(lookOf().bg)}" oninput="lookPreview()" style="height:44px;padding:4px"></div>
   <div><label class="f" style="display:flex;gap:8px;align-items:center;margin-top:30px"><input type="checkbox" id="lkm" style="width:auto" ${lookOf().mark?'checked':''} onchange="lookPreview()"> اسم المنصة على الصور</label></div></div>
-  <label class="f" style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="lka" style="width:auto" ${lookOf().autocut?'checked':''}> شيل الخلفية تلقائيًا من كل صورة موديل (توحيد شكل كل المصانع)</label>
   <div class="pic" id="lookPrev" style="max-width:150px;margin:10px 0;border-radius:14px"><i style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:44px;object-fit:cover">👖</i><span class="watm">${esc(S.settings.name)}</span></div>
   <label class="f">لون المنصة</label><div class="sw">${COLORS.map(c=>`<i style="background:${c}" class="${s.color===c?'on':''}" onclick="setColor('${c}',this)"></i>`).join('')}</div>
   <label class="f">اللوجو</label><div class="imgs"><div id="logoPrev">${prevHTML('logo')}</div><label class="addimg">اختار لوجو<input type="file" accept="image/*" onchange="pickOne(this,'logo')"></label></div>
@@ -1424,14 +1401,14 @@ function bakeFile(){
 
 
 /* ===== شكل الموديلات الموحّد ===== */
-const LOOK_DEF={ratio:'4/5',fit:'cover',bg:'#ffffff',mark:false,autocut:false};
+const LOOK_DEF={ratio:'4/5',fit:'cover',bg:'#ffffff',mark:false};
 const lookOf=()=>({...LOOK_DEF,...((S.settings&&S.settings.look)||{})});
 function applyLook(){
   const l=lookOf(),st=document.documentElement.style;
   st.setProperty('--ratio',l.ratio);st.setProperty('--fit',l.fit);st.setProperty('--picbg',l.fit==='contain'?l.bg:'var(--soft)');
 }
 function lookFromForm(){
-  return {ratio:$('#lkr').value,fit:$('#lkf').value,bg:$('#lkb').value,mark:$('#lkm').checked,autocut:$('#lka').checked};
+  return {ratio:$('#lkr').value,fit:$('#lkf').value,bg:$('#lkb').value,mark:$('#lkm').checked};
 }
 function lookPreview(){
   const l=lookFromForm(),e=$('#lookPrev');if(!e)return;
