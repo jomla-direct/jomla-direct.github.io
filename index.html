@@ -384,6 +384,10 @@ body{letter-spacing:0}
 #nbanner button{border:0;border-radius:10px;padding:8px 14px;font-weight:800;cursor:pointer}
 #nbanner .go{background:#D4AF37;color:#101D35}#nbanner .no{background:#ffffff22;color:#fff;padding:8px 10px}
 @keyframes nbin{from{transform:translateY(-20px);opacity:0}to{transform:none;opacity:1}}
+
+.pbx{margin-top:14px;padding:12px;border:1px solid var(--br);border-radius:12px;background:var(--soft);font-size:13.5px;line-height:1.7}
+.pbx b{display:block;margin-bottom:4px}
+.pbx .btn{margin-top:6px;width:100%}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -665,7 +669,7 @@ function render(){
   document.documentElement.style.setProperty('--ac',(!S.settings.color||/^#(0f2747|1f4e8c)$/i.test(S.settings.color))?'#101D35':S.settings.color);applyLook();
   document.title=route()in PAGEMETA?PAGEMETA[route()][0]+' | '+(S.settings.name||'جملة دايركت'):(S.settings.name||'جملة دايركت')+' | من المصنع للتاجر';
   const r=route();
-  notifInit();if(!window._nbT){window._nbT=1;setTimeout(()=>tryBanner(0),800)}
+  notifInit();if(!window._nbT){window._nbT=1;setTimeout(()=>tryBanner(0),800);setTimeout(()=>{syncPush()},2500)}
   $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
   $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():r==='admin'?adminHTML():r==='account'?accountHTML():pageHTML(r);
   if(r!=='setup'&&!$('#ftr')){const f=document.createElement('footer');f.id='ftr';document.body.appendChild(f)}
@@ -1595,7 +1599,7 @@ const GOVS='القاهرة,الجيزة,الإسكندرية,القليوبية,
 function toggleFavF(id,ev){
   if(!FAVF.includes(id)){FTS[id]=new Date().toISOString();ls.set('jd_fts',JSON.stringify(FTS))}
   if(ev)ev.stopPropagation();
-  const i=FAVF.indexOf(id);if(i<0)FAVF.push(id);else FAVF.splice(i,1);ls.set('jd_favf',JSON.stringify(FAVF));pushFavs();
+  const i=FAVF.indexOf(id);if(i<0)FAVF.push(id);else FAVF.splice(i,1);ls.set('jd_favf',JSON.stringify(FAVF));pushFavs();syncPush();
   document.querySelectorAll('[data-favf="'+id+'"]').forEach(b=>{b.classList.toggle('on',FAVF.includes(id));if(b.classList.contains('btn'))b.textContent=FAVF.includes(id)?'★ في المفضلة':'☆ أضف للمفضلة'});
   if(filt.view==='favs')render();
 }
@@ -1804,11 +1808,56 @@ function openNotifs(){
   const g={};l.forEach(p=>{(g[p.factory_id]=g[p.factory_id]||[]).push(p)});
   const body=l.length?Object.keys(g).map(fid=>`<div class="nfh">${esc(fac(fid).name||'')} • ${g[fid].length} موديل جديد</div>`+g[fid].map(p=>`<div class="nf" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><div><b>${esc(p.name)}</b><span>${esc(String(p.created_at||'').slice(0,10))}</span></div></div>`).join('')).join(''):
    FAVF.length?'<p class="note">مفيش موديلات جديدة من المصانع اللي بتتابعها دلوقتي. هيوصلك إشعار هنا أول ما ينزل موديل جديد.</p>':'<p class="note">تابع المصانع اللي تهمك (دوس ☆ أضف للمفضلة في صفحة المصنع) وهيوصلك هنا إشعار لما تضيف موديلات جديدة.</p>';
-  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">الإشعارات</h3>${body}`);
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">الإشعارات</h3>${body}<div class="pbx" id="pushbox">${pushBoxHTML()}</div>`);
   NSEEN=new Date().toISOString();ls.set('jd_nseen',NSEEN);
   const b=document.querySelector('.bell i');if(b)b.remove();
 }
 
+
+/* ===== v9: إشعارات الدفع حتى لو الموقع مقفول ===== */
+const VAPID_PUBLIC='BETsQrk_TJ7faN2X_fCGKo1qpjCW5De03Sh43cHukR7nHKRCehgcGlkSyB898YzYhp-LMHL4AmZoBXqFpO3q1rs';
+const pushOK=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+const pushOn=()=>pushOK()&&ls.get('jd_push')==='1'&&Notification.permission==='granted';
+function b64u(s){const p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...r].map(c=>c.charCodeAt(0)))}
+function abToB64(b){return btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+async function pushSub(){
+  const reg=await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;
+  return (await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUBLIC)});
+}
+async function syncPush(){
+  try{
+    if(!sb||!pushOn())return;
+    const sub=await pushSub(),j=sub.toJSON();
+    const r=await sb.rpc('save_push',{p_endpoint:j.endpoint,p_p256dh:j.keys.p256dh,p_auth:j.keys.auth,p_factories:FAVF});
+    return r.error?r.error:null;
+  }catch(e){return e}
+}
+async function enablePush(){
+  const box=document.getElementById('pushbox');
+  try{
+    const perm=await Notification.requestPermission();
+    if(perm!=='granted'){ls.set('jd_push','0');if(box)box.innerHTML=pushBoxHTML();return}
+    ls.set('jd_push','1');
+    const e=await syncPush();
+    if(e){ls.set('jd_push','0');toast('محتاج تشغّل كود التحديث SQL الأول وتنشر الخدمة (شوف الخطوات)',6000)}
+    else toast('تمام! هيوصلك إشعار لما مصنع بتتابعه ينزّل موديل جديد',4000);
+  }catch(e){ls.set('jd_push','0');toast('الإشعارات مش متاحة على المتصفح ده',4000)}
+  if(box)box.innerHTML=pushBoxHTML();
+}
+async function disablePush(){
+  try{
+    const reg=await navigator.serviceWorker.getRegistration();const sub=reg&&await reg.pushManager.getSubscription();
+    if(sub){const ep=sub.endpoint;await sub.unsubscribe();if(sb)sb.rpc('delete_push',{p_endpoint:ep}).then(()=>{},()=>{})}
+  }catch(e){}
+  ls.set('jd_push','0');const box=document.getElementById('pushbox');if(box)box.innerHTML=pushBoxHTML();
+}
+function pushBoxHTML(){
+  const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)&&!window.navigator.standalone;
+  if(!pushOK())return ios?'<b>إشعارات على الآيفون</b>الأول افتح الموقع في Safari، دوس زر المشاركة، واختار "إضافة إلى الشاشة الرئيسية"، وبعدها افتحه من الأيقونة وفعّل الإشعارات.':'<b>الإشعارات</b>المتصفح ده مش بيدعم إشعارات الموقع. جرّب Chrome.';
+  if(Notification.permission==='denied')return '<b>الإشعارات متقفولة</b>أنت منعت الإشعارات للموقع. افتح إعدادات المتصفح للموقع واسمح بالإشعارات وبعدها جرّب تاني.';
+  if(pushOn())return '<b>✓ الإشعارات شغالة</b>هيوصلك إشعار على موبايلك حتى لو الموقع مقفول، لما مصنع بتتابعه ينزّل موديل جديد.<button class="btn s" type="button" onclick="disablePush()">إيقاف الإشعارات</button>';
+  return '<b>🔔 استقبل الإشعارات على موبايلك</b>خلّي موبايلك ينبّهك لما مصنع بتتابعه ينزّل موديل جديد، حتى لو الموقع مقفول.<button class="btn" type="button" onclick="enablePush()">فعّل الإشعارات</button>';
+}
 function tryBanner(n){
   if(ss.get('jd_nb')==='1')return;
   if(document.getElementById('intro')){if(n<40)setTimeout(()=>tryBanner(n+1),500);return}
