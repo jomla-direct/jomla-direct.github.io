@@ -414,6 +414,25 @@ body{letter-spacing:0}
 .card .acts .wbtn svg{width:20px;height:20px}
 .card .acts .cbtn{flex:none;width:48px;height:42px;border-radius:10px;border:1.5px solid #101D35;background:var(--card);color:#101D35;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
 .card .acts .cbtn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== v11 بحث ذكي + ركن "لك" ===== */
+.hero .sw{order:4;position:relative}
+.hero .sw .search{width:100%}
+.sug{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;background:var(--card);color:var(--tx);border:1px solid var(--br);border-radius:14px;box-shadow:0 14px 34px #0a122550;max-height:330px;overflow:auto;display:none}
+.sug.on{display:block}
+.sug .sg{padding:8px 14px 2px;font-size:11.5px;font-weight:800;color:var(--stt)}
+.sug button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:inherit;text-align:right;padding:9px 14px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit}
+.sug button:hover,.sug button:active{background:var(--soft)}
+.sug button i{flex:none;width:34px;height:34px;border-radius:8px;background:var(--soft) center/cover;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:16px}
+.sug button span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sug button small{margin-right:auto;color:var(--mu);font-weight:500;font-size:12px;flex:none}
+.sug .none{padding:14px;color:var(--mu);font-size:13.5px}
+#corner{position:fixed;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:42;width:46px;height:46px;border-radius:50%;border:1.5px solid #D4AF37;background:#101D35;color:#D4AF37;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px #0a122555;cursor:pointer;padding:0}
+#corner svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.qt{display:flex;gap:6px;margin:4px 0 8px;overflow-x:auto;scrollbar-width:none}
+.qt::-webkit-scrollbar{display:none}
+.qt button{flex:none;border:1px solid var(--br);background:var(--card);color:var(--tx);border-radius:99px;padding:7px 14px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.qt button.on{background:#101D35;border-color:#101D35;color:#fff}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -695,7 +714,7 @@ function render(){
   document.documentElement.style.setProperty('--ac',(!S.settings.color||/^#(0f2747|1f4e8c)$/i.test(S.settings.color))?'#101D35':S.settings.color);applyLook();
   document.title=route()in PAGEMETA?PAGEMETA[route()][0]+' | '+(S.settings.name||'جملة دايركت'):(S.settings.name||'جملة دايركت')+' | من المصنع للتاجر';
   const r=route();
-  notifInit();if(!window._nbT){window._nbT=1;setTimeout(()=>tryBanner(0),800);setTimeout(()=>{syncPush()},2500)}
+  cornerUpd();notifInit();if(!window._nbT){window._nbT=1;setTimeout(()=>tryBanner(0),800);setTimeout(()=>{syncPush()},2500)}
   $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
   $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():r==='admin'?adminHTML():r==='account'?accountHTML():pageHTML(r);
   if(r!=='setup'&&!$('#ftr')){const f=document.createElement('footer');f.id='ftr';document.body.appendChild(f)}
@@ -717,7 +736,7 @@ const hay=p=>{const f=fac(p.factory_id);return nrm([p.name,p.cat,p.descr,p.sizes
 const qWords=()=>nrm(filt.q).split(/\s+/).filter(Boolean);
 function visible(){
   const w=qWords();
-  const l=liveProducts().filter(p=>(filt.view!=='favs'||FAV.includes(p.id))&&(!filt.cat||p.cat===filt.cat)&&(!filt.fac||p.factory_id===filt.fac)&&(!filt.size||list(p.sizes).includes(filt.size))&&(!filt.color||list(p.colors).includes(filt.color))&&(!filt.gov||govOf(fac(p.factory_id))===filt.gov)&&(!w.length||w.every(x=>hay(p).includes(x))));
+  const l=liveProducts().filter(p=>(filt.view!=='favs'||FAV.includes(p.id))&&(!filt.cat||p.cat===filt.cat)&&(!filt.fac||p.factory_id===filt.fac)&&(!filt.size||list(p.sizes).includes(filt.size))&&(!filt.color||list(p.colors).includes(filt.color))&&(!filt.gov||govOf(fac(p.factory_id))===filt.gov)&&(!w.length||w.every(x=>mt(hay(p),x))));
   const k=filt.sort||'new';
   if(k==='new')l.sort((a,b)=>(planRank(fac(b.factory_id))+(b.hot&&planRank(fac(b.factory_id))>=0?3:0))-(planRank(fac(a.factory_id))+(a.hot&&planRank(fac(a.factory_id))>=0?3:0)));
   if(k==='pop')l.sort((a,b)=>(POP[b.id]||0)-(POP[a.id]||0));
@@ -728,7 +747,7 @@ function visible(){
 function facMatches(){
   const w=qWords();if(!w.length||filt.fac)return [];
   const lp=liveProducts();
-  return S.factories.filter(f=>isLive(f)&&lp.some(p=>p.factory_id===f.id)&&w.every(x=>nrm([f.name,f.city,f.governorate,f.specialties,f.descr].join(' ')).includes(x)));
+  return S.factories.filter(f=>isLive(f)&&lp.some(p=>p.factory_id===f.id)&&w.every(x=>mt(nrm([f.name,f.city,f.governorate,f.specialties].join(' ')),x)));
 }
 function filterOpts(){
   const lp=liveProducts();
@@ -770,8 +789,7 @@ function storeHTML(){
   const ff=S.factories.filter(f=>FAVF.includes(f.id)&&isLive(f));
   const head=filt.view==='favs'?`<div class="vt">المفضلة</div>${ff.length?`<div class="sub">مصانع</div><div class="fgrid" style="margin-bottom:12px">${ff.map(f=>`<div class="fcl" role="button" tabindex="0" onclick="openFactory('${f.id}')"><button class="hrt on" data-favf="${f.id}" type="button" aria-label="مفضلة" onclick="toggleFavF('${f.id}',event)">${HEART}</button><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="">`:'🏭'}</span><b>${esc(f.name)}</b><small>${esc(govOf(f))}</small></div>`).join('')}</div><div class="sub">موديلات</div>`:''}`:`<section class="hero" style="${s.cover?`background-image:linear-gradient(#0006,#000b),url('${esc(s.cover)}')`:''}">
     <h1>${esc(s.name)}</h1><p class="hero-sub">${esc(s.tagline)}</p><h2 class="hero-h">اكتشف أحدث موديلات المصانع</h2><p>كل مصانع الملابس وموديلاتها في مكان واحد</p>${s.home&&s.home.notice?`<p class="hnote">${esc(s.home.notice)}</p>`:''}
-    <input class="search" id="q" type="search" placeholder="دوّر على موديل أو مصنع..." value="${esc(filt.q)}" oninput="filt.q=this.value;filt.n=12;dbPaint()">
-    <div class="shortcuts">${[['بنطلون جينز','بنطلونات جينز'],['رجالي','رجالي'],['حريمي','حريمي'],['أطفال','أطفال'],['تيشيرت','تيشيرتات'],['سويت شيرت','سويت شيرت'],['أقمشة','أقمشة جينز'],['__f','مصانع وموردين']].map(x=>`<button type="button" onclick="quick('${x[0]}')">${x[1]}</button>`).join('')}</div>
+    <div class="sw"><input class="search" id="q" type="search" autocomplete="off" placeholder="دوّر على موديل أو مصنع..." value="${esc(filt.q)}" oninput="filt.q=this.value;filt.n=12;dbPaint();sugPaint()" onfocus="sugPaint()" onkeydown="if(event.key==='Enter'){sugClose();this.blur()}"><div id="sug" class="sug"></div></div>
     <div class="hbtns"><button class="btn" type="button" onclick="(document.getElementById('plist')||document.body).scrollIntoView({behavior:'smooth'})">تصفح الموديلات</button><a class="btn s" href="#factory">${myFactory?'لوحة مصنعي':'سجّل مصنعك / دخول المصانع'}</a></div>
     ${lp.length?`<div class="hstats"><span><b>${lp.length}</b>موديل</span><span><b>${nf}</b>مصنع</span></div>`:''}
   </section>`;
@@ -781,8 +799,8 @@ function storeHTML(){
   const ofs=vip.filter(f=>f.offer&&f.offer.trim());
   const oh=home0&&ofs.length?`<div class="sub">عروض المصانع</div>${ofs.map(f=>`<div class="offer" onclick="openFactory('${f.id}')"><b>${esc(f.name)}</b><span>${esc(f.offer)}</span></div>`).join('')}`:'';
   const rv=filt.view==='home'&&!filt.q&&!filt.fac&&!activeFilters()?RECENT.map(id=>liveProducts().find(p=>p.id===id)).filter(Boolean).slice(0,10):[];
-  const rvh=rv.length?`<div class="sub">آخر ما تصفحته</div><div class="rv">${rv.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`:'';
-  const pvh=home0?topRow('الأكثر مشاهدة',POPV)+topRow('الأكثر طلبًا',POP):'';
+  const rvh=false&&rv.length?`<div class="sub">آخر ما تصفحته</div><div class="rv">${rv.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`:'';
+  const pvh='';
   return head+(home0?trustHTML():'')+vh+oh+pvh+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
   <div class="sorts" id="sorts">${sortHTML()}</div>
   <div id="plist">${gridHTML()}</div>`+(filt.view==='home'?footHTML():'');
@@ -1883,6 +1901,47 @@ function pushBoxHTML(){
   if(Notification.permission==='denied')return '<b>الإشعارات متقفولة</b>أنت منعت الإشعارات للموقع. افتح إعدادات المتصفح للموقع واسمح بالإشعارات وبعدها جرّب تاني.';
   if(pushOn())return '<b>✓ الإشعارات شغالة</b>هيوصلك إشعار على موبايلك حتى لو الموقع مقفول، لما مصنع بتتابعه ينزّل موديل جديد.<button class="btn s" type="button" onclick="disablePush()">إيقاف الإشعارات</button>';
   return '<b>🔔 استقبل الإشعارات على موبايلك</b>خلّي موبايلك ينبّهك لما مصنع بتتابعه ينزّل موديل جديد، حتى لو الموقع مقفول.<button class="btn" type="button" onclick="enablePush()">فعّل الإشعارات</button>';
+}
+
+/* ===== v11: بحث بالحرف الأول + اقتراحات + ركن لك ===== */
+const mt=(h,x)=>x.length>=3?h.includes(x):h.split(/[\s,،.\/\-_()]+/).some(w=>w.startsWith(x));
+function sugPaint(){
+  const box=document.getElementById('sug'),inp=document.getElementById('q');if(!box||!inp)return;
+  const q=nrm(inp.value).trim();
+  if(!q){box.className='sug';box.innerHTML='';return}
+  const ok=t=>{const n=nrm(t);return q.split(/\s+/).every(x=>mt(n,x))};
+  const lp=liveProducts();
+  const cats=uniq(lp.map(p=>p.cat)).filter(ok).slice(0,4);
+  const facs=S.factories.filter(f=>isLive(f)&&lp.some(p=>p.factory_id===f.id)&&ok(f.name)).slice(0,4);
+  const prods=lp.filter(p=>ok(p.name)).slice(0,6);
+  window._sugC=cats;
+  let h='';
+  if(cats.length)h+='<div class="sg">التصنيفات</div>'+cats.map((c,i)=>`<button type="button" onclick="pickCat(${i})"><i>🏷</i><span>${esc(c)}</span></button>`).join('');
+  if(facs.length)h+='<div class="sg">المصانع</div>'+facs.map(f=>`<button type="button" onclick="sugClose();openFactory('${f.id}')"><i${f.logo?` style="background-image:url('${esc(f.logo)}')"`:''}>${f.logo?'':'🏭'}</i><span>${esc(f.name)}</span></button>`).join('');
+  if(prods.length)h+='<div class="sg">الموديلات</div>'+prods.map(p=>`<button type="button" onclick="sugClose();openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><span>${esc(p.name)}</span><small>${esc(fac(p.factory_id).name||'')}</small></button>`).join('');
+  box.innerHTML=h||'<div class="none">مفيش نتيجة بالاسم ده</div>';box.className='sug on';
+}
+function sugClose(){const b=document.getElementById('sug');if(b)b.className='sug'}
+function pickCat(i){const c=(window._sugC||[])[i];if(!c)return;filt.cat=c;filt.q='';filt.n=12;sugClose();render()}
+document.addEventListener('click',e=>{if(!e.target.closest||!e.target.closest('.sw'))sugClose()});
+let QTAB='views';
+function quickList(t){
+  const lp=liveProducts();
+  if(t==='recent')return RECENT.map(id=>lp.find(p=>p.id===id)).filter(Boolean).slice(0,12);
+  const m=t==='pop'?POP:POPV;return lp.filter(p=>(m[p.id]||0)>0).sort((a,b)=>m[b.id]-m[a.id]).slice(0,12);
+}
+function cornerUpd(){
+  let e=document.getElementById('corner');
+  const show=route()==='store'&&filt.view==='home'&&['views','pop','recent'].some(t=>quickList(t).length);
+  if(!show){if(e)e.remove();return}
+  if(!e){e=document.createElement('button');e.id='corner';e.type='button';e.setAttribute('aria-label','لك');e.onclick=openQuick;
+    e.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>';document.body.appendChild(e)}
+}
+function openQuick(){
+  const T=[['views','الأكثر مشاهدة'],['pop','الأكثر طلبًا'],['recent','آخر ما تصفحته']];
+  const l=quickList(QTAB);
+  const body=l.length?l.map(p=>`<div class="nf" onclick="closeM();openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><div><b>${esc(p.name)}</b><span>${esc(fac(p.factory_id).name||'')}</span></div></div>`).join(''):'<p class="note">لسه مفيش بيانات هنا.</p>';
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">لك</h3><div class="qt">${T.map(x=>`<button type="button" class="${QTAB===x[0]?'on':''}" onclick="QTAB='${x[0]}';openQuick()">${x[1]}</button>`).join('')}</div>${body}`);
 }
 function tryBanner(n){
   if(ss.get('jd_nb')==='1')return;
