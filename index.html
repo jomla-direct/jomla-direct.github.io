@@ -378,6 +378,12 @@ body{letter-spacing:0}
 .nf i{flex:none;width:52px;height:52px;border-radius:10px;background:var(--soft) center/cover;border:1px solid var(--br)}
 .nf b{display:block;font-size:14px}.nf span{font-size:12px;color:var(--mu)}
 .nfh{margin:12px 0 2px;font-weight:800;font-size:13.5px;color:var(--stt)}
+
+#nbanner{position:fixed;top:12px;left:12px;right:12px;z-index:80;max-width:520px;margin:0 auto;background:#101D35;color:#fff;border:1px solid #D4AF3780;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px #0007;animation:nbin .35s ease}
+#nbanner span{flex:1;font-size:14px;font-weight:700;line-height:1.5}
+#nbanner button{border:0;border-radius:10px;padding:8px 14px;font-weight:800;cursor:pointer}
+#nbanner .go{background:#D4AF37;color:#101D35}#nbanner .no{background:#ffffff22;color:#fff;padding:8px 10px}
+@keyframes nbin{from{transform:translateY(-20px);opacity:0}to{transform:none;opacity:1}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -659,7 +665,7 @@ function render(){
   document.documentElement.style.setProperty('--ac',(!S.settings.color||/^#(0f2747|1f4e8c)$/i.test(S.settings.color))?'#101D35':S.settings.color);applyLook();
   document.title=route()in PAGEMETA?PAGEMETA[route()][0]+' | '+(S.settings.name||'جملة دايركت'):(S.settings.name||'جملة دايركت')+' | من المصنع للتاجر';
   const r=route();
-  notifInit();
+  notifInit();if(!window._nbT){window._nbT=1;setTimeout(()=>tryBanner(0),800)}
   $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
   $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():r==='admin'?adminHTML():r==='account'?accountHTML():pageHTML(r);
   if(r!=='setup'&&!$('#ftr')){const f=document.createElement('footer');f.id='ftr';document.body.appendChild(f)}
@@ -1801,6 +1807,17 @@ function openNotifs(){
   modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">الإشعارات</h3>${body}`);
   NSEEN=new Date().toISOString();ls.set('jd_nseen',NSEEN);
   const b=document.querySelector('.bell i');if(b)b.remove();
+}
+
+function tryBanner(n){
+  if(ss.get('jd_nb')==='1')return;
+  if(document.getElementById('intro')){if(n<40)setTimeout(()=>tryBanner(n+1),500);return}
+  if(route()!=='store')return;
+  const c=newItems().length;if(!c)return;
+  ss.set('jd_nb','1');
+  const e=document.createElement('div');e.id='nbanner';
+  e.innerHTML=`<span>🔔 فيه ${c} موديل جديد من مصانع بتتابعها</span><button class="go" type="button" onclick="document.getElementById('nbanner').remove();openNotifs()">شوفهم</button><button class="no" type="button" aria-label="إغلاق" onclick="document.getElementById('nbanner').remove()">✕</button>`;
+  document.body.appendChild(e);setTimeout(()=>{const x=document.getElementById('nbanner');if(x)x.remove()},12000);
 }
 function setSort(k){filt.sort=k;filt.n=12;const e=$('#sorts');if(e)e.innerHTML=sortHTML();paint()}
 function sortHTML(){
