@@ -296,6 +296,17 @@ main{padding-bottom:110px}
 .plan .btn{width:100%}
 .pbadge{display:inline-block;color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:99px;letter-spacing:.5px;vertical-align:middle}
 .tips{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:8px 12px;margin:4px 0 8px;font-size:13.5px}.tips summary{cursor:pointer;font-weight:700}.tips ol{margin:6px 0 2px;padding:0 18px 0 0;line-height:1.9}
+.hbtns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 8px}.hbtns .btn{background:var(--st);color:#101D35;border:0;font-weight:800;flex:1 1 auto;text-align:center}.hbtns .btn.s{background:transparent;color:#fff;border:1.5px solid #ffffff77}
+.scn{position:relative;width:280px;height:300px;margin:30px auto 14px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.scn .lampsvg{position:absolute;inset:0;width:100%;height:100%}
+.scn #cone,.scn #bulb{transition:opacity .35s}
+.scn .hang{position:absolute;left:83px;top:112px;width:70px;height:118px;transform-origin:35px 0;animation:jsw 3.2s ease-in-out infinite;z-index:1}
+.scn .hang.fall{animation:none}
+.scn .bsk{position:absolute;left:65px;bottom:0;width:150px;height:86px;z-index:2;transform-origin:50% 100%}
+.scn .scn-tip{position:absolute;left:0;right:0;top:-24px;font-size:14px;font-weight:800;color:var(--st);transition:opacity .3s}
+@keyframes jsw{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media (max-height:780px){.intro p{display:none}.intro-logo{width:58px;height:58px;margin-bottom:6px;font-size:30px}.intro h1{font-size:27px;margin-bottom:4px}.scn{transform:scale(.82);margin:6px auto -28px}}
+.hero-h{font-size:21px;margin:8px 0 2px;font-weight:900}.hero-sub{opacity:.85;font-size:13px;margin:0 0 4px}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -560,7 +571,8 @@ async function refreshAuth(){
     try{const t=await sb.from('traders').select('*').eq('id',me.id).maybeSingle();myTrader=t.data||null}catch(e){myTrader=null}
   }
 }
-async function reload(){await loadData();await refreshAuth();syncFavs();await loadReports();await loadEvents();render()}
+async function loadMyInqs(){S.myInqs=[];if(!myTrader)return;try{const r=await sb.from('inquiries').select('*').eq('trader_id',me.id).order('created_at',{ascending:false}).limit(30);S.myInqs=r.data||[]}catch(e){}}
+async function reload(){await loadData();await refreshAuth();syncFavs();await loadReports();await loadMyInqs();await loadEvents();render()}
 
 /* ================= الراوتر والرسم ================= */
 const route=()=>{if(!CFG.url||!CFG.key)return 'setup';const h=location.hash.replace('#','');return ['factory','admin','setup','account','about','contact','privacy','terms','guide'].includes(h)?h:'store'};
@@ -647,9 +659,9 @@ function storeHTML(){
   if(filt.view==='factories')return `<div class="vt">المصانع</div>`+factoriesViewHTML()+footHTML();
   const ff=S.factories.filter(f=>FAVF.includes(f.id)&&isLive(f));
   const head=filt.view==='favs'?`<div class="vt">المفضلة</div>${ff.length?`<div class="sub">مصانع</div><div class="fgrid" style="margin-bottom:12px">${ff.map(f=>`<div class="fcl" role="button" tabindex="0" onclick="openFactory('${f.id}')"><button class="hrt on" data-favf="${f.id}" type="button" aria-label="مفضلة" onclick="toggleFavF('${f.id}',event)">${HEART}</button><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="">`:'🏭'}</span><b>${esc(f.name)}</b><small>${esc(govOf(f))}</small></div>`).join('')}</div><div class="sub">موديلات</div>`:''}`:`<section class="hero" style="${s.cover?`background-image:linear-gradient(#0006,#000b),url('${esc(s.cover)}')`:''}">
-    <h1>${esc(s.name)}</h1><p>${esc(s.tagline)}</p>${s.home&&s.home.notice?`<p class="hnote">${esc(s.home.notice)}</p>`:''}
+    <h1>${esc(s.name)}</h1><p class="hero-sub">${esc(s.tagline)}</p><h2 class="hero-h">اكتشف أحدث موديلات المصانع</h2><p>كل مصانع الملابس وموديلاتها في مكان واحد</p>${s.home&&s.home.notice?`<p class="hnote">${esc(s.home.notice)}</p>`:''}
     <input class="search" id="q" type="search" placeholder="دوّر على موديل أو مصنع..." value="${esc(filt.q)}" oninput="filt.q=this.value;filt.n=12;dbPaint()">
-    <div class="shortcuts">${[['بنطلون جينز','بنطلونات جينز'],['رجالي','رجالي'],['حريمي','حريمي'],['أطفال','أطفال'],['أقمشة','أقمشة جينز'],['__f','مصانع وموردين']].map(x=>`<button type="button" onclick="quick('${x[0]}')">${x[1]}</button>`).join('')}</div>
+    <div class="shortcuts">${[['بنطلون جينز','بنطلونات جينز'],['رجالي','رجالي'],['حريمي','حريمي'],['أطفال','أطفال'],['تيشيرت','تيشيرتات'],['سويت شيرت','سويت شيرت'],['أقمشة','أقمشة جينز'],['__f','مصانع وموردين']].map(x=>`<button type="button" onclick="quick('${x[0]}')">${x[1]}</button>`).join('')}</div>
     <div class="hbtns"><button class="btn" type="button" onclick="(document.getElementById('plist')||document.body).scrollIntoView({behavior:'smooth'})">تصفح الموديلات</button><a class="btn s" href="#factory">${myFactory?'لوحة مصنعي':'سجّل مصنعك / دخول المصانع'}</a></div>
     ${lp.length?`<div class="hstats"><span><b>${lp.length}</b>موديل</span><span><b>${nf}</b>مصنع</span></div>`:''}
   </section>`;
@@ -752,8 +764,50 @@ function showIntro(){
   el.innerHTML=`<div class="intro-in"><div class="intro-logo">${s.logo?`<img src="${esc(s.logo)}" alt="">`:'👖'}</div>
    <h1>${esc(s.name)}</h1><div class="intro-line">من المصنع للتاجر.. سوق واحد</div>
    <p>مصانع الجينز والملابس في مصر وتجار الجملة في مكان واحد. اختار الموديل وكلّم المصنع مباشرة على واتساب.</p>
-   <button class="intro-go" type="button" onclick="enterShop()">ادخل المتجر</button></div>`;
+   ${introScene()}
+   <button class="intro-go" type="button" onclick="introGo()">ادخل المتجر</button></div>`;
   document.body.appendChild(el);
+}
+function introScene(){
+  return `<div class="scn" id="scn" onclick="introGo()" role="button" aria-label="دوس على البنطلون">
+   <svg class="lampsvg" viewBox="0 0 280 300" aria-hidden="true">
+    <defs><radialGradient id="lg" cx="50%" cy="0%" r="80%"><stop offset="0" stop-color="#ffd46b" stop-opacity=".85"/><stop offset="1" stop-color="#ffd46b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="jg" x1="0" x2="1"><stop offset="0" stop-color="#2d5ca6"/><stop offset="1" stop-color="#1c3f7a"/></linearGradient></defs>
+    <polygon id="cone" points="118,92 52,262 214,262" fill="url(#lg)" opacity=".18"/>
+    <ellipse cx="46" cy="289" rx="34" ry="7" fill="#0b0f18"/>
+    <path d="M46 286 L58 210 L112 70" stroke="#1d2433" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="58" cy="210" r="6" fill="#2b3347"/>
+    <path d="M80 80 Q110 22 150 62 L136 92 Q108 100 80 80Z" fill="#1d2433"/>
+    <ellipse id="bulb" cx="114" cy="92" rx="18" ry="6" fill="#ffd46b" opacity=".25"/>
+    <line x1="118" y1="98" x2="118" y2="116" stroke="#c9a24a" stroke-width="2"/>
+   </svg>
+   <div class="hang" id="hang"><svg viewBox="0 0 70 118" width="70" height="118" aria-hidden="true">
+     <path d="M35 2 q8 0 8 8 q0 6 -8 8 M35 18 L6 34 H64 Z" fill="none" stroke="#c9a24a" stroke-width="2.2" stroke-linejoin="round"/>
+     <path d="M7 34 H63 L66 62 L61 114 H40 L35 66 L30 114 H9 L4 62 Z" fill="url(#jg)" stroke="#0e2650" stroke-width="1.5"/>
+     <path d="M7 40 H63" stroke="#d4af37" stroke-width="1.6" stroke-dasharray="4 3"/>
+     <path d="M35 40 V66" stroke="#d4af37" stroke-width="1.4" stroke-dasharray="3 3"/>
+     <path d="M12 46 q8 14 16 0 M42 46 q8 14 16 0" stroke="#d4af37" stroke-width="1.3" fill="none" stroke-dasharray="3 2"/></svg></div>
+   <div class="bsk" id="bsk"><svg viewBox="0 0 150 86" width="150" height="86" aria-hidden="true">
+     <path d="M12 20 H138 L124 82 H26 Z" fill="#b07a3f" stroke="#7a4f22" stroke-width="2"/>
+     <path d="M20 36 H130 M24 52 H126 M28 68 H122" stroke="#7a4f22" stroke-width="2"/>
+     <path d="M52 20 L46 82 M75 20 V82 M98 20 L104 82" stroke="#7a4f22" stroke-width="2"/>
+     <rect x="6" y="12" width="138" height="12" rx="6" fill="#c8924d" stroke="#7a4f22" stroke-width="2"/></svg></div>
+   <div class="scn-tip" id="scntip">👆 دوس على البنطلون</div></div>`;
+}
+let introBusy=false;
+function introGo(){
+  const el=$('#intro');if(!el){enterShop();return}
+  if(introBusy)return;introBusy=true;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!el.animate||!$('#hang')){enterShop();introBusy=false;return}
+  try{const c=new (window.AudioContext||window.webkitAudioContext)();const t=c.currentTime;
+    const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(140,t+.62);o.frequency.exponentialRampToValueAtTime(70,t+.9);g.gain.setValueAtTime(.0001,t+.6);g.gain.linearRampToValueAtTime(.28,t+.64);g.gain.exponentialRampToValueAtTime(.0001,t+1);o.connect(g);g.connect(c.destination);o.start(t+.6);o.stop(t+1.05);
+    const o2=c.createOscillator(),g2=c.createGain();o2.type='sine';o2.frequency.value=880;g2.gain.setValueAtTime(.0001,t+.95);g2.gain.linearRampToValueAtTime(.12,t+.97);g2.gain.exponentialRampToValueAtTime(.0001,t+1.5);o2.connect(g2);g2.connect(c.destination);o2.start(t+.95);o2.stop(t+1.55)}catch(e){}
+  const tip=$('#scntip');if(tip)tip.style.opacity=0;
+  const cone=$('#cone'),bulb=$('#bulb');if(cone)cone.setAttribute('opacity','.95');if(bulb)bulb.setAttribute('opacity','1');
+  const h=$('#hang'),b=$('#bsk');h.classList.add('fall');
+  h.animate([{transform:'translateY(0) rotate(0)'},{transform:'translateY(-6px) rotate(-3deg)',offset:.14},{transform:'translateY(70px) rotate(6deg)',offset:.62},{transform:'translateY(58px) rotate(3deg)',offset:.74},{transform:'translateY(66px) rotate(5deg)'}],{duration:900,easing:'cubic-bezier(.45,0,.75,.6)',fill:'forwards'});
+  b.animate([{transform:'scale(1)',offset:0},{transform:'scale(1)',offset:.62},{transform:'scale(1.07,.93)',offset:.72},{transform:'scale(.98,1.04)',offset:.85},{transform:'scale(1)'}],{duration:900,fill:'forwards'});
+  setTimeout(()=>{el.animate([{opacity:1},{opacity:0}],{duration:420,fill:'forwards'});setTimeout(()=>{enterShop();introBusy=false},430)},1300);
 }
 function enterShop(){ss.set('jd_seen','1');const e=$('#intro');if(e)e.remove()}
 
@@ -1116,6 +1170,7 @@ function traderProfileHTML(){
  <div class="note">${esc(t.phone)} • ${FAV.length} موديل و${FAVF.length} مصنع في المفضلة (محفوظين على حسابك)</div>
  <label class="f" for="tn">الاسم</label><input id="tn" value="${esc(t.name)}">
  <div class="bar"><button class="btn" onclick="saveTrader()">حفظ</button><button class="btn s" onclick="logoutTrader()">خروج</button></div></div>
+ <div class="panel"><b>سجل استفساراتي</b>${(S.myInqs||[]).length?(S.myInqs||[]).map(x=>{const p=S.products.find(q=>q.id===x.product_id),f=S.factories.find(q=>q.id===x.factory_id);return `<div class="note" style="border-top:1px solid var(--br);padding:6px 0">${esc(f?f.name:'مصنع')}${p?' • '+esc(p.name):''} — ${esc(x.message||'')} <span style="opacity:.7">${new Date(x.created_at).toLocaleDateString('ar-EG')}</span></div>`}).join(''):'<p class="note">لسه ماعملتش استفسار. أي استفسار تبعته للمصنع هيتسجّل هنا.</p>'}</div>
  ${pwBlock()}
  <div class="panel"><b>طلب حذف الحساب</b><p class="note">هنحذف حسابك وبياناتك بعد مراجعة الطلب.</p><div class="bar"><button class="btn d sm" onclick="requestDelete()">اطلب حذف حسابي</button></div></div>
  <div class="bar"><a class="btn s sm" href="#">← رجوع للمتجر</a></div>`;
@@ -1644,7 +1699,7 @@ function adminStats(){
   if(!window.supabase||!supabase.createClient){$('#app').innerHTML='<div class="panel fbox"><h3>مفيش اتصال بالإنترنت</h3><p class="note">اتأكد من النت وحدّث الصفحة.</p></div>';return}
   sb=supabase.createClient(CFG.url,CFG.key);
   $('#app').innerHTML='<div class="sk" style="height:150px;margin-bottom:12px"></div><div class="skg"><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
-  try{await loadData();await refreshAuth();await loadReports();await loadEvents()}catch(e){loadErr=errMsg(e)}
+  try{await loadData();await refreshAuth();await loadReports();await loadMyInqs();await loadEvents()}catch(e){loadErr=errMsg(e)}
   render();
   if(route()==='store'&&!ss.get('jd_v')){ss.set('jd_v','1');tk('visit')}
 })();
