@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#1f4e8c">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jomla-direct.github.io/og.jpg">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
 <style>
 /* منصة جملة: متجر للتجار + بوابة للمصانع + إدارة للمالك */
 :root{--ac:#1f4e8c;--act:#1f4e8c;--bg:#f4f2ed;--card:#ffffff;--tx:#18222e;--mu:#667284;--br:#e4e0d6;--soft:#e6ecf4;--wa:#25d366;--wa-tx:#053a1c;--bad:#d93a40;--ok:#1d8a4f;--warn:#b7791f;--font:'Cairo',Tahoma,'Segoe UI',sans-serif;color-scheme:light}
@@ -307,6 +307,59 @@ main{padding-bottom:110px}
 @keyframes jsw{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
 @media (max-height:780px){.intro p{display:none}.intro-logo{width:58px;height:58px;margin-bottom:6px;font-size:30px}.intro h1{font-size:27px;margin-bottom:4px}.scn{transform:scale(.82);margin:6px auto -28px}}
 .hero-h{font-size:21px;margin:8px 0 2px;font-weight:900}.hero-sub{opacity:.85;font-size:13px;margin:0 0 4px}
+
+/* ===== v5 هادي وفخم: كحلي / ذهبي / أبيض ===== */
+:root{--ink:#101D35;--st:#D4AF37;--stt:#8a6a1c;--bg:#F4F5F7;--card:#fff;--tx:#101D35;--mu:#5E6A7F;--br:#E3E6EC;--soft:#EDEFF3;--act:#101D35}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ink:#0b1426;--bg:#0b1220;--card:#141d30;--tx:#eef1f6;--mu:#98a4b8;--br:#26324a;--soft:#1c273d;--act:#e3c36e}}
+body{letter-spacing:0}
+.hd{background:var(--card);color:var(--tx);border-bottom:1px solid var(--br);padding-top:12px;padding-bottom:12px;box-shadow:0 1px 0 #D4AF3733}
+.hd .brand{color:var(--tx);font-weight:800;font-size:19px}
+.hd .brand img{width:40px;height:40px;border-radius:10px;border:1px solid var(--br);background:#fff}
+.hd .ib{background:transparent;color:var(--tx);border:1px solid var(--br);font-weight:700;font-size:13.5px;padding:7px 14px}
+.hdb{display:flex;gap:8px;align-items:center}
+.hero{display:flex;flex-direction:column;padding:26px 20px 20px;border-radius:18px;background:radial-gradient(120% 90% at 100% 0,#1c2f55 0,transparent 60%),#101D35;box-shadow:none;border:1px solid #D4AF3740}
+.hero h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hero .hero-sub{order:1;color:var(--st);font-size:13px;font-weight:700;margin:0 0 8px;opacity:1}
+.hero .hero-h{order:2;font-size:25px;font-weight:800;line-height:1.35;margin:0 0 6px}
+.hero .hero-h+p{order:3;font-size:14.5px;opacity:.85;margin:0 0 16px;line-height:1.7}
+.hero .hnote{order:3;margin:0 0 14px;background:#D4AF3722;color:#f0d98a;border:1px solid #D4AF3755;font-weight:600;font-size:13px}
+.hero .search{order:4;max-width:none;border:1px solid #ffffff22;border-radius:12px;padding:14px 16px;box-shadow:none;background:#fff;color:#101D35}
+.hero .shortcuts{order:5;margin:12px 0 0}
+.hero .hbtns{order:6;margin:16px 0 0}
+.hero .hstats{order:7;margin-top:16px;padding-top:12px;border-top:1px solid #ffffff1f;gap:22px;font-size:12.5px;opacity:.9}
+.shortcuts button{border:1px solid #ffffff33;background:transparent;font-weight:600}
+.hbtns .btn{background:var(--st);color:#101D35;border-radius:12px;padding:13px 16px}
+.hbtns .btn.s{border:1px solid #ffffff55;background:transparent;color:#fff;font-weight:700}
+.chips{background:var(--bg);padding:10px 2px}
+.chip{border-radius:99px;font-weight:600;font-size:14px;padding:7px 18px;background:var(--card)}
+.chip.on{background:#101D35;color:#fff;border-color:#101D35}
+.vt{font-size:18px;font-weight:800;display:flex;align-items:center;gap:8px}
+.vt::before{content:"";width:4px;height:18px;border-radius:2px;background:var(--st)}
+.card{border-radius:14px;box-shadow:0 1px 3px #101D350f;border:1px solid var(--br);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:0 8px 24px #101D3514;transform:translateY(-2px)}
+.cb h3{font-size:14.5px;font-weight:700}
+.ptag{color:var(--tx);font-weight:800}
+.acts .bd{background:#101D35;border-radius:10px;font-size:13px;white-space:nowrap;padding:10px 4px}
+.btn{border-radius:10px}
+.tab.on{background:#101D35;border-color:#101D35}
+.sub{font-weight:700;color:var(--tx);font-size:14px}
+
+/* ===== v6 إضافات ===== */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 14px}
+.trust div{background:var(--card);border:1px solid var(--br);border-radius:12px;padding:10px 6px;text-align:center;font-size:12px;font-weight:700;line-height:1.5}
+.trust svg{display:block;margin:0 auto 4px;width:22px;height:22px;fill:none;stroke:var(--stt);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.vb{display:inline-flex;align-items:center;gap:3px;vertical-align:middle;margin-right:4px;background:#D4AF3722;color:var(--stt);border:1px solid #D4AF3766;border-radius:99px;padding:0 7px;font-size:11px;font-weight:800;line-height:18px}
+.vb svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .vb{color:#e3c36e}}
+#cmpbar{position:fixed;left:12px;right:12px;bottom:calc(66px + env(safe-area-inset-bottom,0px));z-index:44;background:#101D35;color:#fff;border-radius:14px;padding:10px 12px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 24px #0006}
+#cmpbar span{flex:1;font-size:13.5px;font-weight:700}
+#cmpbar button{border:0;border-radius:10px;padding:8px 14px;font-weight:800;cursor:pointer}
+#cmpbar .go{background:var(--st);color:#101D35}#cmpbar .go[disabled]{opacity:.45}#cmpbar .no{background:#ffffff22;color:#fff}
+.cmp{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.cmp th,.cmp td{padding:8px 6px;border-bottom:1px solid var(--br);vertical-align:top;text-align:right}
+.cmp th{width:68px;color:var(--mu);font-weight:600;font-size:12px}
+.cmp .ci{width:100%;aspect-ratio:4/5;border-radius:10px;background:var(--soft) center/cover}
+.cmp .win{color:var(--ok);font-weight:800}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -560,6 +613,7 @@ async function loadData(){
   S.factories=f.data||[];S.products=p.data||[];
   S.reports=[];
   try{const pr=await sb.rpc('popular');POP={};(pr.data||[]).forEach(x=>{POP[x.product_id]=+x.n})}catch(e){POP={}}
+  try{const pv=await sb.rpc('popular_views');POPV={};(pv.data||[]).forEach(x=>{POPV[x.product_id]=+x.n})}catch(e){POPV={}}
 }
 async function refreshAuth(){
   const r=await sb.auth.getSession();
@@ -612,6 +666,7 @@ function visible(){
   const k=filt.sort||'new';
   if(k==='new')l.sort((a,b)=>(planRank(fac(b.factory_id))+(b.hot&&planRank(fac(b.factory_id))>=0?3:0))-(planRank(fac(a.factory_id))+(a.hot&&planRank(fac(a.factory_id))>=0?3:0)));
   if(k==='pop')l.sort((a,b)=>(POP[b.id]||0)-(POP[a.id]||0));
+  else if(k==='views')l.sort((a,b)=>(POPV[b.id]||0)-(POPV[a.id]||0));
   else if(k==='cheap')l.sort((a,b)=>(hasPrice(a)?minPrice(a):1e9)-(hasPrice(b)?minPrice(b):1e9));
   return l;
 }
@@ -671,8 +726,9 @@ function storeHTML(){
   const ofs=vip.filter(f=>f.offer&&f.offer.trim());
   const oh=home0&&ofs.length?`<div class="sub">عروض المصانع</div>${ofs.map(f=>`<div class="offer" onclick="openFactory('${f.id}')"><b>${esc(f.name)}</b><span>${esc(f.offer)}</span></div>`).join('')}`:'';
   const rv=filt.view==='home'&&!filt.q&&!filt.fac&&!activeFilters()?RECENT.map(id=>liveProducts().find(p=>p.id===id)).filter(Boolean).slice(0,10):[];
-  const rvh=rv.length?`<div class="sub">شاهدت مؤخرًا</div><div class="rv">${rv.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`:'';
-  return head+vh+oh+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
+  const rvh=rv.length?`<div class="sub">آخر ما تصفحته</div><div class="rv">${rv.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`:'';
+  const pvh=home0?topRow('الأكثر مشاهدة',POPV)+topRow('الأكثر طلبًا',POP):'';
+  return head+(home0?trustHTML():'')+vh+oh+pvh+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
   <div class="sorts" id="sorts">${sortHTML()}</div>
   <div id="plist">${gridHTML()}</div>`+(filt.view==='home'?footHTML():'');
 }
@@ -691,7 +747,7 @@ function setFilt(k,i){
 function paint(){$('#plist').innerHTML=gridHTML()}
 function gridHTML(){
   const l=visible(),fc=facCardHTML();
-  const fm=facMatches(),fmh=fm.length?`<div class="sub">مصانع مطابقة</div><div class="fgrid" style="margin-bottom:12px">${fm.slice(0,6).map(f=>`<button class="fcl" type="button" onclick="openFactory('${f.id}')"><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="" loading="lazy">`:'🏭'}</span><b>${esc(f.name)}${f.verified?' ✔':''}</b><small>${esc(govOf(f))}</small></button>`).join('')}</div>`:'';
+  const fm=facMatches(),fmh=fm.length?`<div class="sub">مصانع مطابقة</div><div class="fgrid" style="margin-bottom:12px">${fm.slice(0,6).map(f=>`<button class="fcl" type="button" onclick="openFactory('${f.id}')"><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="" loading="lazy">`:'🏭'}</span><b>${esc(f.name)}${vb(f)}</b><small>${esc(govOf(f))}</small></button>`).join('')}</div>`:'';
   if(!l.length){
     const has=liveProducts().length,filtered=activeFilters()||filt.q;
     return fc+fmh+`<div class="empty">${filt.view==='favs'?'لسه ما ضفتش موديلات للمفضلة.<br>دوس القلب على أي موديل.':!has?'لسه مفيش موديلات. المصانع بتضيف موديلاتها قريب.':filt.q?`مفيش نتائج لـ "${esc(filt.q)}".<br>جرّب كلمة تانية أو امسح التصفية.`:'مفيش موديلات مطابقة للتصفية.'}${filtered&&filt.view!=='favs'?'<br><button class="btn s" type="button" onclick="clearFilters()">مسح البحث والتصفية</button>':''}</div>`;
@@ -703,7 +759,7 @@ function gridHTML(){
     return `<div class="card">
       <div class="pic" onclick="openProduct('${p.id}')">${img?`<img src="${esc(img)}" alt="" loading="lazy" decoding="async">`:'👖'}${p.sold_out?'<span class="tag out">خلصان</span>':''}${!p.sold_out&&p.created_at&&Date.now()-new Date(p.created_at)<7*864e5?'<span class="tag new">جديد</span>':''}<button class="hrt ${isFav(p.id)?'on':''}" data-fav="${p.id}" type="button" aria-label="المفضلة" onclick="toggleFav('${p.id}',event)">${HEART}</button><button class="shr" type="button" aria-label="مشاركة" onclick="event.stopPropagation();shareP('${p.id}')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button></div>
       <div class="cb">${p.cat?`<div class="cat">${esc(p.cat)}</div>`:''}<h3 onclick="openProduct('${p.id}')">${esc(p.name)}</h3>
-      <div class="fn" onclick="openFactory('${f.id}')" style="cursor:pointer">${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)}${f.verified?' ✔':''}${f.city?' • '+esc(f.city):''}</div>
+      <div class="fn" onclick="openFactory('${f.id}')" style="cursor:pointer">${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="">`:''}${esc(f.name)}${vb(f)}${f.city?' • '+esc(f.city):''}</div>
       <div class="ptag">${hasPrice(p)?`<span class="pv">${money(minPrice(p))} ج</span><small>للقطعة</small>`:`<span class="ptxt">${esc(noteOf(p)||'السعر عند التواصل')}</span>`}</div>
       <div class="meta">${[list(p.sizes).length?'مقاسات: '+list(p.sizes).slice(0,5).join('، '):'',list(p.colors).length?'ألوان: '+list(p.colors).slice(0,3).join('، '):''].filter(Boolean).map(esc).join(' • ')}</div>
       <div class="moq">${hasPrice(p)&&minQty(p)>1?`الحد الأدنى ${minQty(p)} قطعة`:''}</div>
@@ -729,7 +785,7 @@ function openProduct(id){
    <div class="gmain" id="gmain">${imgs[0]?`<img src="${esc(imgs[0])}" alt="">`:'👖'}</div>
    ${imgs.length>1?`<div class="thumbs">${imgs.map((s,i)=>`<img src="${esc(s)}" class="${i?'':'on'}" onclick="setImg(${i})" alt="">`).join('')}</div>`:''}
    <h2>${esc(p.name)}</h2>
-   <div class="fn">${esc(f.name)}${f.verified?' ✔ موثّق':''} ${f.city?'• '+esc(f.city):''}</div>
+   <div class="fn">${esc(f.name)}${vb(f)} ${f.city?'• '+esc(f.city):''}</div>
    ${p.descr?`<p style="margin:8px 0;color:var(--mu)">${esc(p.descr)}</p>`:''}
    <div class="lbl">${hasPrice(p)?'أسعار الجملة':'الأسعار'} <button class="qbtn" type="button" onclick="$('#qhelp').hidden=!$('#qhelp').hidden" title="اسأل عن الأسعار" aria-label="اسأل عن الأسعار">؟</button></div>
    <div class="tiers">${t.length?t.map(x=>`<div><span>${x.min>1?`من ${x.min} قطعة`:'للقطعة'}</span><b>${x.price} ج</b></div>`).join(''):''}${nt||!t.length?`<div style="display:block;font-weight:700">${esc(nt||DEF_NOTE)}</div>`:''}</div>
@@ -740,7 +796,7 @@ function openProduct(id){
    <input type="number" id="qty" min="1" value="${sel.qty}" oninput="sel.qty=this.value;updWA()">
    <div class="pl" id="pl"></div><div id="wawrap"></div>
    <div class="inq"><label class="lbl" for="inqt">استفسار عن الموديل</label><textarea id="inqt" placeholder="مثال: متاح مقاس 40؟ وإيه أقل كمية؟"></textarea>
-   <div class="bar"><button class="btn s" type="button" onclick="sendInq('${p.id}')">ابعت الاستفسار على واتساب</button>${f.phone?`<a class="btn s" href="tel:${esc(f.phone)}">اتصل بالمصنع</a>`:''}<button class="btn s" type="button" onclick="openReport('product','${p.id}')">إبلاغ</button></div></div>`);
+   <div class="bar"><button class="btn s" type="button" onclick="sendInq('${p.id}')">ابعت الاستفسار على واتساب</button>${f.phone?`<a class="btn s" href="tel:${esc(f.phone)}">اتصل بالمصنع</a>`:''}<button class="btn s" type="button" id="cmpb" onclick="cmpToggle('${p.id}')">${CMP.includes(p.id)?'✓ في المقارنة':'⚖ قارن'}</button><button class="btn s" type="button" onclick="openReport('product','${p.id}')">إبلاغ</button></div></div>`);
   updWA();
 }
 function setImg(i){$('#gmain').innerHTML=`<img src="${esc(curP.imgs[i])}" alt="">`;document.querySelectorAll('.thumbs img').forEach((el,j)=>el.classList.toggle('on',j===i))}
@@ -886,7 +942,7 @@ function factoryHTML(){
   else if(forever(f.paid_until))banner=`<div class="banner ok"><b>اشتراكك شغال</b> بدون تاريخ انتهاء</div>`;
   else if(daysLeft(f)<=7)banner=`<div class="banner ${daysLeft(f)<=3?'bad':'warn'}"><b>⚠️ اشتراكك هينتهي ${daysLeft(f)<=0?'النهارده':'بعد '+daysLeft(f)+' يوم'}</b> (${esc(f.paid_until)}). جدّد عشان موديلاتك ما تتخفيش عن التجار.${subInfo}${payBtn}</div>`;
   else banner=`<div class="banner ok"><b>اشتراكك شغال</b> لحد ${esc(f.paid_until)} (باقي ${daysLeft(f)} يوم)</div>`;
-  return `<div class="bar" style="justify-content:space-between"><div>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="" style="width:42px;height:42px;border-radius:12px;object-fit:cover;vertical-align:middle;margin-left:8px">`:''}<b style="font-size:18px">${esc(f.name)}</b> ${f.verified?'<span class="st ok">موثّق ✔</span>':''}<div class="note">${esc(f.phone)}${f.city?' • '+esc(f.city):''}</div></div><button class="btn s sm" onclick="logout()">خروج</button></div>
+  return `<div class="bar" style="justify-content:space-between"><div>${f.logo?`<img class="flg" src="${esc(f.logo)}" alt="" style="width:42px;height:42px;border-radius:12px;object-fit:cover;vertical-align:middle;margin-left:8px">`:''}<b style="font-size:18px">${esc(f.name)}</b> ${vb(f)}<div class="note">${esc(f.phone)}${f.city?' • '+esc(f.city):''}</div></div><button class="btn s sm" onclick="logout()">خروج</button></div>
   ${notifHTML(f)}
   ${banner}
   <div class="bar"><a class="btn s sm" href="#f=${f.id}">شوف صفحة مصنعك</a><button class="btn s sm" onclick="copyLink(shareURL('f=${f.id}'))">انسخ رابط صفحتك</button></div>
@@ -1600,7 +1656,7 @@ function factoriesViewHTML(){
   if(!fs.length)return '<div class="empty">لسه مفيش مصانع. المصانع بتنضم قريب.</div>';
   return '<div class="fgrid">'+fs.map(f=>{
     const n=lp.filter(p=>p.factory_id===f.id).length;
-    return `<div class="fcl" role="button" tabindex="0" onclick="openFactory('${f.id}')"><button class="hrt ${FAVF.includes(f.id)?'on':''}" data-favf="${f.id}" type="button" aria-label="مفضلة" onclick="toggleFavF('${f.id}',event)">${HEART}</button><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="" loading="lazy">`:'🏭'}</span><b>${esc(f.name)}${f.verified?' ✔':''}</b><small>${govOf(f)?esc(govOf(f))+' • ':''}${n} موديل</small></div>`;
+    return `<div class="fcl" role="button" tabindex="0" onclick="openFactory('${f.id}')"><button class="hrt ${FAVF.includes(f.id)?'on':''}" data-favf="${f.id}" type="button" aria-label="مفضلة" onclick="toggleFavF('${f.id}',event)">${HEART}</button><span class="flogo">${f.logo?`<img src="${esc(f.logo)}" alt="" loading="lazy">`:'🏭'}</span><b>${esc(f.name)}${vb(f)}</b><small>${govOf(f)?esc(govOf(f))+' • ':''}${n} موديل</small></div>`;
   }).join('')+'</div>';
 }
 function footHTML(){
@@ -1617,7 +1673,7 @@ function footHTML(){
 }
 
 /* ===== إحصائيات + مشاركة + ترتيب ===== */
-let POP={},EV=[],evErr=false,deepKey='',deferredPrompt=null;
+let POP={},POPV={},CMP=[],EV=[],evErr=false,deepKey='',deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});
 const since30=()=>new Date(Date.now()-30*864e5).toISOString();
 function tk(type,id){
@@ -1652,9 +1708,55 @@ function shareF(id){
   window.open('https://wa.me/?text='+encodeURIComponent(text+'\n'+url),'_blank');
 }
 function openFactory(id){filt.view='home';filt.n=12;location.hash='#f='+id}
+
+/* ===== v6: شريط الثقة + إزاي تطلب + شارة موثّق + الأكثر مشاهدة + المقارنة ===== */
+const SVGI=d=>`<svg viewBox="0 0 24 24">${d}</svg>`;
+function vb(f){return f&&f.verified?`<span class="vb" title="مصنع موثّق">${SVGI('<path d="M5 12.5l4.5 4.5L19 7.5"/>')}موثّق</span>`:''}
+function trustHTML(){
+  return `<div class="trust"><div>${SVGI('<path d="M21 12a8 8 0 0 1-11.6 7.1L3 21l1.9-6.4A8 8 0 1 1 21 12z"/>')}تواصل مباشر مع المصنع</div><div>${SVGI('<circle cx="12" cy="12" r="9"/><path d="M8 8l8 8"/>')}من غير عمولة</div><div>${SVGI('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>')}تسجيل مجاني للتجار</div></div>`;
+}
+function topRow(title,map){
+  const l=liveProducts().filter(p=>(map[p.id]||0)>0).sort((a,b)=>map[b.id]-map[a.id]).slice(0,10);
+  if(l.length<2)return '';
+  return `<div class="sub">${title}</div><div class="rv">${l.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`;
+}
+function cmpToggle(id){
+  const i=CMP.indexOf(id);
+  if(i>=0)CMP.splice(i,1);else{if(CMP.length>=2)CMP.shift();CMP.push(id)}
+  const b=document.getElementById('cmpb');if(b)b.textContent=CMP.includes(id)?'✓ في المقارنة':'⚖ قارن';
+  cmpBar();
+  if(CMP.length===2){openCompare();return}
+  if(CMP.length===1&&i<0){closeM();toast('اختار موديل تاني وهتتفتح المقارنة')}
+}
+function cmpBar(){
+  let e=document.getElementById('cmpbar');
+  if(!CMP.length){if(e)e.remove();return}
+  if(!e){e=document.createElement('div');e.id='cmpbar';document.body.appendChild(e)}
+  e.innerHTML=`<span>مقارنة (${CMP.length}/2)</span><button class="go" type="button" ${CMP.length<2?'disabled':''} onclick="openCompare()">قارن</button><button class="no" type="button" onclick="CMP=[];cmpBar()">مسح</button>`;
+}
+function openCompare(){
+  const a=S.products.find(p=>p.id===CMP[0]),b=S.products.find(p=>p.id===CMP[1]);
+  if(!a||!b){CMP=[];cmpBar();return}
+  const pr=p=>hasPrice(p)?minPrice(p):null;
+  const pa=pr(a),pb=pr(b);
+  const cell=(p,f)=>`<td>${f(p)}</td>`;
+  const row=(t,f)=>`<tr><th>${t}</th>${cell(a,f)}${cell(b,f)}</tr>`;
+  const cheap=p=>{const x=pr(p),y=p===a?pb:pa;return x!==null&&y!==null&&x<y?' win':''};
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">مقارنة الموديلات</h3>
+  <table class="cmp"><tr><th></th>${[a,b].map(p=>`<td><div class="ci" style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></div><b>${esc(p.name)}</b></td>`).join('')}</tr>
+  ${row('المصنع',p=>esc(fac(p.factory_id).name||'')+vb(fac(p.factory_id)))}
+  ${row('النوع',p=>esc(p.cat||'-'))}
+  ${row('السعر',p=>pr(p)!==null?`<span class="${cheap(p).trim()}">من ${pr(p)} ج</span>`:'اسأل المصنع')}
+  ${row('أقل كمية',p=>minQty(p)+' قطعة')}
+  ${row('المقاسات',p=>esc(list(p.sizes).join('، ')||'-'))}
+  ${row('الألوان',p=>esc(list(p.colors).join('، ')||'-'))}
+  ${row('التوفر',p=>p.sold_out?'خلصان':'متاح')}
+  <tr><th></th>${[a,b].map(p=>`<td><button class="btn sm" type="button" onclick="openProduct('${p.id}')">التفاصيل</button></td>`).join('')}</tr></table>
+  <div class="bar"><button class="btn s" type="button" onclick="CMP=[];cmpBar();closeM()">إنهاء المقارنة</button></div>`);
+}
 function setSort(k){filt.sort=k;filt.n=12;const e=$('#sorts');if(e)e.innerHTML=sortHTML();paint()}
 function sortHTML(){
-  const o=[['new','الأحدث'],['pop','الأكثر طلبًا'],['cheap','الأرخص']];
+  const o=[['new','الأحدث'],['pop','الأكثر طلبًا'],['views','الأكثر مشاهدة'],['cheap','الأرخص']];
   const n=activeFilters();
   return `<button class="fbtn" type="button" onclick="openFilters()">تصفية${n?' ('+n+')':''}</button><span>ترتيب:</span>`+o.map(x=>`<button class="${(filt.sort||'new')===x[0]?'on':''}" onclick="setSort('${x[0]}')">${x[1]}</button>`).join('');
 }
@@ -1665,7 +1767,7 @@ function facCardHTML(){
   const w=waTo(f.whatsapp||f.phone,`السلام عليكم، عايز أستفسر عن موديلات ${f.name} (${S.settings.name})`);
   const loc=[govOf(f),f.address].filter(Boolean).map(esc).join(' • ');
   const sp=list(f.specialties);
-  return `<div class="fcard">${f.cover?`<div class="fcover" style="background-image:url('${esc(f.cover)}')"></div>`:''}<div class="fhead">${f.logo?`<img src="${esc(f.logo)}" alt="">`:''}<div><h2>${esc(f.name)} ${f.verified?'<span class="st ok">موثّق ✔</span>':''}</h2>
+  return `<div class="fcard">${f.cover?`<div class="fcover" style="background-image:url('${esc(f.cover)}')"></div>`:''}<div class="fhead">${f.logo?`<img src="${esc(f.logo)}" alt="">`:''}<div><h2>${esc(f.name)} ${vb(f)}</h2>
    <div class="fn">${loc?loc+' • ':''}${n} موديل</div></div></div>${sp.length?`<div class="spc">${sp.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}${f.descr?`<p>${esc(f.descr)}</p>`:''}
    <div class="bar"><a class="wa" style="flex:1;margin:0" target="_blank" rel="noopener" href="${w}" onclick="tk('ask')">كلّم المصنع على واتساب</a>${f.phone?`<a class="btn s" href="tel:${esc(f.phone)}">اتصال</a>`:''}</div>
    <div class="bar"><button class="btn s sm" type="button" data-favf="${f.id}" onclick="toggleFavF('${f.id}',event)">${FAVF.includes(f.id)?'★ في المفضلة':'☆ أضف للمفضلة'}</button><button class="btn s sm" type="button" onclick="shareF('${f.id}')">مشاركة</button><button class="btn s sm" type="button" onclick="openReport('factory','${f.id}')">إبلاغ</button></div></div>`;
