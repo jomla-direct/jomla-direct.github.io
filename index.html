@@ -369,6 +369,15 @@ body{letter-spacing:0}
 .hd .brand{flex:1 1 auto;min-width:0}
 .hdb{flex:none}
 @media (max-width:430px){.hd{gap:6px}.hd .ib svg{display:none}.hd .ib{padding:7px 12px;font-size:13px}.hd .brand{gap:8px}.hd .brand b{font-size:18px}}
+
+/* ===== v8 إشعارات المصانع المتابَعة ===== */
+.bell{position:relative;flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--br);background:transparent;color:var(--tx);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.bell svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.bell i{position:absolute;top:-3px;left:-3px;min-width:18px;height:18px;border-radius:9px;background:#D4AF37;color:#101D35;font-style:normal;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--card)}
+.nf{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--br);cursor:pointer}
+.nf i{flex:none;width:52px;height:52px;border-radius:10px;background:var(--soft) center/cover;border:1px solid var(--br)}
+.nf b{display:block;font-size:14px}.nf span{font-size:12px;color:var(--mu)}
+.nfh{margin:12px 0 2px;font-weight:800;font-size:13.5px;color:var(--stt)}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -644,12 +653,13 @@ const ICON_FAC='<svg viewBox="0 0 24 24"><path d="M3 21V9l6 4V9l6 4V5h3a3 3 0 0 
 function hdrHTML(){
   const s=S.settings,r=route();
   return `<div class="hd"><div class="brand" onclick="location.hash=''"><img src="${BRAND_LOGO}" alt="جملة دايركت"><b>${esc(s.name)}</b></div>
-  ${r==='store'?`<span class="hdb"><a class="ib" href="#account" aria-label="حساب التاجر"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>${myTrader?'حسابي':'دخول'}</span></a><a class="ib" href="#factory" title="سجّل مصنعك أو ادخل على مصنعك" aria-label="مصنعي">${ICON_FAC}<span>${myFactory?'مصنعي':'للمصانع'}</span></a></span>`:`<a class="ib" href="#">← المتجر</a>`}</div>`;
+  ${r==='store'?`<span class="hdb">${bellHTML()}<a class="ib" href="#account" aria-label="حساب التاجر"><svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>${myTrader?'حسابي':'دخول'}</span></a><a class="ib" href="#factory" title="سجّل مصنعك أو ادخل على مصنعك" aria-label="مصنعي">${ICON_FAC}<span>${myFactory?'مصنعي':'للمصانع'}</span></a></span>`:`<a class="ib" href="#">← المتجر</a>`}</div>`;
 }
 function render(){
   document.documentElement.style.setProperty('--ac',(!S.settings.color||/^#(0f2747|1f4e8c)$/i.test(S.settings.color))?'#101D35':S.settings.color);applyLook();
   document.title=route()in PAGEMETA?PAGEMETA[route()][0]+' | '+(S.settings.name||'جملة دايركت'):(S.settings.name||'جملة دايركت')+' | من المصنع للتاجر';
   const r=route();
+  notifInit();
   $('#hdr').innerHTML=r==='setup'?'':hdrHTML();
   $('#app').innerHTML=r==='setup'?setupHTML():loadErr&&r==='store'?errHTML():r==='store'?storeHTML():r==='factory'?factoryHTML():r==='admin'?adminHTML():r==='account'?accountHTML():pageHTML(r);
   if(r!=='setup'&&!$('#ftr')){const f=document.createElement('footer');f.id='ftr';document.body.appendChild(f)}
@@ -1577,6 +1587,7 @@ try{FAV=JSON.parse(ls.get('jd_fav')||'[]');CART=JSON.parse(ls.get('jd_cart')||'[
 if(!Array.isArray(FAV))FAV=[];if(!Array.isArray(CART))CART=[];if(!Array.isArray(FAVF))FAVF=[];if(!Array.isArray(RECENT))RECENT=[];
 const GOVS='القاهرة,الجيزة,الإسكندرية,القليوبية,الشرقية,الدقهلية,الغربية,المنوفية,البحيرة,كفر الشيخ,دمياط,بورسعيد,الإسماعيلية,السويس,شمال سيناء,جنوب سيناء,الفيوم,بني سويف,المنيا,أسيوط,سوهاج,قنا,الأقصر,أسوان,البحر الأحمر,الوادي الجديد,مطروح'.split(',');
 function toggleFavF(id,ev){
+  if(!FAVF.includes(id)){FTS[id]=new Date().toISOString();ls.set('jd_fts',JSON.stringify(FTS))}
   if(ev)ev.stopPropagation();
   const i=FAVF.indexOf(id);if(i<0)FAVF.push(id);else FAVF.splice(i,1);ls.set('jd_favf',JSON.stringify(FAVF));pushFavs();
   document.querySelectorAll('[data-favf="'+id+'"]').forEach(b=>{b.classList.toggle('on',FAVF.includes(id));if(b.classList.contains('btn'))b.textContent=FAVF.includes(id)?'★ في المفضلة':'☆ أضف للمفضلة'});
@@ -1763,6 +1774,33 @@ function openCompare(){
   ${row('التوفر',p=>p.sold_out?'خلصان':'متاح')}
   <tr><th></th>${[a,b].map(p=>`<td><button class="btn sm" type="button" onclick="openProduct('${p.id}')">التفاصيل</button></td>`).join('')}</tr></table>
   <div class="bar"><button class="btn s" type="button" onclick="CMP=[];cmpBar();closeM()">إنهاء المقارنة</button></div>`);
+}
+
+/* ===== v8: إشعارات الموديلات الجديدة من المصانع المتابَعة ===== */
+let FTS={},NSEEN='';
+try{FTS=JSON.parse(ls.get('jd_fts')||'{}')||{};NSEEN=ls.get('jd_nseen')||''}catch(e){FTS={};NSEEN=''}
+function notifInit(){
+  let ch=false;const now=new Date().toISOString();
+  FAVF.forEach(id=>{if(!FTS[id]){FTS[id]=now;ch=true}});
+  Object.keys(FTS).forEach(id=>{if(!FAVF.includes(id)){delete FTS[id];ch=true}});
+  if(ch)ls.set('jd_fts',JSON.stringify(FTS));
+}
+function newItems(){
+  const ts=s=>Date.parse(s)||0,ns=ts(NSEEN);
+  return liveProducts().filter(p=>FAVF.includes(p.factory_id)&&ts(p.created_at)>Math.max(ns,ts(FTS[p.factory_id]))).sort((a,b)=>ts(b.created_at)-ts(a.created_at));
+}
+function bellHTML(){
+  const n=newItems().length;
+  return `<button class="bell" type="button" onclick="openNotifs()" aria-label="الإشعارات"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>${n?`<i>${n>9?'9+':n}</i>`:''}</button>`;
+}
+function openNotifs(){
+  const l=newItems();
+  const g={};l.forEach(p=>{(g[p.factory_id]=g[p.factory_id]||[]).push(p)});
+  const body=l.length?Object.keys(g).map(fid=>`<div class="nfh">${esc(fac(fid).name||'')} • ${g[fid].length} موديل جديد</div>`+g[fid].map(p=>`<div class="nf" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><div><b>${esc(p.name)}</b><span>${esc(String(p.created_at||'').slice(0,10))}</span></div></div>`).join('')).join(''):
+   FAVF.length?'<p class="note">مفيش موديلات جديدة من المصانع اللي بتتابعها دلوقتي. هيوصلك إشعار هنا أول ما ينزل موديل جديد.</p>':'<p class="note">تابع المصانع اللي تهمك (دوس ☆ أضف للمفضلة في صفحة المصنع) وهيوصلك هنا إشعار لما تضيف موديلات جديدة.</p>';
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">الإشعارات</h3>${body}`);
+  NSEEN=new Date().toISOString();ls.set('jd_nseen',NSEEN);
+  const b=document.querySelector('.bell i');if(b)b.remove();
 }
 function setSort(k){filt.sort=k;filt.n=12;const e=$('#sorts');if(e)e.innerHTML=sortHTML();paint()}
 function sortHTML(){
