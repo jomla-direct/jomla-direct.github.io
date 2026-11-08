@@ -15,7 +15,8 @@
 <meta property="og:description" content="تصفّح موديلات مصانع الجينز واطلب مباشرة على واتساب بأسعار الجملة.">
 <meta property="og:url" content="https://jomla-direct.github.io/">
 <meta property="og:image" content="https://jomla-direct.github.io/og.jpg">
-<link rel="apple-touch-icon" href="https://jomla-direct.github.io/og.jpg">
+<link rel="apple-touch-icon" href="https://jomla-direct.github.io/icon-192.png">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <meta name="twitter:card" content="summary_large_image">
@@ -499,6 +500,38 @@ body{letter-spacing:0}
 #sug{animation:jdUp .25s ease both}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.jdr{opacity:1;transform:none}}
+/* ===== v14: افتتاح سينمائي + حرير + طيران + ميل + تثبيت + مشاركة + QR ===== */
+@keyframes jdRing{from{stroke-dashoffset:290}to{stroke-dashoffset:0}}
+@keyframes jdWord{from{opacity:0;transform:translateY(16px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes jdSilk{from{transform:translateX(-26px) translateY(4px)}to{transform:translateX(26px) translateY(-4px)}}
+@keyframes jdPulse{0%{transform:scale(1)}35%{transform:scale(1.28)}70%{transform:scale(.94)}100%{transform:scale(1)}}
+.intro h1{display:block}
+.iw{display:inline-block;animation:jdWord .75s cubic-bezier(.2,.7,.2,1) both}
+.intro .intro-line.ifx{animation:jdUp .8s 1.3s both}
+.intro-logo{position:relative;overflow:visible!important}
+.intro-logo>img{border-radius:22px}
+.intro-logo .ring{position:absolute;inset:-7px;width:calc(100% + 14px);height:calc(100% + 14px);transform:rotate(-90deg);pointer-events:none}
+.intro-logo .ring circle{fill:none;stroke:var(--st,#D4AF37);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:290;stroke-dashoffset:290;animation:jdRing 1.5s .15s cubic-bezier(.4,0,.2,1) forwards}
+.hero{isolation:isolate}
+.silk{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.silk path{fill:none;stroke:#D4AF37;stroke-width:1;vector-effect:non-scaling-stroke;opacity:.28;animation:jdSilk 9s ease-in-out infinite alternate}
+.silk path:nth-child(2){animation-duration:12s;animation-delay:-3s;opacity:.2}
+.silk path:nth-child(3){animation-duration:15s;animation-delay:-6s;opacity:.16}
+.silk path:nth-child(4){animation-duration:11s;animation-delay:-8s;opacity:.12;stroke:#fff}
+.fly{position:fixed;width:56px;height:56px;border-radius:50%;background:#D4AF37 center/cover no-repeat;border:2px solid #fff;box-shadow:0 8px 20px #0a122566;z-index:120;pointer-events:none}
+.jdpulse{animation:jdPulse .55s ease}
+@media (hover:hover){.card .pic{transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;will-change:transform}}
+@media (hover:none){.card .pic{transform:perspective(800px) rotateX(var(--gx,0deg)) rotateY(var(--gy,0deg));transition:transform .15s linear}}
+.instbar{display:flex;align-items:center;gap:10px;background:#101D35;color:#fff;border:1px solid #D4AF3755;border-radius:14px;padding:10px 12px;margin:0 0 10px;animation:jdUp .5s both}
+.instbar div{flex:1;min-width:0}.instbar b{display:block;font-size:14px}.instbar span{font-size:12px;opacity:.8}
+.instbar .btn{background:#D4AF37;color:#101D35;font-weight:800;padding:9px 16px}
+.instbar .x2{background:transparent;border:0;color:#fff;opacity:.6;font-size:16px;cursor:pointer;padding:4px 6px}
+.jdx{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 0}.jdx .btn{flex:1 1 auto}
+.shprev{background:#f4f5f7;border-radius:14px;padding:8px;text-align:center;min-height:120px}
+.shprev img{display:block;width:100%;max-height:60vh;object-fit:contain;border-radius:10px}
+.shprev .shl{padding:40px 0;color:#667085;font-size:14px}
+.qrp .qrbox{width:190px;max-width:100%;margin:6px auto 10px;border:1px solid var(--br);border-radius:12px;overflow:hidden;background:#fff}
+.qrp .qrbox svg{display:block;width:100%;height:auto}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -867,7 +900,7 @@ function storeHTML(){
   const rv=filt.view==='home'&&!filt.q&&!filt.fac&&!activeFilters()?RECENT.map(id=>liveProducts().find(p=>p.id===id)).filter(Boolean).slice(0,10):[];
   const rvh=false&&rv.length?`<div class="sub">آخر ما تصفحته</div><div class="rv">${rv.map(p=>`<button type="button" onclick="openProduct('${p.id}')"><i style="background-image:url('${esc((p.imgs||[])[0]||'')}')"></i><b>${esc(p.name)}</b></button>`).join('')}</div>`:'';
   const pvh='';
-  return head+(home0?trustHTML()+buyCard():'')+vh+oh+pvh+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
+  return head+(home0?installHTML()+trustHTML()+buyCard():'')+vh+oh+pvh+rvh+`<div class="chips" id="chips">${chipsHTML()}</div>
   <div class="sorts" id="sorts">${sortHTML()}</div>
   <div id="plist">${gridHTML()}</div>`+(filt.view==='home'?footHTML():'');
 }
@@ -1002,7 +1035,7 @@ function introGo(){
   const h=$('#hang'),b=$('#bsk');h.classList.add('fall');
   h.animate([{transform:'translateY(0) rotate(0)'},{transform:'translateY(-6px) rotate(-3deg)',offset:.14},{transform:'translateY(70px) rotate(6deg)',offset:.62},{transform:'translateY(58px) rotate(3deg)',offset:.74},{transform:'translateY(66px) rotate(5deg)'}],{duration:900,easing:'cubic-bezier(.45,0,.75,.6)',fill:'forwards'});
   b.animate([{transform:'scale(1)',offset:0},{transform:'scale(1)',offset:.62},{transform:'scale(1.07,.93)',offset:.72},{transform:'scale(.98,1.04)',offset:.85},{transform:'scale(1)'}],{duration:900,fill:'forwards'});
-  setTimeout(()=>{el.animate([{opacity:1},{opacity:0}],{duration:420,fill:'forwards'});setTimeout(()=>{enterShop();introBusy=false},430)},1300);
+  setTimeout(()=>{curtain(el,()=>{enterShop();introBusy=false})},1300);
 }
 function enterShop(){ss.set('jd_seen','1');const e=$('#intro');if(e)e.remove()}
 
@@ -1125,7 +1158,8 @@ function infoHTML(f){
   <label class="f" for="id">نبذة عن النشاط</label><textarea id="id">${esc(f.descr)}</textarea>
   ${'offer' in f?(planOf(f)==='vip'?`<label class="f" for="io">عرض / إعلان المصنع (يظهر في الصفحة الرئيسية)</label><input id="io" maxlength="120" value="${esc(f.offer||'')}" placeholder="مثال: خصم على الكميات الكبيرة">`:'<div class="note">مساحة الإعلان في الصفحة الرئيسية متاحة في باقة VIP.</div>'):''}
   ${'governorate' in f?'':'<div class="note">لإضافة المحافظة والتخصصات والغلاف: لازم صاحب المنصة يشغّل كود التحديث SQL.</div>'}
-  <div class="bar"><button class="btn" onclick="saveInfo()">حفظ</button></div></div>`;
+  <div class="bar"><button class="btn" onclick="saveInfo()">حفظ</button></div></div>
+  ${qrPanel(f)}`;
 }
 async function saveInfo(){
   const w=normPhone($('#iw').value);if(!w){toast('اكتب رقم واتساب صحيح');return}
@@ -1838,7 +1872,7 @@ async function loadEvents(){
 }
 function cnt(type,o){o=o||{};return EV.filter(e=>e.type===type&&(!o.p||e.product_id===o.p)&&(!o.f||e.factory_id===o.f)).length}
 function shareURL(id){return location.origin+location.pathname+'#'+id}
-function shareP(id){
+function shareLink(id){
   const p=S.products.find(x=>x.id===id);if(!p)return;
   const f=fac(p.factory_id),url=shareURL('p='+id),text=`${p.name} من ${f.name} على ${S.settings.name}`;
   tk('share',id);
@@ -2304,6 +2338,8 @@ function adminStats(){
   const SEL='.card,.panel,.rate,.buyc,.trust,.bar2,.fcard,.tcard,.ofr,.rq,.item';
   function scan(){
    const app=document.getElementById('app');if(!app)return;
+   if(typeof silkHTML==='function'){const hh=app.querySelector('.hero');if(hh&&!hh.querySelector('.silk'))hh.insertAdjacentHTML('afterbegin',silkHTML())}
+   if(typeof restockCheck==='function')restockCheck();
    let i=0;
    app.querySelectorAll(SEL).forEach(el=>{
     if(el.dataset.jdr)return;el.dataset.jdr=1;
@@ -2324,6 +2360,236 @@ function adminStats(){
   scan();
  }catch(e){}
 })();
+
+/* ===== v14 ===== */
+/* مولّد QR داخلي (بايت، تصحيح M، إصدارات 1-10) */
+var QR=(function(){
+ const EC={1:[26,10,1],2:[44,16,1],3:[70,26,1],4:[100,18,2],5:[134,24,2],6:[172,16,4],7:[196,18,4],8:[242,22,4],9:[292,22,5],10:[346,26,5]};
+ const AL={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+ const mul=(x,y)=>{let z=0;for(let i=7;i>=0;i--){z=(z<<1)^((z>>>7)*0x11D);z^=((y>>>i)&1)*x}return z&255};
+ const gen=d=>{const r=new Array(d).fill(0);r[d-1]=1;let root=1;for(let i=0;i<d;i++){for(let j=0;j<d;j++){r[j]=mul(r[j],root);if(j+1<d)r[j]^=r[j+1]}root=mul(root,2)}return r};
+ const rem=(data,g)=>{const r=new Array(g.length).fill(0);for(const b of data){const f=b^r.shift();r.push(0);g.forEach((c,i)=>r[i]^=mul(c,f))}return r};
+ const bit=(x,i)=>((x>>>i)&1)!==0;
+ function make(text){
+  const bytes=Array.from(new TextEncoder().encode(String(text)));
+  let ver=0;
+  for(let v=1;v<=10;v++){const cap=EC[v][0]-EC[v][1]*EC[v][2];const need=4+(v<10?8:16)+bytes.length*8;if(need<=cap*8){ver=v;break}}
+  if(!ver)return null;
+  const [total,eccLen,nb]=EC[ver],dataCap=total-eccLen*nb,size=ver*4+17;
+  const bits=[];const put=(v,n)=>{for(let i=n-1;i>=0;i--)bits.push((v>>>i)&1)};
+  put(4,4);put(bytes.length,ver<10?8:16);bytes.forEach(b=>put(b,8));
+  put(0,Math.min(4,dataCap*8-bits.length));while(bits.length%8)bits.push(0);
+  const data=[];for(let i=0;i<bits.length;i+=8){let v=0;for(let j=0;j<8;j++)v=v<<1|bits[i+j];data.push(v)}
+  for(let p=0xEC;data.length<dataCap;p^=0xEC^0x11)data.push(p);
+  const g=gen(eccLen),shortN=nb-total%nb,shortLen=Math.floor(total/nb),blocks=[];
+  for(let i=0,k=0;i<nb;i++){const dl=shortLen-eccLen+(i<shortN?0:1);const d=data.slice(k,k+dl);k+=dl;blocks.push({d,e:rem(d,g)})}
+  const all=[];
+  for(let i=0;i<=shortLen-eccLen;i++)blocks.forEach(b=>{if(i<b.d.length)all.push(b.d[i])});
+  for(let i=0;i<eccLen;i++)blocks.forEach(b=>all.push(b.e[i]));
+  const M=Array.from({length:size},()=>new Array(size).fill(false)),F=Array.from({length:size},()=>new Array(size).fill(false));
+  const setF=(x,y,v)=>{if(x>=0&&y>=0&&x<size&&y<size){M[y][x]=v;F[y][x]=true}};
+  for(let i=0;i<size;i++){setF(6,i,i%2===0);setF(i,6,i%2===0)}
+  const finder=(x,y)=>{for(let dy=-4;dy<=4;dy++)for(let dx=-4;dx<=4;dx++){const d=Math.max(Math.abs(dx),Math.abs(dy));setF(x+dx,y+dy,d!==2&&d!==4)}};
+  finder(3,3);finder(size-4,3);finder(3,size-4);
+  const al=AL[ver],n=al.length;
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){if((i===0&&j===0)||(i===0&&j===n-1)||(i===n-1&&j===0))continue;for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)setF(al[i]+dx,al[j]+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1)}
+  const fmt=mask=>{const d=0<<3|mask;let r=d;for(let i=0;i<10;i++)r=(r<<1)^((r>>>9)*0x537);const b=(d<<10|r)^0x5412;
+   for(let i=0;i<=5;i++)setF(8,i,bit(b,i));setF(8,7,bit(b,6));setF(8,8,bit(b,7));setF(7,8,bit(b,8));for(let i=9;i<15;i++)setF(14-i,8,bit(b,i));
+   for(let i=0;i<8;i++)setF(size-1-i,8,bit(b,i));for(let i=8;i<15;i++)setF(8,size-15+i,bit(b,i));setF(8,size-8,true)};
+  fmt(0);
+  if(ver>=7){let r=ver;for(let i=0;i<12;i++)r=(r<<1)^((r>>>11)*0x1F25);const b=ver<<12|r;for(let i=0;i<18;i++){const v=bit(b,i),a=size-11+i%3,c=Math.floor(i/3);setF(a,c,v);setF(c,a,v)}}
+  let k=0;
+  for(let right=size-1;right>=1;right-=2){if(right===6)right=5;for(let vert=0;vert<size;vert++)for(let j=0;j<2;j++){const x=right-j,up=((right+1)&2)===0,y=up?size-1-vert:vert;if(!F[y][x]&&k<all.length*8){M[y][x]=bit(all[k>>>3],7-(k&7));k++}}}
+  const cond=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,(x,y)=>x*y%2+x*y%3===0,(x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+  const apply=m=>{for(let y=0;y<size;y++)for(let x=0;x<size;x++)if(!F[y][x]&&cond[m](x,y))M[y][x]=!M[y][x]};
+  const pen=()=>{let p=0;
+   for(let y=0;y<size;y++){let run=1;for(let x=1;x<=size;x++){if(x<size&&M[y][x]===M[y][x-1])run++;else{if(run>=5)p+=run-2;run=1}}}
+   for(let x=0;x<size;x++){let run=1;for(let y=1;y<=size;y++){if(y<size&&M[y][x]===M[y-1][x])run++;else{if(run>=5)p+=run-2;run=1}}}
+   for(let y=0;y<size-1;y++)for(let x=0;x<size-1;x++){const c=M[y][x];if(c===M[y][x+1]&&c===M[y+1][x]&&c===M[y+1][x+1])p+=3}
+   let dark=0;M.forEach(r=>r.forEach(v=>{if(v)dark++}));p+=(Math.ceil(Math.abs(dark*20-size*size*10)/(size*size))-1)*10;return p};
+  let best=0,bp=1e9;
+  for(let m=0;m<8;m++){apply(m);fmt(m);const p=pen();if(p<bp){bp=p;best=m}apply(m)}
+  apply(best);fmt(best);
+  return M;
+ }
+ function svg(text,o){o=o||{};const M=make(text);if(!M)return '';const q=o.margin==null?2:o.margin,n=M.length+q*2;let d='';
+  M.forEach((r,y)=>r.forEach((v,x)=>{if(v)d+=`M${x+q} ${y+q}h1v1h-1z`}));
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="${o.bg||'#fff'}"/><path d="${d}" fill="${o.fg||'#101D35'}"/></svg>`}
+ function draw(ctx,text,x,y,size,o){o=o||{};const M=make(text);if(!M)return false;const q=o.margin==null?2:o.margin,n=M.length+q*2,c=size/n;
+  ctx.fillStyle=o.bg||'#fff';ctx.fillRect(x,y,size,size);ctx.fillStyle=o.fg||'#101D35';
+  M.forEach((r,j)=>r.forEach((v,i)=>{if(v)ctx.fillRect(x+(i+q)*c,y+(j+q)*c,Math.ceil(c),Math.ceil(c))}));return true}
+ return {make,svg,draw};
+})();
+try{if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}catch(e){}
+/* ---- تثبيت التطبيق ---- */
+var DIP=null;
+const standalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
+const isIOS=()=>/iPhone|iPad|iPod/.test(navigator.userAgent);
+function installHTML(){
+  if(standalone()||ls.get('jd_instx')==='1'||ls.get('jd_inst')==='1')return '';
+  if(DIP)return `<div class="instbar" id="instbar"><div><b>ثبّت جملة دايركت على موبايلك</b><span>أيقونة على الشاشة وتفتح زي أي تطبيق</span></div><button class="btn" type="button" onclick="doInstall()">ثبّت</button><button class="x2" type="button" aria-label="إخفاء" onclick="hideInstall()">✕</button></div>`;
+  if(isIOS())return `<div class="instbar" id="instbar"><div><b>ثبّت الموقع على الآيفون</b><span>دوس زر المشاركة في Safari ثم «إضافة إلى الشاشة الرئيسية»</span></div><button class="x2" type="button" aria-label="إخفاء" onclick="hideInstall()">✕</button></div>`;
+  return '';
+}
+function injectInstall(){if(document.getElementById('instbar'))return;const t=document.querySelector('.trust');if(t)t.insertAdjacentHTML('beforebegin',installHTML())}
+function hideInstall(){ls.set('jd_instx','1');const b=document.getElementById('instbar');if(b)b.remove()}
+async function doInstall(){if(!DIP)return;try{DIP.prompt();await DIP.userChoice}catch(e){}DIP=null;const b=document.getElementById('instbar');if(b)b.remove()}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();DIP=e;injectInstall()});
+addEventListener('appinstalled',()=>{DIP=null;ls.set('jd_inst','1');const b=document.getElementById('instbar');if(b)b.remove();toast('اتثبّت التطبيق ✔')});
+/* ---- حرير البانر ---- */
+function silkHTML(){return '<svg class="silk" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true"><path d="M-30 70C50 10 130 130 210 70S350 20 430 80"/><path d="M-30 130C60 70 120 200 220 130S340 90 430 150"/><path d="M-30 200C70 140 150 260 230 200S350 150 430 220"/><path d="M-30 255C40 215 140 290 240 245S360 215 430 270"/></svg>'}
+/* ---- افتتاح سينمائي ---- */
+const _showIntro=showIntro;
+showIntro=function(){_showIntro();try{
+  const el=document.getElementById('intro');if(!el||el.dataset.fx)return;el.dataset.fx=1;
+  const h=el.querySelector('h1');if(h){const w=h.textContent.trim().split(/\s+/);h.innerHTML=w.map((x,i)=>`<span class="iw" style="animation-delay:${(.55+i*.22).toFixed(2)}s">${esc(x)}</span>`).join(' ')}
+  const lg=el.querySelector('.intro-logo');if(lg)lg.insertAdjacentHTML('beforeend','<svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg>');
+  const ln=el.querySelector('.intro-line');if(ln)ln.classList.add('ifx');
+ }catch(e){}};
+function curtain(el,done){
+  const t0=performance.now(),D=800;
+  (function f(t){const p=Math.min(1,(t-t0)/D),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2,g=e*52;
+    const m=`linear-gradient(90deg,#000 ${50-g}%,transparent ${50-g}%,transparent ${50+g}%,#000 ${50+g}%)`;
+    el.style.webkitMaskImage=m;el.style.maskImage=m;
+    if(p<1)requestAnimationFrame(f);else done()})(t0);
+}
+/* ---- طيران للسلة والمفضلة ---- */
+var LCR=null,LCT=0;
+addEventListener('click',e=>{const b=e.target&&e.target.closest?e.target.closest('button,a,.btn'):null;LCR=b?b.getBoundingClientRect():null;LCT=Date.now()},true);
+function fly(url,tid){
+  try{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const a=LCR,t=document.getElementById(tid);if(!a||!t||Date.now()-LCT>900||!a.width)return;
+    const tb=(t.closest('button,a')||t),tt=tb.getBoundingClientRect();if(!tt.width)return;
+    const el=document.createElement('div');el.className='fly';
+    el.style.left=(a.left+a.width/2-28)+'px';el.style.top=(a.top+a.height/2-28)+'px';
+    if(url)el.style.backgroundImage="url('"+String(url).replace(/'/g,'%27')+"')";
+    document.body.appendChild(el);
+    const dx=tt.left+tt.width/2-(a.left+a.width/2),dy=tt.top+tt.height/2-(a.top+a.height/2);
+    const an=el.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${dx*.45}px,${dy*.45-80}px) scale(.85)`,opacity:1,offset:.45},{transform:`translate(${dx}px,${dy}px) scale(.18)`,opacity:.35}],{duration:800,easing:'cubic-bezier(.5,0,.3,1)'});
+    an.onfinish=()=>{el.remove();tb.classList.remove('jdpulse');void tb.offsetWidth;tb.classList.add('jdpulse')};
+    setTimeout(()=>{if(el.parentNode)el.remove()},1500);
+  }catch(e){}
+}
+const _addCart=addCart;
+addCart=function(id,o){_addCart(id,o);try{const p=S.products.find(x=>x.id===id);if(p)fly((p.imgs||[])[0]||'','nbCart')}catch(e){}};
+const _toggleFav=toggleFav;
+toggleFav=function(id,ev){const was=isFav(id);_toggleFav(id,ev);try{if(!was&&isFav(id)){const p=S.products.find(x=>x.id===id);fly(p&&(p.imgs||[])[0]||'','nbFav')}}catch(e){}};
+/* ---- ميل ثلاثي الأبعاد ---- */
+(function(){
+  try{
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    if(matchMedia('(hover:hover)').matches){
+      document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card .pic');if(!c)return;const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.setProperty('--ry',(px*10).toFixed(2)+'deg');c.style.setProperty('--rx',(-py*10).toFixed(2)+'deg')},{passive:true});
+      document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('.card .pic');if(c&&!c.contains(e.relatedTarget)){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});
+    }else if('DeviceOrientationEvent' in window&&!isIOS()){
+      let tk2=false;
+      addEventListener('deviceorientation',e=>{if(tk2)return;tk2=true;requestAnimationFrame(()=>{tk2=false;
+        const g=Math.max(-12,Math.min(12,e.gamma||0))/12,b=Math.max(-12,Math.min(12,(e.beta||0)-40))/12,s=document.documentElement.style;
+        s.setProperty('--gy',(g*4).toFixed(2)+'deg');s.setProperty('--gx',(-b*3).toFixed(2)+'deg')})},{passive:true});
+    }
+  }catch(e){}
+})();
+/* ---- كارت المشاركة ---- */
+function loadImg(u){return new Promise(r=>{if(!u)return r(null);const i=new Image();i.crossOrigin='anonymous';i.onload=()=>r(i);i.onerror=()=>r(null);i.src=u})}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function wrapTxt(c,t,max,n){const w=String(t||'').split(/\s+/),o=[];let cur='';for(const x of w){const k=cur?cur+' '+x:x;if(c.measureText(k).width>max&&cur){o.push(cur);cur=x}else cur=k}if(cur)o.push(cur);if(o.length>n){o.length=n;o[n-1]+='…'}return o}
+function dlBlob(b,name){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{a.remove();URL.revokeObjectURL(a.href)},2000)}
+const jdBlob=(cv,t,q)=>new Promise(r=>cv.toBlob(r,t,q));
+async function makeCard(p){
+  try{await document.fonts.ready}catch(e){}
+  const f=fac(p.factory_id),W=1080,H=1350,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  const ff=getComputedStyle(document.body).fontFamily||'sans-serif';
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,'#0b1a33');g.addColorStop(1,'#101D35');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.direction='rtl';x.textAlign='right';x.textBaseline='alphabetic';
+  const img=await loadImg((p.imgs||[])[0]),px=60,py=60,pw=960,ph=820;
+  x.save();rr(x,px,py,pw,ph,36);x.clip();x.fillStyle='#1b2c4d';x.fillRect(px,py,pw,ph);
+  if(img){const s=Math.max(pw/img.width,ph/img.height);try{x.filter='blur(28px)'}catch(e){}x.drawImage(img,px+(pw-img.width*s)/2,py+(ph-img.height*s)/2,img.width*s,img.height*s);try{x.filter='none'}catch(e){}
+    x.fillStyle='#0b1a3366';x.fillRect(px,py,pw,ph);const s2=Math.min(pw/img.width,ph/img.height);x.drawImage(img,px+(pw-img.width*s2)/2,py+(ph-img.height*s2)/2,img.width*s2,img.height*s2)}
+  else{x.font=`140px ${ff}`;x.textAlign='center';x.fillStyle='#ffffff66';x.fillText('👖',W/2,py+ph/2+50);x.textAlign='right'}
+  x.restore();x.strokeStyle='#D4AF37';x.lineWidth=3;rr(x,px,py,pw,ph,36);x.stroke();
+  x.fillStyle='#fff';x.font=`800 58px ${ff}`;
+  const nl=wrapTxt(x,p.name,960,2);nl.forEach((t,i)=>x.fillText(t,W-60,965+i*70));
+  let y=965+nl.length*70+4;
+  x.fillStyle='#D4AF37';x.font=`700 36px ${ff}`;x.fillText(((f&&f.name)||'')+(f&&f.city?' • '+f.city:''),W-60,y);
+  if(hasPrice(p)){
+    const t=`${money(minPrice(p))} ج للقطعة`;x.font=`800 40px ${ff}`;const w=x.measureText(t).width+60;
+    x.fillStyle='#D4AF37';rr(x,W-60-w,y+22,w,70,35);x.fill();x.fillStyle='#101D35';x.textAlign='center';x.fillText(t,W-60-w/2,y+72);x.textAlign='right';
+  }
+  x.fillStyle='#fff';x.font=`800 40px ${ff}`;x.fillText(S.settings.name||'جملة دايركت',W-60,1262);
+  x.direction='ltr';x.fillStyle='#ffffffb0';x.font=`600 30px ${ff}`;x.fillText('jomla-direct.github.io',W-60,1312);x.direction='rtl';
+  x.fillStyle='#fff';rr(x,56,1086,208,208,16);x.fill();QR.draw(x,shareURL('p='+p.id),60,1090,200,{margin:1});
+  x.fillStyle='#ffffffb0';x.font=`600 24px ${ff}`;x.textAlign='center';x.fillText('امسح للتفاصيل',160,1328);
+  return jdBlob(cv,'image/jpeg',.92);
+}
+var SHB=null;
+async function shareP(id){
+  const p=S.products.find(x=>x.id===id);if(!p)return;tk('share',id);
+  modal(`<button class="x" onclick="closeM()" aria-label="إغلاق">✕</button><h3 style="margin-top:0">شارك الموديل</h3><div class="shprev" id="shprev"><div class="shl">جاري تجهيز كارت المشاركة…</div></div><div class="bar" id="shbar"></div>`);
+  let blob=null;try{blob=await makeCard(p)}catch(e){}
+  const pv=document.getElementById('shprev');if(!pv)return;
+  if(!blob){closeM();shareLink(id);return}
+  SHB={blob,id,url:URL.createObjectURL(blob)};
+  pv.innerHTML=`<img src="${SHB.url}" alt="">`;
+  document.getElementById('shbar').innerHTML=`<button class="btn" type="button" onclick="shareImg()">📤 شارك الصورة</button><button class="btn s" type="button" onclick="dlImg()">⬇️ حمّل</button><button class="btn s" type="button" onclick="shareLink('${id}')">🔗 الرابط</button>`;
+}
+function dlImg(){if(SHB)dlBlob(SHB.blob,'jomla-direct-model.jpg')}
+async function shareImg(){
+  if(!SHB)return;const p=S.products.find(x=>x.id===SHB.id),f=p?fac(p.factory_id):{};
+  const file=new File([SHB.blob],'jomla-direct-model.jpg',{type:'image/jpeg'}),text=`${p?p.name:''} من ${f.name||''} على ${S.settings.name}\n${shareURL('p='+SHB.id)}`;
+  try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],text});return}}catch(e){if(e&&e.name==='AbortError')return}
+  dlImg();toast('اتحمّلت الصورة، ابعتها من المعرض',4000);
+}
+/* ---- QR المصنع ---- */
+function qrPanel(f){
+  if(!f||!f.id)return '';
+  return `<div class="panel qrp"><b>QR كود مصنعك</b><p class="note">اطبعه على كروتك وفواتيرك، وأي تاجر يمسحه يفتح صفحة مصنعك مباشرة.</p><div class="qrbox">${QR.svg(shareURL('f='+f.id))}</div><div class="bar"><button class="btn sm" type="button" onclick="dlFacQR()">حمّل كارت QR للطباعة</button></div></div>`;
+}
+async function dlFacQR(){
+  const f=myFactory;if(!f)return;
+  try{await document.fonts.ready}catch(e){}
+  const W=1000,H=1400,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d'),ff=getComputedStyle(document.body).fontFamily||'sans-serif';
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,'#0b1a33');g.addColorStop(1,'#101D35');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle='#D4AF37';x.lineWidth=4;rr(x,30,30,W-60,H-60,40);x.stroke();
+  x.direction='rtl';x.textAlign='center';x.fillStyle='#D4AF37';x.font=`700 40px ${ff}`;x.fillText(S.settings.name||'جملة دايركت',W/2,140);
+  x.fillStyle='#fff';x.font=`800 74px ${ff}`;wrapTxt(x,f.name,860,2).forEach((t,i)=>x.fillText(t,W/2,260+i*92));
+  x.fillStyle='#fff';rr(x,150,430,700,700,36);x.fill();QR.draw(x,shareURL('f='+f.id),180,460,640,{margin:1});
+  x.fillStyle='#fff';x.font=`700 50px ${ff}`;x.fillText('امسح الكود وشوف موديلاتنا',W/2,1230);
+  x.direction='ltr';x.fillStyle='#ffffffb0';x.font=`600 34px ${ff}`;x.fillText('jomla-direct.github.io',W/2,1300);
+  const b=await jdBlob(cv,'image/png');if(b)dlBlob(b,'qr-'+(f.name||'factory').replace(/\s+/g,'-')+'.png');
+}
+/* ---- تنبيه رجوع الموديل ---- */
+var WATCH=[];try{WATCH=JSON.parse(ls.get('jd_watch')||'[]')}catch(e){}
+const saveWatch=()=>ls.set('jd_watch',JSON.stringify(WATCH));
+async function watchRestock(id){
+  if(!WATCH.includes(id)){WATCH.push(id);saveWatch()}
+  let ok=false;
+  try{if(pushOK()&&sb){if(!pushOn())await enablePush();if(pushOn()){const sub=await pushSub();const r=await sb.rpc('watch_restock',{p_product:id,p_endpoint:sub.endpoint});ok=!r.error}}}catch(e){}
+  toast(ok?'تمام! هيوصلك إشعار على موبايلك أول ما الموديل يرجع ✔':'تمام! هنبلّغك أول ما تفتح الموقع ويكون الموديل رجع ✔',5000);
+  decorateP();
+}
+function unwatchRestock(id){
+  WATCH=WATCH.filter(x=>x!==id);saveWatch();
+  try{if(sb&&pushOK())navigator.serviceWorker.getRegistration().then(r=>r&&r.pushManager.getSubscription()).then(s=>{if(s)sb.rpc('unwatch_restock',{p_product:id,p_endpoint:s.endpoint}).then(()=>{},()=>{})}).catch(()=>{})}catch(e){}
+  toast('اتلغى التنبيه');decorateP();
+}
+function decorateP(){
+  const w=document.getElementById('wawrap');if(!w||!curP)return;
+  let x=document.getElementById('jdx');if(!x){x=document.createElement('div');x.id='jdx';x.className='jdx';w.insertAdjacentElement('afterend',x)}
+  const id=curP.id;
+  x.innerHTML=(curP.sold_out?(WATCH.includes(id)?`<button class="btn s" type="button" onclick="unwatchRestock('${id}')">✓ هنبلّغك لما يرجع (إلغاء)</button>`:`<button class="btn" type="button" onclick="watchRestock('${id}')">🔔 نبّهني لما يرجع</button>`):'')+`<button class="btn s" type="button" onclick="shareP('${id}')">🖼 شارك كارت الموديل</button>`;
+}
+const _openProduct=openProduct;
+openProduct=function(id){_openProduct(id);try{decorateP()}catch(e){}};
+function restockCheck(){
+  try{
+    if(!WATCH.length||!S||!S.products||!S.products.length)return;
+    const back=WATCH.filter(id=>{const p=S.products.find(x=>x.id===id);return p&&!p.sold_out&&!p.hidden});
+    if(!back.length)return;
+    WATCH=WATCH.filter(id=>!back.includes(id));saveWatch();
+    const p=S.products.find(x=>x.id===back[0]);toast('🔔 الموديل «'+p.name+'» رجع متاح'+(back.length>1?' (+'+(back.length-1)+')':''),8000);
+  }catch(e){}
+}
 </script>
 </body>
 </html>

@@ -15,3 +15,6 @@ self.addEventListener('notificationclick',e=>{
     return self.clients.openWindow(u);
   }));
 });
+
+// مطلوب لإمكانية تثبيت الموقع كتطبيق (من غير تخزين مؤقت)
+self.addEventListener('fetch',()=>{});
