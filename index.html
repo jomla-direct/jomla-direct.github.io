@@ -457,6 +457,48 @@ body{letter-spacing:0}
 .bres small{display:block;color:var(--mu);font-weight:500}
 .botin{display:flex;gap:8px;margin-top:8px}.botin input{flex:1;min-width:0}
 .grid>*,.card,.card .cb{min-width:0}.card .fn{width:100%;max-width:100%;overflow:hidden}
+/* ===== v13: حركة فاخرة ===== */
+@keyframes jdUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes jdFade{from{opacity:0}to{opacity:1}}
+@keyframes jdPop{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes jdShine{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(320%) skewX(-20deg)}}
+@keyframes jdGlow{0%,100%{box-shadow:0 0 0 0 #D4AF3700}50%{box-shadow:0 0 0 7px #D4AF3722}}
+@keyframes jdFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes jdBg{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+#app{animation:jdFade .45s ease both}
+.hero{position:relative;overflow:hidden;animation:jdPop .7s cubic-bezier(.2,.7,.2,1) both}
+.hero::before{content:"";position:absolute;top:0;bottom:0;width:38%;left:0;background:linear-gradient(100deg,transparent,#ffffff14,transparent);animation:jdShine 7s ease-in-out 1.2s infinite;pointer-events:none}
+.hero .hero-sub{animation:jdUp .6s .15s both}
+.hero .hero-h{animation:jdUp .6s .28s both}
+.hero .hero-h+p{animation:jdUp .6s .4s both}
+.hero .search{animation:jdUp .6s .5s both}
+.hero .hbtns{animation:jdUp .6s .62s both}
+.hero .hstats{animation:jdUp .6s .74s both}
+.hero .hero-sub::after{content:"";display:block;width:46px;height:2px;margin-top:8px;border-radius:2px;background:linear-gradient(90deg,var(--st),#fff0);animation:jdBg 3.5s linear infinite;background-size:200% 100%}
+.jdr{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.jdr.in{opacity:1;transform:none}
+.card{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
+.card .pic img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.card:hover{transform:translateY(-5px);box-shadow:0 16px 34px #0a122526;border-color:#D4AF3766}.card:hover .pic img{transform:scale(1.06)}}
+.card:active{transform:scale(.985)}
+.btn,.hbtns .btn,.wbtn,.cbtn,.bd{position:relative;overflow:hidden;transition:transform .2s,box-shadow .25s,filter .25s}
+.btn::after,.wbtn::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:0;background:linear-gradient(100deg,transparent,#ffffff55,transparent);transform:translateX(-130%) skewX(-20deg);pointer-events:none}
+@media (hover:hover){.btn:hover::after,.wbtn:hover::after{animation:jdShine .9s ease}.btn:hover{transform:translateY(-1px)}}
+.btn:active,.wbtn:active,.cbtn:active{transform:scale(.96)}
+.hbtns .btn:first-child{animation:jdGlow 3s ease-in-out 2s infinite}
+.hdr img,header img,.logo img{transition:transform .5s}
+@media (hover:hover){.hdr img:hover,header img:hover{transform:rotate(-6deg) scale(1.06)}}
+.mbg{animation:jdFade .25s ease both}
+.modal{animation:jdPop .38s cubic-bezier(.2,.7,.2,1) both}
+.intro-logo{animation:jdFloat 3.2s ease-in-out infinite}
+.panel,.rate,.buyc,.trust,.ship{transition:box-shadow .3s,border-color .3s}
+#botbtn,#corner{animation:jdPop .6s 1.2s both}
+#toast{animation:jdUp .35s ease both}
+.sw,.search{transition:box-shadow .3s,border-color .3s}
+.search:focus-within,.sw:focus-within{box-shadow:0 0 0 3px #D4AF3744}
+#sug{animation:jdUp .25s ease both}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.jdr{opacity:1;transform:none}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"جملة دايركت","alternateName":"JOMLA DIRECT","url":"https://jomla-direct.github.io/","inLanguage":"ar"}</script>
 </head>
@@ -1061,6 +1103,7 @@ function notifHTML(f){
 }
 function acctTab(f){
   return `<div class="panel"><b>إيقاف الحساب مؤقتًا</b><p class="note">${f.paused?'حسابك متوقف ومخفي عن التجار.':'تقدر تخفي مصنعك وموديلاتك عن التجار وترجّعه وقت ما تحب.'}</p><div class="bar"><button class="btn s sm" onclick="togglePause()">${f.paused?'تشغيل الحساب':'إيقاف مؤقت'}</button></div></div>
+  <div class="panel"><b>رقم الدخول</b><p class="note">رقم دخولك: <b dir="ltr">${esc(String((me&&me.email||'').split('@')[0]))}</b>. ده ثابت للحساب. تغيير رقم الواتساب من «بيانات المصنع» مش بيغيّره. لتغيير رقم الدخول كلّم الإدارة.</p></div>
   ${pwBlock()}
   <div class="panel"><b>طلب حذف الحساب</b><p class="note">هنحذف مصنعك وموديلاتك بعد مراجعة الطلب.</p><div class="bar"><button class="btn d sm" onclick="requestDelete()">اطلب حذف حسابي</button></div></div>
   <div class="bar"><button class="btn s sm" onclick="logout()">خروج</button></div>`;
@@ -1076,7 +1119,7 @@ function infoHTML(f){
   return `<div class="panel"><label class="f">صورة الغلاف (اختياري)</label><div class="imgs"><div id="fcoverPrev">${prevHTML('fcover')}</div><label class="addimg">اختار غلاف<input type="file" accept="image/*" onchange="pickOne(this,'fcover')"></label></div>
   <label class="f">لوجو المصنع</label><div class="imgs"><div id="flogoPrev">${prevHTML('flogo')}</div><label class="addimg">اختار لوجو<input type="file" accept="image/*" onchange="pickOne(this,'flogo')"></label></div>
   <label class="f" for="in">اسم المصنع</label><input id="in" value="${esc(f.name)}">
-  <div class="row"><div><label class="f" for="ic">المدينة</label><input id="ic" value="${esc(f.city)}"></div><div><label class="f" for="iw">رقم الواتساب للطلبات</label><input id="iw" inputmode="tel" value="${esc(f.whatsapp||f.phone)}"></div></div>
+  <div class="row"><div><label class="f" for="ic">المدينة</label><input id="ic" value="${esc(f.city)}"></div><div><label class="f" for="iw">رقم الواتساب للطلبات (مش رقم الدخول)</label><input id="iw" inputmode="tel" value="${esc(f.whatsapp||f.phone)}"></div></div>
   <div class="row"><div><label class="f" for="ig">المحافظة</label><select id="ig"><option value="">اختار</option>${GOVS.map(g=>`<option ${f.governorate===g?'selected':''}>${g}</option>`).join('')}</select></div><div><label class="f" for="ia">المنطقة / العنوان</label><input id="ia" value="${esc(f.address||'')}" placeholder="مثال: المنطقة الصناعية"></div></div>
   <label class="f" for="is">التخصصات (بينها فاصلة)</label><input id="is" value="${esc(f.specialties||'')}" placeholder="جينز رجالي, جينز أطفال">
   <label class="f" for="id">نبذة عن النشاط</label><textarea id="id">${esc(f.descr)}</textarea>
@@ -2017,7 +2060,8 @@ function ratingBlock(f){
   if(mktErr)return '';
   const r=facRating(f.id),mine=me&&S.reviews.find(x=>x.factory_id===f.id&&x.trader_id===me.id);
   const btn=canReview(f.id)?`<button class="btn s sm" type="button" onclick="openReview('${f.id}')">${mine?'عدّل تقييمك':'★ قيّم المصنع'}</button>`:'';
-  const hint=!btn?`<div class="note" style="margin:4px 0 0">التقييم متاح للتاجر بعد ما يتواصل مع المصنع أو ياخد عرض منه.</div>`:'';
+  const why=!me?'سجّل دخول كـ <b>تاجر</b> الأول، وبعد ما تتواصل مع المصنع تقدر تقيّمه.':myTrader?'اضغط <b>واتساب</b> على أي موديل من موديلات المصنع ده (أو خد عرض منه)، وبعدها يظهر زر التقييم هنا.':'حساب المصنع أو الأدمن مش بيقيّم. ادخل بحساب <b>تاجر</b> (رقم تاني) علشان تقيّم.';
+  const hint=!btn?`<div class="note" style="margin:4px 0 0">التقييم متاح بعد تعامل حقيقي. ${why}</div>`:'';
   return `<div class="rate"><div class="rtop"><span class="stars">${r.n?starsTxt(r.avg):'☆☆☆☆☆'}</span><b>${r.n?r.avg.toFixed(1):'جديد'}</b><span class="note" style="margin:0">${r.n?r.n+' تقييم':'لسه مفيش تقييمات'}</span>${r.n?`<button class="btn s sm" type="button" onclick="openReviews('${f.id}')">كل التقييمات</button>`:''}${btn}</div>${hint}</div>`;
 }
 function openReviews(id){
@@ -2251,6 +2295,34 @@ function adminStats(){
   try{await loadData();await refreshAuth();await loadReports();await loadMyInqs();await loadMarket();await loadEvents()}catch(e){loadErr=errMsg(e)}
   render();
   if(route()==='store'&&!ss.get('jd_v')){ss.set('jd_v','1');tk('visit')}
+})();
+/* v13: ظهور تدريجي + عدّاد الأرقام */
+(function(){
+ try{
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  const SEL='.card,.panel,.rate,.buyc,.trust,.bar2,.fcard,.tcard,.ofr,.rq,.item';
+  function scan(){
+   const app=document.getElementById('app');if(!app)return;
+   let i=0;
+   app.querySelectorAll(SEL).forEach(el=>{
+    if(el.dataset.jdr)return;el.dataset.jdr=1;
+    const r=el.getBoundingClientRect();
+    el.classList.add('jdr');el.style.setProperty('--d',Math.min(i%6,5)*60+'ms');i++;
+    io.observe(el);
+   });
+   app.querySelectorAll('.hstats b').forEach(b=>{
+    if(b.dataset.cu)return;b.dataset.cu=1;
+    const n=parseInt(String(b.textContent).replace(/\D/g,''),10);
+    if(!n||n>99999||!/^\s*[\d,٠-٩]+\s*$/.test(b.textContent))return;
+    const t0=performance.now(),D=1100;
+    (function st(t){const p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3);b.textContent=Math.round(n*e);if(p<1)requestAnimationFrame(st);else b.textContent=n})(t0);
+   });
+  }
+  let q=0;
+  new MutationObserver(()=>{cancelAnimationFrame(q);q=requestAnimationFrame(scan)}).observe(document.getElementById('app'),{childList:true,subtree:true});
+  scan();
+ }catch(e){}
 })();
 </script>
 </body>
